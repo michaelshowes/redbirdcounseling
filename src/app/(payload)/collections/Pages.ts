@@ -37,17 +37,17 @@ export const Pages: CollectionConfig = {
           overrides: {
             maxRows: 2
           }
-        }),
-        {
-          name: 'publishedAt',
-          type: 'date',
-          admin: {
-            position: 'sidebar'
-          }
-        },
-        ...slugField()
+        })
       ]
     },
+    {
+      name: 'publishedAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar'
+      }
+    },
+    ...slugField(),
     {
       name: 'content',
       type: 'blocks',

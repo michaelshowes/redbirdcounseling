@@ -15,13 +15,13 @@ import { payload } from '..';
 // };
 
 export const getPageBySlug = async (slug: string) => {
-  const { isEnabled: draft } = await draftMode();
+  // const { isEnabled: draft } = await draftMode();
 
   const result = await payload.find({
     collection: 'pages',
-    draft,
+    // draft,
     limit: 1,
-    overrideAccess: draft,
+    // overrideAccess: draft,
     where: {
       slug: {
         equals: slug

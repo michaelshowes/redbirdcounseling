@@ -4,7 +4,21 @@ import { Button } from '@/components/ui/button';
 
 import { TextGenerateEffect } from './utils/TextGenerateEffect';
 
-function LeftSide() {
+interface Link {
+  label: string;
+  url: string;
+  appearance: 'default' | 'outline';
+}
+
+function LeftSide({
+  title,
+  subtext,
+  links
+}: {
+  title: string;
+  subtext: string;
+  links: Link[];
+}) {
   return (
     <div className={'relative flex flex-col gap-2'}>
       <div
@@ -22,27 +36,33 @@ function LeftSide() {
       <h1 className={'text-display-3 lg:text-display-1'}>
         <TextGenerateEffect
           hasPeriod
-          words={'Professional guidance for mental health'}
+          words={title}
         />
       </h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore.
-      </p>
+      <p>{subtext}</p>
       <div className={'mt-6 flex flex-wrap gap-4'}>
-        <Button size={'lg'}>Book an appointment</Button>
+        <Button size={'lg'}>{'Book an appointment'}</Button>
         <Button
           size={'lg'}
           variant={'secondary'}
         >
-          Browse our services
+          {'Click here for more info'}
         </Button>
       </div>
     </div>
   );
 }
 
-function RightSide() {
+interface RightSideProps {
+  image: {
+    url: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
+}
+
+function RightSide({ image }: RightSideProps) {
   return (
     <div
       className={
@@ -50,16 +70,29 @@ function RightSide() {
       }
     >
       <Image
-        src={'/images/hero-img.png'}
-        alt={'Hero'}
-        fill
+        src={image.url}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
         className={'object-cover'}
       />
     </div>
   );
 }
 
-export default function HomeHero() {
+interface HomeHeroProps {
+  title: string;
+  subtext: string;
+  image: {
+    url: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
+  links: Link[];
+}
+
+export default function HomeHero({ hero }: { hero: HomeHeroProps }) {
   return (
     <section
       className={
@@ -71,8 +104,12 @@ export default function HomeHero() {
           'mx-auto flex max-w-[1440px] flex-col items-center gap-x-12 gap-y-6 md:flex-row'
         }
       >
-        <LeftSide />
-        <RightSide />
+        <LeftSide
+          title={hero.title}
+          subtext={hero.subtext}
+          links={hero.links}
+        />
+        <RightSide image={hero.image} />
       </div>
     </section>
   );

@@ -147,10 +147,10 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    publishedAt?: string | null;
-    slug?: string | null;
-    slugLock?: boolean | null;
   };
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
   content?:
     | {
         title?: string | null;
@@ -384,10 +384,10 @@ export interface PagesSelect<T extends boolean = true> {
                   };
               id?: T;
             };
-        publishedAt?: T;
-        slug?: T;
-        slugLock?: T;
       };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
   content?:
     | T
     | {
