@@ -11,7 +11,7 @@ export default async function Home() {
 
   return (
     <main>
-      <HomeHero hero={page?.hero} />
+      <HomeHero hero={page?.hero as any} />
       <div className={'[&>section]:even:bg-secondary-1'}>
         <CTA />
         <Selection />
