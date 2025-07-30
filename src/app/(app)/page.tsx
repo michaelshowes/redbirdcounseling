@@ -5,7 +5,7 @@ import Selection from '@/components/Selection';
 import { getPageBySlug } from '@/db/queries/pages';
 
 export default async function Home() {
-  const page = await getPageBySlug('home');
+  // const page = await getPageBySlug('home');
 
   // console.log(page);
 

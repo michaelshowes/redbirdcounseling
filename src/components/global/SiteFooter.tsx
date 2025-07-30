@@ -1,9 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { Facebook, Instagram, Linkedin, type LucideIcon } from 'lucide-react';
-
-import FooterCTA from './FooterCTA';
 
 interface SocialLink {
   icon: LucideIcon;
@@ -18,12 +15,6 @@ interface ContactItem {
 }
 
 export default function SiteFooter() {
-  const socialLinks: SocialLink[] = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' }
-  ];
-
   const services: string[] = ['Relationships', 'Dating', 'Couples'];
 
   const contactInfo: ContactItem[] = [

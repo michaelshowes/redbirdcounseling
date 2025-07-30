@@ -1,6 +1,5 @@
 import Image from 'next/image';
 
-import CardGrid from './CardGrid';
 import { TextGenerateEffect } from './utils/TextGenerateEffect';
 
 export default function ServiceDetailHero({
