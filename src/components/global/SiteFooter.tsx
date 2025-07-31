@@ -1,13 +1,5 @@
 import Image from 'next/image';
 
-import { Facebook, Instagram, Linkedin, type LucideIcon } from 'lucide-react';
-
-interface SocialLink {
-  icon: LucideIcon;
-  href: string;
-  label: string;
-}
-
 interface ContactItem {
   prefix: string;
   content: string;

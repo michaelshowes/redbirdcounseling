@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
-import FooterCTA from '@/components/global/FooterCTA';
-import SiteFooter from '@/components/global/SiteFooter';
-import SiteHeader from '@/components/global/SiteHeader';
+// import FooterCTA from '@/components/global/FooterCTA';
+// import SiteFooter from '@/components/global/SiteFooter';
+// import SiteHeader from '@/components/global/SiteHeader';
 import { sentient, sora } from '@/lib/fonts';
 
 import '../../globals.css';
@@ -20,15 +20,13 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className={`${sentient.variable} ${sora.variable}`}
+      className={`${sentient.variable} ${sora.variable} h-full`}
     >
-      <body className='font-primary'>
-        <div className={'mx-auto max-w-[1600px] shadow-xl'}>
-          <SiteHeader />
-          {children}
-          <FooterCTA />
-          <SiteFooter />
-        </div>
+      <body className={'h-full'}>
+        {/* <SiteHeader /> */}
+        {children}
+        {/* <FooterCTA />
+          <SiteFooter /> */}
       </body>
     </html>
   );

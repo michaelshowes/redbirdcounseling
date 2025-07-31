@@ -12,8 +12,8 @@ interface Link {
 
 function LeftSide({
   title,
-  subtext,
-  links
+  subtext
+  // links
 }: {
   title: string;
   subtext: string;

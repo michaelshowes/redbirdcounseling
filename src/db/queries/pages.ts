@@ -1,5 +1,4 @@
-import { draftMode } from 'next/headers';
-
+// import { draftMode } from 'next/headers';
 import { payload } from '..';
 
 // export const getHomePage = async () => {
