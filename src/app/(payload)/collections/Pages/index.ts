@@ -7,7 +7,7 @@ import {
 } from '@payloadcms/plugin-seo/fields';
 import { CollectionConfig } from 'payload';
 
-// import { generatePreviewPath } from '@/utils/generatePreviewPath';
+import { generatePreviewPath } from '@/utils/generatePreviewPath';
 
 import { authenticated } from '../../access/authenticated';
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished';
@@ -31,31 +31,31 @@ export const Pages: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'updatedAt']
-    // livePreview: {
-    //   url: ({ data, req }) => {
-    //     const slug = typeof data?.slug === 'string' ? data.slug : '';
+    defaultColumns: ['title', 'updatedAt'],
+    livePreview: {
+      url: ({ data, req }) => {
+        const slug = typeof data?.slug === 'string' ? data.slug : '';
 
-    //     // Return root path for home page
-    //     if (slug === 'home') {
-    //       return '/';
-    //     }
+        // Return root path for home page
+        if (slug === 'home') {
+          return '/';
+        }
 
-    //     const path = generatePreviewPath({
-    //       slug,
-    //       collection: 'pages',
-    //       req
-    //     });
+        const path = generatePreviewPath({
+          slug,
+          collection: 'pages',
+          req
+        });
 
-    //     return path;
-    //   }
-    // },
-    // preview: (data, { req }) =>
-    //   generatePreviewPath({
-    //     slug: typeof data?.slug === 'string' ? data.slug : '',
-    //     collection: 'pages',
-    //     req
-    //   })
+        return path;
+      }
+    },
+    preview: (data, { req }) =>
+      generatePreviewPath({
+        slug: typeof data?.slug === 'string' ? data.slug : '',
+        collection: 'pages',
+        req
+      })
   },
   hooks: {
     afterChange: [revalidatePage],

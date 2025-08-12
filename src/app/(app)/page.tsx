@@ -11,7 +11,7 @@ export default async function Home() {
 
   return (
     <main>
-      {draft && <LivePreviewListener />}
+      {/* {draft && <LivePreviewListener />} */}
       {page?.hero && <HomeHero data={page.hero.hero as HomeHeroProps} />}
       <div className={'[&>section]:even:bg-secondary-1'}>
         {page?.content.content && (
