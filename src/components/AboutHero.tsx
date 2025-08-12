@@ -1,8 +1,25 @@
 import Image from 'next/image';
 
+import { LinkFields } from '@payloadcms/richtext-lexical';
+
 import { TextGenerateEffect } from './utils/TextGenerateEffect';
 
-export default function AboutHero() {
+type ImageProps = {
+  url: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
+export interface AboutHeroProps {
+  title: string;
+  subtext: string;
+  image: ImageProps;
+  secondaryImage: ImageProps;
+  links: LinkFields[];
+}
+
+export default function AboutHero({ data: hero }: { data: AboutHeroProps }) {
   return (
     <section className={'bg-secondary-1 py-20'}>
       <div className={'site-padding mx-auto max-w-[1440px]'}>
@@ -30,21 +47,17 @@ export default function AboutHero() {
           >
             <TextGenerateEffect
               hasPeriod
-              words={'About Dr. Nicole Michels'}
+              words={hero.title}
             />
           </h1>
-          <p className={'max-w-[520px]'}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua quis
-            nostrud exercitation ullamco.
-          </p>
+          <p className={'max-w-[520px]'}>{hero.subtext}</p>
         </header>
 
         <div className={'grid aspect-[1440/770] grid-cols-[3fr_2fr] gap-12'}>
           <div className={'relative overflow-hidden rounded-2xl'}>
             <Image
-              src={'/images/about-img.png'}
-              alt={'About Dr. Nicole Michels'}
+              src={hero.image.url}
+              alt={hero.image.alt}
               fill
               priority
               className={'object-cover'}
@@ -53,8 +66,8 @@ export default function AboutHero() {
 
           <div className={'relative overflow-hidden rounded-2xl'}>
             <Image
-              src={'/images/about-img-secondary.png'}
-              alt={'alt'}
+              src={hero.secondaryImage.url}
+              alt={hero.secondaryImage.alt}
               fill
               priority
               className={'object-cover'}

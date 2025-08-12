@@ -2,31 +2,20 @@
 
 import Image from 'next/image';
 
+import { Selection as SelectionProps } from '@/payload-types';
+
 import SectionHeader from './shared/SectionHeader';
 
-const selectionItems = [
-  {
-    title: 'Struggling to find a fulfilling romantic relationship',
-    text: 'Amet nisl suscipit adipiscing bibendum est ultricies integer. Erat pellentesque adipiscing commodo elit at imperdiet.'
-  },
-  {
-    title: 'Feeling burnt out from the modern dating world',
-    text: 'Amet nisl suscipit adipiscing bibendum est ultricies integer. Erat pellentesque adipiscing commodo elit at imperdiet.'
-  },
-  {
-    title: "Wondering if you're in the right relationship",
-    text: 'Amet nisl suscipit adipiscing bibendum est ultricies integer. Erat pellentesque adipiscing commodo elit at imperdiet.'
-  }
-];
+export default function Selection(props: SelectionProps) {
+  const { title, items } = props;
 
-export default function Selection() {
   return (
     <section className={'section-spacing'}>
       <div className={'mx-auto max-w-[900px]'}>
-        <SectionHeader title={"Maybe You're..."} />
+        <SectionHeader title={title!} />
 
         <div className={'my-10 flex flex-col gap-14 lg:gap-20'}>
-          {selectionItems.map((item, i) => (
+          {items?.map((item, i) => (
             <div key={i}>
               <div className={'relative'}>
                 <div

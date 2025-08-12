@@ -1,36 +1,13 @@
 import Image from 'next/image';
 
+import { CredentialsGrid as CredentialsGridProps } from '@/payload-types';
+
 import SectionHeader from './shared/SectionHeader';
 import { Button } from './ui/button';
 
-const credentials = [
-  {
-    id: 1,
-    title: 'Doctorate in Occupational Psychology',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit seder do eiusmod tempor incididunt ut labore et dolore magnalet aliqua minim veniam quis nostrud exercitation.',
-    source: 'University of Cincinnati',
-    year: '2019'
-  },
-  {
-    id: 2,
-    title: 'Doctorate in Occupational Psychology',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit seder do eiusmod tempor incididunt ut labore et dolore magnalet aliqua minim veniam quis nostrud exercitation.',
-    source: 'University of Cincinnati',
-    year: '2019'
-  },
-  {
-    id: 3,
-    title: 'Doctorate in Occupational Psychology',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit seder do eiusmod tempor incididunt ut labore et dolore magnalet aliqua minim veniam quis nostrud exercitation.',
-    source: 'University of Cincinnati',
-    year: '2019'
-  }
-];
+export default function CredentialsGrid(props: CredentialsGridProps) {
+  const { title, headline, description, links, credentials } = props;
 
-export default function CredentialsGrid() {
   return (
     <section className={'section-spacing'}>
       <div
@@ -47,27 +24,28 @@ export default function CredentialsGrid() {
           </div>
           <div className={'sticky top-8'}>
             <SectionHeader
-              title={'Experience'}
-              headline={'My experience & credentials'}
+              title={title || ''}
+              headline={headline || ''}
               align={'left'}
               className={'mb-4'}
             />
-            <p>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur excepteur sint occaecat
-              cupidatat non proident, sunt in culpa qui.
-            </p>
+            <p>{description}</p>
             <Button
               size={'lg'}
               className={'mt-8 lg:mt-12'}
             >
-              Book an appointment
+              <a
+                href={links?.[0]?.link?.url || ''}
+                target={links?.[0]?.link?.newTab ? '_blank' : '_self'}
+              >
+                Book an appointment
+              </a>
             </Button>
           </div>
         </div>
 
         <div className={'flex flex-col gap-6 md:gap-12'}>
-          {credentials.map((credential) => (
+          {credentials?.map((credential) => (
             <div
               key={credential.id}
               className={

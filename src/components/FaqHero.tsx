@@ -1,6 +1,12 @@
 import Image from 'next/image';
 
-export default function FaqHero() {
+import { Media } from '@/payload-types';
+
+export interface FaqHeroProps {
+  image: Media;
+}
+
+export default function FaqHero({ data: hero }: { data: FaqHeroProps }) {
   return (
     <section className={'bg-secondary-1 relative px-8 pt-10'}>
       <span
@@ -12,9 +18,9 @@ export default function FaqHero() {
         }
       >
         <Image
-          src={'/images/faq-img.jpg'}
+          src={hero.image.url || ''}
           fill
-          alt={'alt text'}
+          alt={hero.image.alt || ''}
           className={'object-cover'}
         />
       </div>

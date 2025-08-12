@@ -1,23 +1,28 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 
 import { TextGenerateEffect } from './utils/TextGenerateEffect';
 
-interface Link {
-  label: string;
-  url: string;
-  appearance: 'default' | 'outline';
+interface LinkType {
+  link: {
+    label: string;
+    url: string;
+    appearance: 'default' | 'outline';
+    newTab: boolean;
+    type: string;
+  };
 }
 
 function LeftSide({
   title,
-  subtext
-  // links
+  subtext,
+  links
 }: {
   title: string;
   subtext: string;
-  links: Link[];
+  links: LinkType[];
 }) {
   return (
     <div className={'relative flex flex-col gap-2'}>
@@ -41,13 +46,26 @@ function LeftSide({
       </h1>
       <p>{subtext}</p>
       <div className={'mt-6 flex flex-wrap gap-4'}>
-        <Button size={'lg'}>{'Book an appointment'}</Button>
         <Button
           size={'lg'}
-          variant={'secondary'}
+          // asChild
         >
-          {'Click here for more info'}
+          <Link
+            href={links[0].link.url}
+            target={links[0].link.newTab === true ? '_blank' : '_self'}
+          >
+            {links[0].link.label}
+          </Link>
         </Button>
+        {links[1] && (
+          <Button
+            size={'lg'}
+            variant={'secondary'}
+            // asChild
+          >
+            <Link href={links[1].link.url}>{links[1].link.label}</Link>
+          </Button>
+        )}
       </div>
     </div>
   );
@@ -80,7 +98,7 @@ function RightSide({ image }: RightSideProps) {
   );
 }
 
-interface HomeHeroProps {
+export interface HomeHeroProps {
   title: string;
   subtext: string;
   image: {
@@ -89,10 +107,10 @@ interface HomeHeroProps {
     width: number;
     height: number;
   };
-  links: Link[];
+  links: LinkType[];
 }
 
-export default function HomeHero({ hero }: { hero: HomeHeroProps }) {
+export default function HomeHero({ data: hero }: { data: HomeHeroProps }) {
   return (
     <section
       className={

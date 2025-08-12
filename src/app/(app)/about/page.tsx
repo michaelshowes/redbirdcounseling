@@ -1,16 +1,24 @@
-import AboutHero from '@/components/AboutHero';
-import CredentialsGrid from '@/components/CredentialsGrid';
-import InfoGrid from '@/components/InfoGrid';
-import RichText from '@/components/RichText';
+import { draftMode } from 'next/headers';
 
-export default function AboutPage() {
+import AboutHero, { AboutHeroProps } from '@/components/AboutHero';
+import { RenderBlocks } from '@/components/RenderBlocks';
+import { LivePreviewListener } from '@/components/utils/LivePreviewListener';
+import { getPageBySlug } from '@/db/queries/pages';
+
+export default async function AboutPage() {
+  const { isEnabled: draft } = await draftMode();
+  const page = await getPageBySlug('about');
+
   return (
     <div>
-      <AboutHero />
+      {draft && <LivePreviewListener />}
+      {page?.hero?.hero && (
+        <AboutHero data={page.hero.hero as unknown as AboutHeroProps} />
+      )}
       <div className={'[&>section]:even:bg-secondary-1'}>
-        <RichText />
-        <InfoGrid />
-        <CredentialsGrid />
+        {page?.content.content && (
+          <RenderBlocks blocks={page.content.content} />
+        )}
       </div>
     </div>
   );

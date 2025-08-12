@@ -4,18 +4,21 @@ import { linkGroup } from '../fields/linkGroup';
 
 export const CTA: Block = {
   slug: 'cta',
+  interfaceName: 'CTA',
   fields: [
     {
       name: 'title',
-      type: 'text'
+      type: 'text',
+      required: true
     },
     {
       name: 'headline',
-      type: 'text'
+      type: 'text',
+      required: true
     },
     {
       name: 'text',
-      type: 'text'
+      type: 'textarea'
     },
     linkGroup({
       appearances: ['default', 'outline'],

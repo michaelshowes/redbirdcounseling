@@ -4,6 +4,7 @@ import { linkGroup } from '../fields/linkGroup';
 
 export const HomeHeroBlock: Block = {
   slug: 'homeHero',
+  interfaceName: 'HomeHero',
   fields: [
     {
       name: 'title',

@@ -32,6 +32,13 @@ const buttonVariants = cva(
   }
 );
 
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+  ref?: React.Ref<HTMLButtonElement>;
+}
+
 // function that gets x and y location of cursor
 function getCursorPosition(e: React.MouseEvent<HTMLButtonElement>) {
   // get relative position of cursor to the button

@@ -1,4 +1,4 @@
-import CardGrid from './CardGrid';
+// import CardGrid from './CardGrid';
 import { TextGenerateEffect } from './utils/TextGenerateEffect';
 
 export default function ServicesHero() {
@@ -18,9 +18,7 @@ export default function ServicesHero() {
         </p>
       </div>
 
-      <div className={'[&>section]:py-0'}>
-        <CardGrid />
-      </div>
+      <div className={'[&>section]:py-0'}>{/* <CardGrid /> */}</div>
     </section>
   );
 }
