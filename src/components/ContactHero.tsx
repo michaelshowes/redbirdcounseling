@@ -1,7 +1,11 @@
-import ContactForm from "./ContactForm";
-import { TextGenerateEffect } from "./utils/TextGenerateEffect";
+import { draftMode } from 'next/headers';
 
-export default function ContactHero() {
+import ContactForm from './ContactForm';
+import { TextGenerateEffect } from './utils/TextGenerateEffect';
+
+export default async function ContactHero() {
+  const { isEnabled: draft } = await draftMode();
+
   return (
     <section className={'section-spacing bg-secondary-1 relative md:px-0'}>
       <div
@@ -10,15 +14,23 @@ export default function ContactHero() {
         }
       >
         <h1 className={'text-display-3 lg:text-display-1 mb-4'}>
-          <TextGenerateEffect
-            hasPeriod
-            words={'Book an Appointment'}
-          />
+          {draft ? (
+            <>{'Book an Appointment'}</>
+          ) : (
+            <TextGenerateEffect
+              hasPeriod
+              words={'Book an Appointment'}
+            />
+          )}
         </h1>
-        <p className={'mx-auto max-w-[765px]'}>{'Arcu semper urna diam arcu tristique scelerisque fringilla tincidunt leo. Metus leo elit feugiat varius dictum gravida donec sit lacus. Sit leo platea urna sagittis eu in.'}</p>
+        <p className={'mx-auto max-w-[765px]'}>
+          {
+            'Arcu semper urna diam arcu tristique scelerisque fringilla tincidunt leo. Metus leo elit feugiat varius dictum gravida donec sit lacus. Sit leo platea urna sagittis eu in.'
+          }
+        </p>
       </div>
 
       <ContactForm />
     </section>
-  )
+  );
 }

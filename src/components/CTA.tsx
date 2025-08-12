@@ -5,6 +5,13 @@ import { CTA as CTAProps } from '@/payload-types';
 import SectionHeader from './shared/SectionHeader';
 import { Button } from './ui/button';
 
+const placeholder = {
+  link: {
+    label: 'Book a Consultation',
+    url: 'https://nicole-michels.clientsecure.me/'
+  }
+};
+
 export default function CTA(props: CTAProps) {
   const { title, headline, text, links } = props;
 
@@ -21,9 +28,11 @@ export default function CTA(props: CTAProps) {
           size={'lg'}
           className={'mt-10'}
         >
-          <Link href={links?.[0]?.link?.url || ''}>
-            {links?.[0]?.link?.label}
-          </Link>
+          {links ? (
+            <Link href={links[0].link.url!}>{links[0].link.label}</Link>
+          ) : (
+            <Link href={placeholder.link.url}>{placeholder.link.label}</Link>
+          )}
         </Button>
       </div>
     </section>

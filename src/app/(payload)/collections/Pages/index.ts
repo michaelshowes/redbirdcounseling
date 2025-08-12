@@ -9,11 +9,21 @@ import { CollectionConfig } from 'payload';
 
 import { generatePreviewPath } from '@/utils/generatePreviewPath';
 
+import { authenticated } from '../../access/authenticated';
+import { authenticatedOrPublished } from '../../access/authenticatedOrPublished';
 import { linkGroup } from '../../fields/linkGroup';
 import { slugField } from '../../fields/slug';
+import { populatePublishedAt } from '../../hooks/populatePublishedAt';
+import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
+  access: {
+    create: authenticated,
+    delete: authenticated,
+    read: authenticatedOrPublished,
+    update: authenticated
+  },
   trash: true,
   defaultPopulate: {
     title: true,
@@ -21,25 +31,54 @@ export const Pages: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'updatedAt'],
-    livePreview: {
-      url: ({ data, req }) => {
-        const path = generatePreviewPath({
-          slug: typeof data?.slug === 'string' ? data.slug : '',
-          collection: 'pages',
-          req
-        });
+    defaultColumns: ['title', 'updatedAt']
+    // livePreview: {
+    //   url: ({ data, req }) => {
+    //     const slug = typeof data?.slug === 'string' ? data.slug : '';
 
-        return path;
-      }
-    },
-    preview: (data, { req }) =>
-      generatePreviewPath({
-        slug: typeof data?.slug === 'string' ? data.slug : '',
-        collection: 'pages',
-        req
-      })
+    //     // Return root path for home page
+    //     if (slug === 'home') {
+    //       return '/';
+    //     }
+
+    //     const path = generatePreviewPath({
+    //       slug,
+    //       collection: 'pages',
+    //       req
+    //     });
+
+    //     return path;
+    //   }
+    // },
+    // preview: (data, { req }) =>
+    //   generatePreviewPath({
+    //     slug: typeof data?.slug === 'string' ? data.slug : '',
+    //     collection: 'pages',
+    //     req
+    //   })
   },
+  hooks: {
+    afterChange: [revalidatePage],
+    beforeChange: [populatePublishedAt],
+    afterDelete: [revalidateDelete]
+  },
+  versions: {
+    maxPerDoc: 50,
+    drafts: {
+      autosave: {
+        interval: 100
+      }
+    }
+  },
+  // versions: {
+  //   drafts: {
+  //     autosave: {
+  //       interval: 100 // We set this interval for optimal live preview
+  //     },
+  //     schedulePublish: true
+  //   },
+  //   maxPerDoc: 50
+  // },
   fields: [
     {
       name: 'title',
@@ -192,7 +231,6 @@ export const Pages: CollectionConfig = {
         }
       ]
     },
-
     {
       name: 'publishedAt',
       type: 'date',

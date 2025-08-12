@@ -1,3 +1,4 @@
+import { draftMode } from 'next/headers';
 import Image from 'next/image';
 
 import { LinkFields } from '@payloadcms/richtext-lexical';
@@ -19,7 +20,13 @@ export interface AboutHeroProps {
   links: LinkFields[];
 }
 
-export default function AboutHero({ data: hero }: { data: AboutHeroProps }) {
+export default async function AboutHero({
+  data: hero
+}: {
+  data: AboutHeroProps;
+}) {
+  const { isEnabled: draft } = await draftMode();
+
   return (
     <section className={'bg-secondary-1 py-20'}>
       <div className={'site-padding mx-auto max-w-[1440px]'}>
@@ -45,10 +52,14 @@ export default function AboutHero({ data: hero }: { data: AboutHeroProps }) {
               'text-display-3 lg:text-display-1 shrink-0 text-balance lg:max-w-[565px]'
             }
           >
-            <TextGenerateEffect
-              hasPeriod
-              words={hero.title}
-            />
+            {draft ? (
+              <>{hero.title}</>
+            ) : (
+              <TextGenerateEffect
+                hasPeriod
+                words={hero.title}
+              />
+            )}
           </h1>
           <p className={'max-w-[520px]'}>{hero.subtext}</p>
         </header>

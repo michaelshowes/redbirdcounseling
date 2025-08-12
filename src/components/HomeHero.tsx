@@ -1,3 +1,4 @@
+import { draftMode } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -15,7 +16,7 @@ interface LinkType {
   };
 }
 
-function LeftSide({
+async function LeftSide({
   title,
   subtext,
   links
@@ -24,6 +25,8 @@ function LeftSide({
   subtext: string;
   links: LinkType[];
 }) {
+  const { isEnabled: draft } = await draftMode();
+
   return (
     <div className={'relative flex flex-col gap-2'}>
       <div
@@ -39,10 +42,14 @@ function LeftSide({
         />
       </div>
       <h1 className={'text-display-3 lg:text-display-1'}>
-        <TextGenerateEffect
-          hasPeriod
-          words={title}
-        />
+        {draft ? (
+          <>{title}</>
+        ) : (
+          <TextGenerateEffect
+            hasPeriod
+            words={title}
+          />
+        )}
       </h1>
       <p>{subtext}</p>
       <div className={'mt-6 flex flex-wrap gap-4'}>

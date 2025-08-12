@@ -1,14 +1,17 @@
+import { draftMode } from 'next/headers';
 import Image from 'next/image';
 
 import { TextGenerateEffect } from './utils/TextGenerateEffect';
 
-export default function ServiceDetailHero({
+export default async function ServiceDetailHero({
   title,
   description
 }: {
   title: string;
   description: string;
 }) {
+  const { isEnabled: draft } = await draftMode();
+
   return (
     <section className={'section-spacing bg-secondary-1 relative md:px-0'}>
       <div
@@ -17,10 +20,14 @@ export default function ServiceDetailHero({
         }
       >
         <h1 className={'text-display-3 lg:text-display-1 mb-4'}>
-          <TextGenerateEffect
-            hasPeriod
-            words={title}
-          />
+          {draft ? (
+            <>{title}</>
+          ) : (
+            <TextGenerateEffect
+              hasPeriod
+              words={title}
+            />
+          )}
         </h1>
         <p className={'mx-auto max-w-[765px]'}>{description}</p>
       </div>
