@@ -7,7 +7,7 @@ import {
 } from '@payloadcms/plugin-seo/fields';
 import { CollectionConfig } from 'payload';
 
-import { generatePreviewPath } from '@/utils/generatePreviewPath';
+// import { generatePreviewPath } from '@/utils/generatePreviewPath';
 
 import { authenticated } from '../../access/authenticated';
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished';
