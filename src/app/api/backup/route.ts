@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     // For local testing, try to use PostgreSQL 17 if available
     if (process.env.NODE_ENV !== 'production') {
       // Local development - try to use PostgreSQL 17
-      const fs = require('fs');
+      const fs = await import('fs');
       if (fs.existsSync('/opt/homebrew/opt/postgresql@17/bin/pg_dump')) {
         pgDumpCmd = '/opt/homebrew/opt/postgresql@17/bin/pg_dump';
       } else if (fs.existsSync('/usr/local/opt/postgresql@17/bin/pg_dump')) {
@@ -142,7 +142,7 @@ export async function GET() {
         uploadedAt: blob.uploadedAt
       }))
       .sort(
-        (a: any, b: any) =>
+        (a: { uploadedAt: Date }, b: { uploadedAt: Date }) =>
           new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()
       );
 
