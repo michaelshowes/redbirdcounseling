@@ -72,12 +72,12 @@ export default buildConfig({
     }
   }),
   sharp,
-  plugins: [...plugins],
-  onInit: async (payload) => {
-    await payload.update({
-      collection: 'pages',
-      where: {},
-      data: { _status: 'published' }
-    });
-  }
+  plugins: [...plugins]
+  // onInit: async (payload) => {
+  //   await payload.update({
+  //     collection: 'pages',
+  //     where: {},
+  //     data: { _status: 'published' }
+  //   });
+  // }
 });
