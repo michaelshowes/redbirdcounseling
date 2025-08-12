@@ -1,12 +1,11 @@
-import { draftMode } from 'next/headers';
-
+// import { draftMode } from 'next/headers';
 import HomeHero, { HomeHeroProps } from '@/components/HomeHero';
 import { RenderBlocks } from '@/components/RenderBlocks';
-import { LivePreviewListener } from '@/components/utils/LivePreviewListener';
+// import { LivePreviewListener } from '@/components/utils/LivePreviewListener';
 import { getPageBySlug } from '@/db/queries/pages';
 
 export default async function Home() {
-  const { isEnabled: draft } = await draftMode();
+  // const { isEnabled: draft } = await draftMode();
   const page = await getPageBySlug('home');
 
   return (
