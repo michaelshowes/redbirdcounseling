@@ -11,17 +11,11 @@ import { generatePreviewPath } from '@/utils/generatePreviewPath';
 
 import { authenticated } from '../../access/authenticated';
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished';
-import { aboutHeroFields } from '../../fields/heroes/aboutHeroFields';
-import { contactHeroFields } from '../../fields/heroes/contactHeroFields';
-import { faqHeroFields } from '../../fields/heroes/faqHeroFields';
-import { homeHeroFields } from '../../fields/heroes/homeHeroFields';
-import { servicesHeroFields } from '../../fields/heroes/servicesHeroFields';
 import { slugField } from '../../fields/slug';
-import { populatePublishedAt } from '../../hooks/populatePublishedAt';
-import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
+import { revalidateDelete, revalidateService } from './revalidateService';
 
-export const Pages: CollectionConfig = {
-  slug: 'pages',
+export const Services: CollectionConfig = {
+  slug: 'services',
   access: {
     create: authenticated,
     delete: authenticated,
@@ -31,23 +25,21 @@ export const Pages: CollectionConfig = {
   trash: true,
   defaultPopulate: {
     title: true,
-    slug: true
+    slug: true,
+    categories: true,
+    meta: {
+      image: true,
+      description: true
+    }
   },
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'updatedAt'],
     livePreview: {
       url: ({ data, req }) => {
-        const slug = typeof data?.slug === 'string' ? data.slug : '';
-
-        // Return root path for home page
-        if (slug === 'home') {
-          return '/';
-        }
-
         const path = generatePreviewPath({
-          slug,
-          collection: 'pages',
+          slug: typeof data?.slug === 'string' ? data.slug : '',
+          collection: 'services',
           req
         });
 
@@ -57,22 +49,21 @@ export const Pages: CollectionConfig = {
     preview: (data, { req }) =>
       generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
-        collection: 'pages',
+        collection: 'services',
         req
       })
   },
   hooks: {
-    afterChange: [revalidatePage],
-    beforeChange: [populatePublishedAt],
+    afterChange: [revalidateService],
     afterDelete: [revalidateDelete]
   },
   versions: {
-    maxPerDoc: 50,
     drafts: {
       autosave: {
-        interval: 100
+        interval: 100 // We set this interval for optimal live preview
       }
-    }
+    },
+    maxPerDoc: 50
   },
   fields: [
     {
@@ -81,53 +72,42 @@ export const Pages: CollectionConfig = {
       required: true
     },
     {
-      name: 'template',
-      type: 'select',
-      defaultValue: 'basic',
-      options: [
-        {
-          label: 'Basic',
-          value: 'basic'
-        },
-        {
-          label: 'Home',
-          value: 'home'
-        },
-        {
-          label: 'About',
-          value: 'about'
-        },
-        {
-          label: 'Services',
-          value: 'services'
-        },
-        {
-          label: 'FAQ',
-          value: 'faq'
-        },
-        {
-          label: 'Contact',
-          value: 'contact'
-        }
-      ]
+      name: 'publishedAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar'
+      }
     },
+    ...slugField(),
     {
       type: 'tabs',
       tabs: [
         {
           name: 'hero',
           fields: [
-            ...homeHeroFields,
-            ...aboutHeroFields,
-            ...faqHeroFields,
-            ...contactHeroFields,
-            ...servicesHeroFields
+            {
+              name: 'title',
+              type: 'text'
+            },
+            {
+              name: 'subtext',
+              type: 'textarea'
+            },
+            {
+              name: 'image',
+              type: 'upload',
+              relationTo: 'media'
+            }
           ]
         },
         {
           name: 'content',
-          label: 'Content',
           fields: [
+            {
+              name: 'description',
+              type: 'richText',
+              required: true
+            },
             {
               name: 'content',
               type: 'blocks',
@@ -177,14 +157,6 @@ export const Pages: CollectionConfig = {
           ]
         }
       ]
-    },
-    {
-      name: 'publishedAt',
-      type: 'date',
-      admin: {
-        position: 'sidebar'
-      }
-    },
-    ...slugField()
+    }
   ]
 };

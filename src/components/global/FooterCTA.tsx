@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 
-import Marquee from '../utils/Marquee';
+// import Marquee from '../utils/Marquee';
 
 const data = {
   marquee: 'Book a Consultation',
@@ -21,7 +21,7 @@ export default function FooterCTA() {
   return (
     <section className='section-spacing relative mx-auto mt-20 -mb-20 w-full max-w-[1220px] overflow-hidden rounded-2xl bg-neutral-100 py-10 shadow-sm md:py-20'>
       {/* Scrolling Background Text */}
-      <div className={'absolute top-0 isolate'}>
+      {/* <div className={'absolute top-0 isolate'}>
         <Marquee
           pauseOnHover={false}
           speed={'normal'}
@@ -35,7 +35,7 @@ export default function FooterCTA() {
             {data.marquee}
           </span>
         </Marquee>
-      </div>
+      </div> */}
 
       {/* Main Content */}
       <div className='relative z-10 mx-auto text-center'>

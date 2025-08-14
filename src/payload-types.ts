@@ -73,6 +73,8 @@ export interface Config {
     'media-block': MediaBlock;
     'credentials-grid': CredentialsGrid;
     accordion: Accordion;
+    'info-grid': InfoGrid;
+    'service-grid': ServiceGrid;
   };
   collections: {
     pages: Page;
@@ -139,25 +141,16 @@ export interface CTA {
   title: string;
   headline: string;
   text?: string | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?: {
-            relationTo: 'pages';
-            value: number | Page;
-          } | null;
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
+  link: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
+    url?: string | null;
+    label: string;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'cta';
@@ -169,13 +162,12 @@ export interface CTA {
 export interface Page {
   id: number;
   title: string;
+  template?: ('basic' | 'home' | 'about' | 'services' | 'faq' | 'contact') | null;
   hero?: {
-    hero?: {
-      type?: ('home' | 'about' | 'services' | 'faq' | 'contact') | null;
-      title?: string | null;
+    homeHero?: {
+      title: string;
       subtext?: string | null;
-      image?: (number | null) | Media;
-      secondaryImage?: (number | null) | Media;
+      image: number | Media;
       links?:
         | {
             link: {
@@ -187,18 +179,33 @@ export interface Page {
               } | null;
               url?: string | null;
               label: string;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: ('default' | 'outline') | null;
             };
             id?: string | null;
           }[]
         | null;
     };
+    aboutHero?: {
+      title: string;
+      subtext?: string | null;
+      image: number | Media;
+      secondaryImage: number | Media;
+    };
+    faqHero?: {
+      image: number | Media;
+    };
+    contactHero?: {
+      title: string;
+      subtext?: string | null;
+    };
+    servicesHero?: {
+      title: string;
+      subtext?: string | null;
+    };
   };
-  content: {
-    content: (CTA | Selection | CardGrid | RichText | MediaBlock | CredentialsGrid | Accordion)[];
+  content?: {
+    content?:
+      | (CTA | Selection | CardGrid | RichText | MediaBlock | CredentialsGrid | Accordion | InfoGrid | ServiceGrid)[]
+      | null;
   };
   meta?: {
     title?: string | null;
@@ -297,10 +304,6 @@ export interface CardGrid {
           } | null;
           url?: string | null;
           label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
         };
         id?: string | null;
       }[]
@@ -321,10 +324,6 @@ export interface CardGrid {
                 } | null;
                 url?: string | null;
                 label: string;
-                /**
-                 * Choose how the link should be rendered.
-                 */
-                appearance?: ('default' | 'outline') | null;
               };
               id?: string | null;
             }[]
@@ -391,10 +390,6 @@ export interface CredentialsGrid {
           } | null;
           url?: string | null;
           label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
         };
         id?: string | null;
       }[]
@@ -433,41 +428,91 @@ export interface Accordion {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InfoGrid".
+ */
+export interface InfoGrid {
+  title: string;
+  headline: string;
+  items?:
+    | {
+        title: string;
+        description: string;
+        icon?: ('badge' | 'eye' | 'heart' | 'circle-check' | 'globe' | 'star') | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'info-grid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceGrid".
+ */
+export interface ServiceGrid {
+  title?: string | null;
+  headline?: string | null;
+  link: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
+    url?: string | null;
+    label: string;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'service-grid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "services".
  */
 export interface Service {
   id: number;
-  title?: string | null;
+  title: string;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
   hero?: {
     title?: string | null;
     subtext?: string | null;
     image?: (number | null) | Media;
-    links?:
-      | {
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?: {
-              relationTo: 'pages';
-              value: number | Page;
-            } | null;
-            url?: string | null;
-            label: string;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    publishedAt?: string | null;
-    slug?: string | null;
-    slugLock?: boolean | null;
   };
-  content?: CTA[] | null;
+  content: {
+    description: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    content?:
+      | (CTA | Selection | CardGrid | RichText | MediaBlock | CredentialsGrid | Accordion | InfoGrid | ServiceGrid)[]
+      | null;
+  };
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
+  deletedAt?: string | null;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -568,17 +613,16 @@ export interface PayloadMigration {
  */
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
+  template?: T;
   hero?:
     | T
     | {
-        hero?:
+        homeHero?:
           | T
           | {
-              type?: T;
               title?: T;
               subtext?: T;
               image?: T;
-              secondaryImage?: T;
               links?:
                 | T
                 | {
@@ -590,10 +634,34 @@ export interface PagesSelect<T extends boolean = true> {
                           reference?: T;
                           url?: T;
                           label?: T;
-                          appearance?: T;
                         };
                     id?: T;
                   };
+            };
+        aboutHero?:
+          | T
+          | {
+              title?: T;
+              subtext?: T;
+              image?: T;
+              secondaryImage?: T;
+            };
+        faqHero?:
+          | T
+          | {
+              image?: T;
+            };
+        contactHero?:
+          | T
+          | {
+              title?: T;
+              subtext?: T;
+            };
+        servicesHero?:
+          | T
+          | {
+              title?: T;
+              subtext?: T;
             };
       };
   content?:
@@ -622,64 +690,33 @@ export interface PagesSelect<T extends boolean = true> {
  */
 export interface ServicesSelect<T extends boolean = true> {
   title?: T;
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
   hero?:
     | T
     | {
         title?: T;
         subtext?: T;
         image?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    label?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-        publishedAt?: T;
-        slug?: T;
-        slugLock?: T;
       };
   content?:
     | T
     | {
-        cta?: T | CTASelect<T>;
+        description?: T;
+        content?: T | {};
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
       };
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CTA_select".
- */
-export interface CTASelect<T extends boolean = true> {
-  title?: T;
-  headline?: T;
-  text?: T;
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
+  deletedAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

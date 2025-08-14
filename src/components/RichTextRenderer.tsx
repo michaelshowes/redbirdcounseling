@@ -23,7 +23,7 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
     throw new Error('Expected value to be an object');
   }
   const slug = value.slug;
-  return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`;
+  return relationTo === 'services' ? `/services/${slug}` : `/${slug}`;
 };
 
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
@@ -57,11 +57,11 @@ export default function RichText(props: Props) {
     <ConvertRichText
       converters={jsxConverters}
       className={cn(
-        'payload-richtext flex flex-col items-center gap-8',
+        'payload-richtext items-center',
         {
           container: enableGutter,
           'max-w-none': !enableGutter,
-          'prose md:prose-md dark:prose-invert mx-auto': enableProse
+          'prose md:prose-md dark:prose-invert mx-auto prose-ul:marker:text-redbird': enableProse
         },
         className
       )}

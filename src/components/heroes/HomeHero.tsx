@@ -3,8 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
+import { Media, Page } from '@/payload-types';
 
-import { TextGenerateEffect } from './utils/TextGenerateEffect';
+import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
 interface LinkType {
   link: {
@@ -43,7 +44,10 @@ async function LeftSide({
       </div>
       <h1 className={'text-display-3 lg:text-display-1'}>
         {draft ? (
-          <>{title}</>
+          <>
+            {title}
+            <span className='text-redbird'>.</span>
+          </>
         ) : (
           <TextGenerateEffect
             hasPeriod
@@ -53,41 +57,26 @@ async function LeftSide({
       </h1>
       <p>{subtext}</p>
       <div className={'mt-6 flex flex-wrap gap-4'}>
-        <Button
-          size={'lg'}
-          // asChild
-        >
-          <Link
-            href={links[0].link.url}
-            target={links[0].link.newTab === true ? '_blank' : '_self'}
-          >
-            {links[0].link.label}
-          </Link>
-        </Button>
-        {links[1] && (
+        {links.map((link, i) => (
           <Button
+            key={i}
             size={'lg'}
-            variant={'secondary'}
-            // asChild
+            variant={i === 1 ? 'secondary' : 'default'}
           >
-            <Link href={links[1].link.url}>{links[1].link.label}</Link>
+            <Link
+              href={link.link.url}
+              target={link.link.newTab === true ? '_blank' : '_self'}
+            >
+              {link.link.label}
+            </Link>
           </Button>
-        )}
+        ))}
       </div>
     </div>
   );
 }
 
-interface RightSideProps {
-  image: {
-    url: string;
-    alt: string;
-    width: number;
-    height: number;
-  };
-}
-
-function RightSide({ image }: RightSideProps) {
+function RightSide({ image }: { image: Media }) {
   return (
     <div
       className={
@@ -95,29 +84,20 @@ function RightSide({ image }: RightSideProps) {
       }
     >
       <Image
-        src={image.url}
-        alt={image.alt}
-        width={image.width}
-        height={image.height}
+        src={image.url || ''}
+        alt={image.alt || ''}
+        width={image.width || 0}
+        height={image.height || 0}
         className={'object-cover'}
       />
     </div>
   );
 }
 
-export interface HomeHeroProps {
-  title: string;
-  subtext: string;
-  image: {
-    url: string;
-    alt: string;
-    width: number;
-    height: number;
-  };
-  links: LinkType[];
-}
+export default function HomeHero({ homeHero }: { homeHero: Page['hero'] }) {
+  // @ts-expect-error - hero exists
+  const { title, subtext, image, links } = homeHero || {};
 
-export default function HomeHero({ data: hero }: { data: HomeHeroProps }) {
   return (
     <section
       className={
@@ -130,11 +110,11 @@ export default function HomeHero({ data: hero }: { data: HomeHeroProps }) {
         }
       >
         <LeftSide
-          title={hero.title}
-          subtext={hero.subtext}
-          links={hero.links}
+          title={title || ''}
+          subtext={subtext || ''}
+          links={links as LinkType[]}
         />
-        <RightSide image={hero.image} />
+        <RightSide image={image as Media} />
       </div>
     </section>
   );

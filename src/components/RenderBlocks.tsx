@@ -6,9 +6,11 @@ import AccordionSection from './AccordionSection';
 import CTA from './CTA';
 import CardGrid from './CardGrid';
 import CredentialsGrid from './CredentialsGrid';
+import InfoGrid from './InfoGrid';
 import MediaBlock from './MediaBlock';
 import RichText from './RichText';
 import Selection from './Selection';
+import ServiceGrid from './ServiceGrid';
 
 const blockComponents = {
   cta: CTA,
@@ -17,11 +19,15 @@ const blockComponents = {
   'rich-text': RichText,
   'media-block': MediaBlock,
   'credentials-grid': CredentialsGrid,
-  accordion: AccordionSection
-};
+  accordion: AccordionSection,
+  'info-grid': InfoGrid,
+  'service-grid': ServiceGrid
+} as const;
+
+type BlockType = keyof typeof blockComponents;
 
 export const RenderBlocks: React.FC<{
-  blocks: Page['content']['content'];
+  blocks: Page['content'];
 }> = (props) => {
   const { blocks } = props;
 
@@ -34,13 +40,12 @@ export const RenderBlocks: React.FC<{
           const { blockType } = block;
 
           if (blockType && blockType in blockComponents) {
-            const Block = blockComponents[blockType];
+            const Block = blockComponents[blockType as BlockType];
 
             if (Block) {
               return (
                 <Block
                   {...block}
-                  // @ts-expect-error false positive
                   key={block?.id}
                 />
               );

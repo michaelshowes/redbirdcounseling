@@ -1,30 +1,17 @@
 import { draftMode } from 'next/headers';
 import Image from 'next/image';
 
-import { LinkFields } from '@payloadcms/richtext-lexical';
+import { Page } from '@/payload-types';
 
-import { TextGenerateEffect } from './utils/TextGenerateEffect';
-
-type ImageProps = {
-  url: string;
-  alt: string;
-  width: number;
-  height: number;
-};
-
-export interface AboutHeroProps {
-  title: string;
-  subtext: string;
-  image: ImageProps;
-  secondaryImage: ImageProps;
-  links: LinkFields[];
-}
+import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
 export default async function AboutHero({
-  data: hero
+  aboutHero
 }: {
-  data: AboutHeroProps;
+  aboutHero: Page['hero'];
 }) {
+  // @ts-expect-error - hero exists
+  const { title, subtext, image, secondaryImage } = aboutHero || {};
   const { isEnabled: draft } = await draftMode();
 
   return (
@@ -53,22 +40,25 @@ export default async function AboutHero({
             }
           >
             {draft ? (
-              <>{hero.title}</>
+              <>
+                {title}
+                <span className='text-redbird'>.</span>
+              </>
             ) : (
               <TextGenerateEffect
                 hasPeriod
-                words={hero.title}
+                words={title}
               />
             )}
           </h1>
-          <p className={'max-w-[520px]'}>{hero.subtext}</p>
+          <p className={'max-w-[520px]'}>{subtext}</p>
         </header>
 
         <div className={'grid aspect-[1440/770] grid-cols-[3fr_2fr] gap-12'}>
           <div className={'relative overflow-hidden rounded-2xl'}>
             <Image
-              src={hero.image.url}
-              alt={hero.image.alt}
+              src={image.url}
+              alt={image.alt}
               fill
               priority
               className={'object-cover'}
@@ -77,8 +67,8 @@ export default async function AboutHero({
 
           <div className={'relative overflow-hidden rounded-2xl'}>
             <Image
-              src={hero.secondaryImage.url}
-              alt={hero.secondaryImage.alt}
+              src={secondaryImage.url}
+              alt={secondaryImage.alt}
               fill
               priority
               className={'object-cover'}

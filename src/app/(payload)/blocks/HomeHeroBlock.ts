@@ -20,7 +20,9 @@ export const HomeHeroBlock: Block = {
       relationTo: 'media'
     },
     linkGroup({
-      appearances: ['default', 'outline']
+      overrides: {
+        maxRows: 2
+      }
     })
   ]
 };

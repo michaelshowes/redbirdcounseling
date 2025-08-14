@@ -5,15 +5,8 @@ import { CTA as CTAProps } from '@/payload-types';
 import SectionHeader from './shared/SectionHeader';
 import { Button } from './ui/button';
 
-const placeholder = {
-  link: {
-    label: 'Book a Consultation',
-    url: 'https://nicole-michels.clientsecure.me/'
-  }
-};
-
 export default function CTA(props: CTAProps) {
-  const { title, headline, text, links } = props;
+  const { title, headline, text, link } = props;
 
   return (
     <section className={'section-spacing'}>
@@ -28,10 +21,18 @@ export default function CTA(props: CTAProps) {
           size={'lg'}
           className={'mt-10'}
         >
-          {links ? (
-            <Link href={links[0].link.url!}>{links[0].link.label}</Link>
-          ) : (
-            <Link href={placeholder.link.url}>{placeholder.link.label}</Link>
+          {link && (
+            <Link
+              href={
+                link.type === 'reference' &&
+                link.reference?.value &&
+                typeof link.reference.value === 'object'
+                  ? `/${link.reference.value.slug}`
+                  : link.url || '#'
+              }
+            >
+              {link.label}
+            </Link>
           )}
         </Button>
       </div>

@@ -10,9 +10,11 @@ import { Accordion } from './app/(payload)/blocks/Accordion';
 import { CTA } from './app/(payload)/blocks/CTA';
 import { CardGrid } from './app/(payload)/blocks/CardGrid';
 import { CredentialsGrid } from './app/(payload)/blocks/CredentialsGrid';
+import { InfoGrid } from './app/(payload)/blocks/InfoGrid';
 import { MediaBlock } from './app/(payload)/blocks/MediaBlock';
 import { RichText } from './app/(payload)/blocks/RichText';
 import { Selection } from './app/(payload)/blocks/Selection';
+import { ServiceGrid } from './app/(payload)/blocks/ServiceGrid';
 import { Media } from './app/(payload)/collections/Media';
 import { Pages } from './app/(payload)/collections/Pages';
 import { Services } from './app/(payload)/collections/Services';
@@ -27,6 +29,11 @@ export default buildConfig({
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname)
+    },
+    components: {
+      graphics: {
+        Logo: '@/app/(payload)/components/Logo'
+      }
     },
     livePreview: {
       breakpoints: [
@@ -59,7 +66,9 @@ export default buildConfig({
     RichText,
     MediaBlock,
     CredentialsGrid,
-    Accordion
+    Accordion,
+    InfoGrid,
+    ServiceGrid
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

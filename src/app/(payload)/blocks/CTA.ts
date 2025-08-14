@@ -1,6 +1,6 @@
 import { Block } from 'payload';
 
-import { linkGroup } from '../fields/linkGroup';
+import { link } from '../fields/link';
 
 export const CTA: Block = {
   slug: 'cta',
@@ -20,11 +20,6 @@ export const CTA: Block = {
       name: 'text',
       type: 'textarea'
     },
-    linkGroup({
-      appearances: ['default', 'outline'],
-      overrides: {
-        maxRows: 1
-      }
-    })
+    link()
   ]
 };

@@ -22,7 +22,6 @@ export const CredentialsGrid: Block = {
       }
     },
     linkGroup({
-      appearances: ['default', 'outline'],
       overrides: {
         maxRows: 1
       }

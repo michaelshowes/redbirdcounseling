@@ -1,9 +1,18 @@
 import { draftMode } from 'next/headers';
 
-import ContactForm from './ContactForm';
-import { TextGenerateEffect } from './utils/TextGenerateEffect';
+import { Page } from '@/payload-types';
 
-export default async function ContactHero() {
+import ContactForm from '../ContactForm';
+import { TextGenerateEffect } from '../utils/TextGenerateEffect';
+
+export default async function ContactHero({
+  contactHero
+}: {
+  contactHero: Page['hero'];
+}) {
+  // @ts-expect-error - hero exists
+  const { title, subtext } = contactHero || {};
+
   const { isEnabled: draft } = await draftMode();
 
   return (
@@ -15,19 +24,18 @@ export default async function ContactHero() {
       >
         <h1 className={'text-display-3 lg:text-display-1 mb-4'}>
           {draft ? (
-            <>{'Book an Appointment'}</>
+            <>
+              {title}
+              <span className='text-redbird'>.</span>
+            </>
           ) : (
             <TextGenerateEffect
               hasPeriod
-              words={'Book an Appointment'}
+              words={title}
             />
           )}
         </h1>
-        <p className={'mx-auto max-w-[765px]'}>
-          {
-            'Arcu semper urna diam arcu tristique scelerisque fringilla tincidunt leo. Metus leo elit feugiat varius dictum gravida donec sit lacus. Sit leo platea urna sagittis eu in.'
-          }
-        </p>
+        <p className={'mx-auto max-w-[765px]'}>{subtext}</p>
       </div>
 
       <ContactForm />

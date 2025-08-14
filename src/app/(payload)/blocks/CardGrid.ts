@@ -15,7 +15,6 @@ export const CardGrid: Block = {
       type: 'text'
     },
     linkGroup({
-      appearances: ['default', 'outline'],
       overrides: {
         maxRows: 1
       }
@@ -38,7 +37,6 @@ export const CardGrid: Block = {
           type: 'textarea'
         },
         linkGroup({
-          appearances: ['default', 'outline'],
           overrides: {
             maxRows: 1
           }

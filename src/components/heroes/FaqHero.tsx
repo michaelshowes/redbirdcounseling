@@ -1,12 +1,11 @@
 import Image from 'next/image';
 
-import { Media } from '@/payload-types';
+import { Page } from '@/payload-types';
 
-export interface FaqHeroProps {
-  image: Media;
-}
+export default function FaqHero({ faqHero }: { faqHero: Page['hero'] }) {
+  // @ts-expect-error - hero exists
+  const { image } = faqHero || {};
 
-export default function FaqHero({ data: hero }: { data: FaqHeroProps }) {
   return (
     <section className={'bg-secondary-1 relative px-8 pt-10'}>
       <span
@@ -18,9 +17,9 @@ export default function FaqHero({ data: hero }: { data: FaqHeroProps }) {
         }
       >
         <Image
-          src={hero.image.url || ''}
+          src={image.url || ''}
           fill
-          alt={hero.image.alt || ''}
+          alt={image.alt || ''}
           className={'object-cover'}
         />
       </div>

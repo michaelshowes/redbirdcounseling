@@ -1,16 +1,16 @@
 import type { ArrayField, Field } from 'payload';
 
 import deepMerge from '../utilities/deepMerge';
-import type { LinkAppearances } from './link';
+// import type { LinkAppearances } from './link';
 import { link } from './link';
 
 type LinkGroupType = (options?: {
-  appearances?: LinkAppearances[] | false;
+  // appearances?: LinkAppearances[] | false;
   overrides?: Partial<ArrayField>;
 }) => Field;
 
 export const linkGroup: LinkGroupType = ({
-  appearances,
+  // appearances,
   overrides = {}
 } = {}) => {
   const generatedLinkGroup: Field = {
@@ -18,7 +18,7 @@ export const linkGroup: LinkGroupType = ({
     type: 'array',
     fields: [
       link({
-        appearances
+        // appearances
       })
     ],
     admin: {
