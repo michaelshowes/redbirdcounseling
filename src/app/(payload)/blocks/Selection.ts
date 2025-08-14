@@ -3,6 +3,7 @@ import { Block } from 'payload';
 export const Selection: Block = {
   slug: 'selection',
   interfaceName: 'Selection',
+  imageURL: '/images/block-thumbnails/selection.png',
   fields: [
     {
       name: 'title',

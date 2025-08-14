@@ -5,6 +5,11 @@ import { link } from '../fields/link';
 export const CTA: Block = {
   slug: 'cta',
   interfaceName: 'CTA',
+  labels: {
+    singular: 'CTA',
+    plural: 'CTAs'
+  },
+  imageURL: '/images/block-thumbnails/cta.png',
   fields: [
     {
       name: 'title',
