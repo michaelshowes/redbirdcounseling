@@ -49,7 +49,9 @@ export default async function SiteHeader() {
 
         <div>
           <Button>
-            <Link href={'/contact'}>Book an appointment</Link>
+            <Link href={'https://nicole-michels.clientsecure.me/'}>
+              Book an appointment
+            </Link>
           </Button>
         </div>
       </div>
