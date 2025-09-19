@@ -33,7 +33,7 @@ export default function Card({
   return (
     <article
       className={cn(
-        'relative rounded-2xl p-4 transition-all duration-200',
+        'relative flex h-full flex-col rounded-2xl p-4 transition-all duration-200',
         fullCardLink && 'hover:bg-neutral-100'
       )}
     >
@@ -66,31 +66,33 @@ export default function Card({
       <p>{description}</p>
 
       {!fullCardLink && (
-        <Link
-          href={
-            link.type === 'reference' &&
-            link.reference?.value &&
-            typeof link.reference.value === 'object'
-              ? `/${link.reference.value.slug}`
-              : link.url || '#'
-          }
-          className={
-            'group inline-flex items-center gap-1 px-2 transition-all duration-200 hover:text-neutral-100'
-          }
-        >
-          <span
-            className={
-              'bg-redbird absolute -top-0.5 bottom-0 left-0 -z-10 w-0.5 transition-all duration-200 group-hover:w-full'
+        <div className={'mt-auto pt-6'}>
+          <Link
+            href={
+              link.type === 'reference' &&
+              link.reference?.value &&
+              typeof link.reference.value === 'object'
+                ? `/${link.reference.value.slug}`
+                : link.url || '#'
             }
-          />
-          <span>{link.label}</span>
-          <ArrowRight
-            size={22}
             className={
-              '-rotate-45 transition-all duration-200 group-hover:rotate-0'
+              'group relative inline-flex items-center gap-1 px-2 transition-all duration-200 hover:text-neutral-100'
             }
-          />
-        </Link>
+          >
+            <span
+              className={
+                'bg-redbird absolute -top-0.5 bottom-0 left-0 -z-10 w-0.5 transition-all duration-200 group-hover:w-full'
+              }
+            />
+            <span>{link.label}</span>
+            <ArrowRight
+              size={22}
+              className={
+                '-rotate-45 transition-all duration-200 group-hover:rotate-0'
+              }
+            />
+          </Link>
+        </div>
       )}
     </article>
   );
