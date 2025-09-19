@@ -24,8 +24,8 @@ export const getServiceBySlug = async (slug: string) => {
       }
     },
     overrideAccess: draft,
-    draft,
-    depth: 1
+    draft: true,
+    depth: 2
   });
 
   return result.docs?.[0] || null;

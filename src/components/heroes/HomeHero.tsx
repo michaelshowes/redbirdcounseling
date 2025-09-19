@@ -84,10 +84,10 @@ function RightSide({ image }: { image: Media }) {
       }
     >
       <Image
-        src={image.url || ''}
-        alt={image.alt || ''}
-        width={image.width || 0}
-        height={image.height || 0}
+        src={image?.url || 'https://placehold.co/600x400?text=Hello+World'}
+        alt={image?.alt || ''}
+        width={image?.width || 0}
+        height={image?.height || 0}
         className={'object-cover'}
       />
     </div>

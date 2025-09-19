@@ -1,8 +1,8 @@
 import { draftMode } from 'next/headers';
-import Image from 'next/image';
 
 import { Media, Service } from '@/payload-types';
 
+import ImageWithPlaceholder from '../utils/ImageWithPlaceholder';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
 export default async function ServiceDetailHero(props: Service['hero']) {
@@ -45,12 +45,14 @@ export default async function ServiceDetailHero(props: Service['hero']) {
           'relative mx-auto h-[200px] max-w-[1440px] overflow-hidden rounded-2xl sm:h-[300px] md:h-[400px]'
         }
       >
-        <Image
-          src={image?.url as string}
+        {/* <Image
+          src={'https://placehold.co/1440x400?text=Hello+World'}
           alt={'Service Image'}
-          fill
+          width={image?.width || 1440}
+          height={image?.height || 400}
           className={'object-cover'}
-        />
+        /> */}
+        <ImageWithPlaceholder image={image} />
       </div>
     </section>
   );

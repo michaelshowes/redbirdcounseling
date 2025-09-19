@@ -12,6 +12,26 @@ export const Media: CollectionConfig = {
       required: true
     }
   ],
-  upload: true,
+  upload: {
+    adminThumbnail: 'thumbnail',
+    focalPoint: true,
+    imageSizes: [
+      {
+        name: 'thumbnail',
+        width: 300
+      },
+      {
+        name: 'About Hero',
+        width: 797,
+        height: 736
+      },
+      {
+        name: 'og',
+        width: 1200,
+        height: 630,
+        crop: 'center'
+      }
+    ]
+  },
   folders: true
 };

@@ -50,9 +50,22 @@ export default function Card({
         />
       </div>
 
-      <h3 className={'mb-6 border-b border-neutral-400 pb-6'}>{title}</h3>
+      <h3 className={'mb-6 border-b border-neutral-400 pb-6'}>
+        {fullCardLink ? (
+          <Link
+            href={`/${link.reference?.value?.slug}`}
+            className={'text-[length:inherit]'}
+          >
+            <span className={'absolute inset-0'} />
+            {title}
+          </Link>
+        ) : (
+          <>{title}</>
+        )}
+      </h3>
       <p>{description}</p>
-      <div>
+
+      {!fullCardLink && (
         <Link
           href={
             link.type === 'reference' &&
@@ -62,32 +75,23 @@ export default function Card({
               : link.url || '#'
           }
           className={
-            'group relative inline-flex items-center gap-1 px-2 transition-all duration-200 hover:text-neutral-100'
+            'group inline-flex items-center gap-1 px-2 transition-all duration-200 hover:text-neutral-100'
           }
         >
-          {fullCardLink && <span className={'absolute inset-0'} />}
           <span
             className={
               'bg-redbird absolute -top-0.5 bottom-0 left-0 -z-10 w-0.5 transition-all duration-200 group-hover:w-full'
             }
           />
-          <span
-            className={cn({
-              'sr-only': fullCardLink
-            })}
-          >
-            {link.label}
-          </span>
-          {!fullCardLink && (
-            <ArrowRight
-              size={22}
-              className={
-                '-rotate-45 transition-all duration-200 group-hover:rotate-0'
-              }
-            />
-          )}
+          <span>{link.label}</span>
+          <ArrowRight
+            size={22}
+            className={
+              '-rotate-45 transition-all duration-200 group-hover:rotate-0'
+            }
+          />
         </Link>
-      </div>
+      )}
     </article>
   );
 }

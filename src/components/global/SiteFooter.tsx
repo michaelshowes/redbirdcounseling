@@ -1,23 +1,16 @@
 import Image from 'next/image';
 
-interface ContactItem {
-  prefix: string;
-  content: string;
-  href?: string;
-}
+import { getServices } from '@/db/queries/services';
+import { getSettings } from '@/db/queries/settings';
 
-export default function SiteFooter() {
-  const services: string[] = ['Relationships', 'Dating', 'Couples'];
-
-  const contactInfo: ContactItem[] = [
-    { prefix: 'P:', content: '515.123.4555', href: 'tel:515.123.4555' },
-    { prefix: 'E:', content: 'monroe@xxx.com', href: 'mailto:monroe@xxx.com' },
-    { prefix: 'A:', content: '1234 Spruce Avenue, Atlanta, GA 00981' }
-  ];
+export default async function SiteFooter() {
+  const services = await getServices();
+  const { footer } = await getSettings();
+  const { contact } = footer;
 
   return (
     <footer className='bg-secondary-1 pt-40'>
-      <div className='md: site-padding mx-auto flex max-w-[300px] flex-col justify-between gap-4 pb-10 md:max-w-[1440px] md:flex-row md:items-end md:gap-8'>
+      <div className='md: site-padding mx-auto flex max-w-[300px] flex-col justify-between gap-4 pb-10 md:max-w-[1220px] md:flex-row md:items-end md:gap-8'>
         <div className={'relative size-60 self-center md:size-40'}>
           <Image
             src={'/images/logo.svg'}
@@ -32,12 +25,12 @@ export default function SiteFooter() {
           <nav>
             <ul>
               {services.map((service) => (
-                <li key={service}>
+                <li key={service.id}>
                   <a
-                    href='#'
+                    href={`/services/${service.slug}`}
                     className='block text-base'
                   >
-                    {service}
+                    {service.title}
                   </a>
                 </li>
               ))}
@@ -49,24 +42,22 @@ export default function SiteFooter() {
         <div>
           <h3 className={'mb-2'}>Contact</h3>
           <div>
-            {contactInfo.map(({ prefix, content, href }) => (
-              <p
-                key={prefix}
-                className={'text-base'}
-              >
-                <span className='font-medium'>{prefix}</span>{' '}
-                {href ? (
-                  <a
-                    href={href}
-                    className={'text-base'}
-                  >
-                    {content}
-                  </a>
-                ) : (
-                  <span>{content}</span>
-                )}
+            {contact.phone && (
+              <p>
+                <span className='font-medium'>P:</span> {contact.phone}
               </p>
-            ))}
+            )}
+            {contact.email && (
+              <p>
+                <span className='font-medium'>E: </span>
+                <a
+                  href={`mailto:${contact.email}`}
+                  className={'text-base'}
+                >
+                  {contact.email}
+                </a>
+              </p>
+            )}
           </div>
         </div>
       </div>

@@ -19,6 +19,7 @@ import { Media } from './app/(payload)/collections/Media';
 import { Pages } from './app/(payload)/collections/Pages';
 import { Services } from './app/(payload)/collections/Services';
 import { Users } from './app/(payload)/collections/Users';
+import { Settings } from './app/(payload)/globals/settings';
 import { plugins } from './app/(payload)/plugins';
 
 const filename = fileURLToPath(import.meta.url);
@@ -59,6 +60,7 @@ export default buildConfig({
     }
   },
   collections: [Pages, Services, Media, Users],
+  globals: [Settings],
   blocks: [
     CTA,
     Selection,

@@ -96,7 +96,8 @@ export const Services: CollectionConfig = {
             {
               name: 'image',
               type: 'upload',
-              relationTo: 'media'
+              relationTo: 'media',
+              required: true
             }
           ]
         },

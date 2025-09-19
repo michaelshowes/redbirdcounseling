@@ -1,11 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { routes } from '@/routes';
+import { getMenu } from '@/db/queries/settings';
+import { Page } from '@/payload-types';
 
 import { Button } from '../ui/button';
 
-export default function SiteHeader() {
+export default async function SiteHeader() {
+  const menu = await getMenu('main');
+
   return (
     <header className={'site-padding bg-neutral-100'}>
       <div
@@ -31,13 +34,13 @@ export default function SiteHeader() {
 
         <nav>
           <ul className={'flex items-center gap-4'}>
-            {routes.map((route) => (
-              <li key={route.name}>
+            {menu?.menuItems?.map(({ id, page }) => (
+              <li key={id}>
                 <Link
-                  href={route.href}
+                  href={`/${(page as Page)?.slug}`}
                   className={'px-4 py-10'}
                 >
-                  {route.name}
+                  {(page as Page)?.title}
                 </Link>
               </li>
             ))}
@@ -45,7 +48,9 @@ export default function SiteHeader() {
         </nav>
 
         <div>
-          <Button>Book an appointment</Button>
+          <Button>
+            <Link href={'/contact'}>Book an appointment</Link>
+          </Button>
         </div>
       </div>
     </header>

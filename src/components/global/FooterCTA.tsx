@@ -1,23 +1,13 @@
-'use client';
+import { getSettings } from '@/db/queries/settings';
 
-import Link from 'next/link';
-
-import { Button } from '@/components/ui/button';
+// import FooterCTAButton from './FooterCTAButton';
 
 // import Marquee from '../utils/Marquee';
 
-const data = {
-  marquee: 'Book a Consultation',
-  link: {
-    text: 'Schedule a Consultation',
-    href: '#'
-  },
-  eyebrow: 'Ready to get started?',
-  title: "You're worth it.",
-  subtitle: 'Ready to get started?'
-};
+export default async function FooterCTA() {
+  const { footer } = await getSettings();
+  const { cta } = footer;
 
-export default function FooterCTA() {
   return (
     <section className='section-spacing relative mx-auto mt-20 -mb-20 w-full max-w-[1220px] overflow-hidden rounded-2xl bg-neutral-100 py-10 shadow-sm md:py-20'>
       {/* Scrolling Background Text */}
@@ -40,16 +30,13 @@ export default function FooterCTA() {
       {/* Main Content */}
       <div className='relative z-10 mx-auto text-center'>
         <p className='mb-8 text-sm font-medium tracking-widest text-gray-600 uppercase'>
-          {data.eyebrow}
+          {cta.eyebrow}
         </p>
 
         <h2 className='mb-12 font-serif text-6xl font-light tracking-tight text-black md:text-7xl'>
-          {data.title}
+          {cta.headline}
         </h2>
-
-        <Button size='lg'>
-          <Link href={data.link.href}>{data.link.text}</Link>
-        </Button>
+        {/* <FooterCTAButton link={cta.link as { url: string; label: string }} /> */}
       </div>
     </section>
   );

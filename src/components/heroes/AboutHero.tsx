@@ -59,7 +59,8 @@ export default async function AboutHero({
             <Image
               src={image.url}
               alt={image.alt}
-              fill
+              width={image.width}
+              height={image.height}
               priority
               className={'object-cover'}
             />
