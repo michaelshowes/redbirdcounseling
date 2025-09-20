@@ -14,7 +14,8 @@ export const getPageBySlug = async (slug: string) => {
       }
     },
     overrideAccess: draft,
-    draft
+    draft,
+    depth: 1
   });
 
   return result.docs?.[0] || null;

@@ -8,8 +8,6 @@ import { Button } from './ui/button';
 export default function CTA(props: CTAProps) {
   const { title, headline, text, link } = props;
 
-  console.log(link?.reference);
-
   return (
     <section className={'section-spacing'}>
       <div className={'mx-auto flex max-w-[900px] flex-col items-center'}>
