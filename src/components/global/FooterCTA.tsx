@@ -1,6 +1,6 @@
 import { getSettings } from '@/db/queries/settings';
 
-// import FooterCTAButton from './FooterCTAButton';
+import FooterCTAButton from './FooterCTAButton';
 
 // import Marquee from '../utils/Marquee';
 
@@ -36,7 +36,7 @@ export default async function FooterCTA() {
         <h2 className='mb-12 font-serif text-6xl font-light tracking-tight text-black md:text-7xl'>
           {cta.headline}
         </h2>
-        {/* <FooterCTAButton link={cta.link as { url: string; label: string }} /> */}
+        <FooterCTAButton link={cta.link as { url: string; label: string }} />
       </div>
     </section>
   );
