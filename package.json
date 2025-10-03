@@ -17,6 +17,7 @@
     "reinstall": "rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@payloadcms/db-postgres": "^3.50.0",
     "@payloadcms/live-preview-react": "^3.50.0",
     "@payloadcms/next": "^3.50.0",
@@ -43,8 +44,12 @@
     "prettier-plugin-tailwindcss": "^0.6.14",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-hook-form": "^7.63.0",
+    "react-icons": "^5.5.0",
+    "resend": "^6.1.2",
     "sharp": "^0.34.3",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

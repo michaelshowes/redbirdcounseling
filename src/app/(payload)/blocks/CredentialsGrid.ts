@@ -15,11 +15,15 @@ export const CredentialsGrid: Block = {
       type: 'text'
     },
     {
-      name: 'description',
+      name: 'description_old',
       type: 'textarea',
       admin: {
         rows: 3
       }
+    },
+    {
+      name: 'description',
+      type: 'richText'
     },
     linkGroup({
       overrides: {

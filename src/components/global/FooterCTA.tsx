@@ -9,7 +9,7 @@ export default async function FooterCTA() {
   const { cta } = footer;
 
   return (
-    <section className='section-spacing relative mx-auto mt-20 -mb-20 w-full max-w-[1220px] overflow-hidden rounded-2xl bg-neutral-100 py-10 shadow-sm md:py-20'>
+    <section className='section-spacing relative mx-auto mt-20 -mb-20 w-full max-w-[1220px] overflow-hidden rounded-2xl bg-white py-10 shadow-sm md:py-20'>
       {/* Scrolling Background Text */}
       {/* <div className={'absolute top-0 isolate'}>
         <Marquee

@@ -10,7 +10,7 @@ export default async function SiteHeader() {
   const menu = await getMenu('main');
 
   return (
-    <header className={'site-padding bg-neutral-100'}>
+    <header className={'site-padding bg-white'}>
       <div
         className={
           'mx-auto flex w-full max-w-[1440px] items-center justify-between'

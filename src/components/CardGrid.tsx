@@ -40,7 +40,7 @@ function Card({ card }: { card: CardItem }) {
             key={i}
             href={link.url || ''}
             className={
-              'group relative inline-flex items-center gap-1 px-2 transition-all duration-200 hover:text-neutral-100'
+              'group relative inline-flex items-center gap-1 px-2 transition-all duration-200 hover:text-white'
             }
           >
             <span

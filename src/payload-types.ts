@@ -408,7 +408,22 @@ export interface MediaBlock {
 export interface CredentialsGrid {
   title?: string | null;
   headline?: string | null;
-  description?: string | null;
+  description_old?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   links?:
     | {
         link: {
@@ -889,8 +904,68 @@ export interface Setting {
   };
   footer: {
     contact: {
-      phone: string;
+      phone?: string | null;
       email: string;
+      address?: {
+        street?: string | null;
+        city?: string | null;
+        state?:
+          | (
+              | 'AL'
+              | 'AK'
+              | 'AZ'
+              | 'AR'
+              | 'CA'
+              | 'CO'
+              | 'CT'
+              | 'DE'
+              | 'FL'
+              | 'GA'
+              | 'HI'
+              | 'ID'
+              | 'IL'
+              | 'IN'
+              | 'IA'
+              | 'KS'
+              | 'KY'
+              | 'LA'
+              | 'ME'
+              | 'MD'
+              | 'MA'
+              | 'MI'
+              | 'MN'
+              | 'MS'
+              | 'MO'
+              | 'MT'
+              | 'NE'
+              | 'NV'
+              | 'NH'
+              | 'NJ'
+              | 'NM'
+              | 'NY'
+              | 'NC'
+              | 'ND'
+              | 'OH'
+              | 'OK'
+              | 'OR'
+              | 'PA'
+              | 'RI'
+              | 'SC'
+              | 'SD'
+              | 'TN'
+              | 'TX'
+              | 'UT'
+              | 'VT'
+              | 'VA'
+              | 'WA'
+              | 'DC'
+              | 'WV'
+              | 'WI'
+              | 'WY'
+            )
+          | null;
+        zip?: string | null;
+      };
     };
     cta: {
       eyebrow?: string | null;
@@ -905,6 +980,14 @@ export interface Setting {
         url?: string | null;
         label: string;
       };
+    };
+  };
+  contactForm: {
+    contactForm: {
+      /**
+       * The email address to send the form to.
+       */
+      recipient: string;
     };
   };
   updatedAt?: string | null;
@@ -939,6 +1022,14 @@ export interface SettingsSelect<T extends boolean = true> {
           | {
               phone?: T;
               email?: T;
+              address?:
+                | T
+                | {
+                    street?: T;
+                    city?: T;
+                    state?: T;
+                    zip?: T;
+                  };
             };
         cta?:
           | T
@@ -954,6 +1045,15 @@ export interface SettingsSelect<T extends boolean = true> {
                     url?: T;
                     label?: T;
                   };
+            };
+      };
+  contactForm?:
+    | T
+    | {
+        contactForm?:
+          | T
+          | {
+              recipient?: T;
             };
       };
   updatedAt?: T;

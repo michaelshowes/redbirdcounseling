@@ -61,7 +61,7 @@ export default function RichText(props: Props) {
         {
           container: enableGutter,
           'max-w-none': !enableGutter,
-          'prose md:prose-md dark:prose-invert mx-auto prose-ul:marker:text-redbird': enableProse
+          'prose md:prose-md prose-ul:marker:text-redbird mx-auto': enableProse
         },
         className
       )}

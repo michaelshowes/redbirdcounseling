@@ -1,7 +1,10 @@
 import Image from 'next/image';
 
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
+
 import { CredentialsGrid as CredentialsGridProps } from '@/payload-types';
 
+import RichText from './RichTextRenderer';
 import SectionHeader from './shared/SectionHeader';
 import { Button } from './ui/button';
 
@@ -29,7 +32,8 @@ export default function CredentialsGrid(props: CredentialsGridProps) {
               align={'left'}
               className={'mb-4'}
             />
-            <p>{description}</p>
+            {/* <p>{description}</p> */}
+            <RichText data={description as DefaultTypedEditorState} />
             <Button
               size={'lg'}
               className={'mt-8 lg:mt-12'}
@@ -49,7 +53,7 @@ export default function CredentialsGrid(props: CredentialsGridProps) {
             <div
               key={credential.id}
               className={
-                'rounded-2xl border border-neutral-300 bg-neutral-100 p-6 lg:p-12'
+                'rounded-2xl border border-neutral-300 bg-white p-6 lg:p-12'
               }
             >
               <h3 className={'mb-3 text-2xl'}>{credential.title}</h3>

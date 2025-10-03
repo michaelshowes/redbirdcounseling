@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 import RichTextRenderer from '@/components/RichTextRenderer';
+import DraftModeBanner from '@/components/global/DraftModeBanner';
 import ServiceDetailHero from '@/components/heroes/ServiceDetailHero';
 import { LivePreviewListener } from '@/components/utils/LivePreviewListener';
 import { getServiceBySlug } from '@/db/queries/services';
@@ -24,6 +25,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   return (
     <div>
+      <DraftModeBanner
+        collection={'services'}
+        id={service.id}
+      />
       {draft && <LivePreviewListener />}
       <ServiceDetailHero {...service.hero} />
       <div className={'mx-auto max-w-[700px]'}>

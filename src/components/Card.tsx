@@ -34,7 +34,7 @@ export default function Card({
     <article
       className={cn(
         'relative flex h-full flex-col rounded-2xl p-4 transition-all duration-200',
-        fullCardLink && 'hover:bg-neutral-100'
+        fullCardLink && 'hover:bg-white'
       )}
     >
       <div
@@ -53,7 +53,7 @@ export default function Card({
       <h3 className={'mb-6 border-b border-neutral-400 pb-6'}>
         {fullCardLink ? (
           <Link
-            href={`/${link.reference?.value?.slug}`}
+            href={link.url || '#'}
             className={'text-[length:inherit]'}
           >
             <span className={'absolute inset-0'} />
@@ -76,7 +76,7 @@ export default function Card({
                 : link.url || '#'
             }
             className={
-              'group relative inline-flex items-center gap-1 px-2 transition-all duration-200 hover:text-neutral-100'
+              'group relative inline-flex items-center gap-1 px-2 transition-all duration-200 hover:text-white'
             }
           >
             <span

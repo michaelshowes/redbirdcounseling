@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { MailIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
+
 import { getServices } from '@/db/queries/services';
 import { getSettings } from '@/db/queries/settings';
 
@@ -10,7 +12,7 @@ export default async function SiteFooter() {
 
   return (
     <footer className='bg-secondary-1 pt-40'>
-      <div className='md: site-padding mx-auto flex max-w-[300px] flex-col justify-between gap-4 pb-10 md:max-w-[1220px] md:flex-row md:items-end md:gap-8'>
+      <div className='md:site-padding mx-auto flex max-w-[300px] flex-col justify-between gap-4 pb-10 md:max-w-[1220px] md:flex-row md:gap-8'>
         <div className={'relative size-60 self-center md:size-40'}>
           <Image
             src={'/images/logo.svg'}
@@ -23,7 +25,7 @@ export default async function SiteFooter() {
         <div>
           <h3 className={'mb-2'}>Services</h3>
           <nav>
-            <ul>
+            <ul className={'flex flex-col gap-2'}>
               {services.map((service) => (
                 <li key={service.id}>
                   <a
@@ -41,15 +43,16 @@ export default async function SiteFooter() {
         {/* Contact */}
         <div>
           <h3 className={'mb-2'}>Contact</h3>
-          <div>
+          <div className={'flex flex-col gap-2'}>
             {contact.phone && (
-              <p>
-                <span className='font-medium'>P:</span> {contact.phone}
+              <p className={'flex items-center gap-2 text-base'}>
+                <PhoneIcon className={'size-4'} />
+                {contact.phone}
               </p>
             )}
             {contact.email && (
-              <p>
-                <span className='font-medium'>E: </span>
+              <p className={'flex items-center gap-2'}>
+                <MailIcon className={'size-4'} />
                 <a
                   href={`mailto:${contact.email}`}
                   className={'text-base'}
@@ -58,11 +61,21 @@ export default async function SiteFooter() {
                 </a>
               </p>
             )}
+            {contact.address && (
+              <div className={'flex gap-2 text-base'}>
+                <MapPinIcon className={'size-4 translate-y-1'} />
+                <p>
+                  <span className={'block'}>{contact.address.street}</span>
+                  {contact.address.city}, {contact.address.state}{' '}
+                  {contact.address.zip}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      <div className={'bg-neutral-100 py-6'}>
+      <div className={'bg-white py-6'}>
         <div className={'site-padding'}>
           <p className={'text-body-small text-center'}>
             &copy; {new Date().getFullYear()} Redbird Counseling and Consulting.

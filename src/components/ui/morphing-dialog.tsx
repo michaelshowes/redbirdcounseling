@@ -7,19 +7,21 @@ import React, {
   useId,
   useMemo,
   useRef,
-  useState,
+  useState
 } from 'react';
+
+import { XIcon } from 'lucide-react';
 import {
-  motion,
   AnimatePresence,
   MotionConfig,
   Transition,
   Variant,
+  motion
 } from 'motion/react';
 import { createPortal } from 'react-dom';
-import { cn } from '@/lib/utils';
-import { XIcon } from 'lucide-react';
+
 import useClickOutside from '@/hooks/useClickOutside';
+import { cn } from '@/lib/utils';
 
 export type MorphingDialogContextType = {
   isOpen: boolean;
@@ -48,7 +50,7 @@ export type MorphingDialogProviderProps = {
 
 function MorphingDialogProvider({
   children,
-  transition,
+  transition
 }: MorphingDialogProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const uniqueId = useId();
@@ -59,7 +61,7 @@ function MorphingDialogProvider({
       isOpen,
       setIsOpen,
       uniqueId,
-      triggerRef,
+      triggerRef
     }),
     [isOpen, uniqueId]
   );
@@ -95,7 +97,7 @@ function MorphingDialogTrigger({
   children,
   className,
   style,
-  triggerRef,
+  triggerRef
 }: MorphingDialogTriggerProps) {
   const { setIsOpen, isOpen, uniqueId } = useMorphingDialog();
 
@@ -140,7 +142,7 @@ export type MorphingDialogContentProps = {
 function MorphingDialogContent({
   children,
   className,
-  style,
+  style
 }: MorphingDialogContentProps) {
   const { setIsOpen, isOpen, uniqueId, triggerRef } = useMorphingDialog();
   const containerRef = useRef<HTMLDivElement>(null!);
@@ -237,12 +239,15 @@ function MorphingDialogContainer({ children }: MorphingDialogContainerProps) {
   if (!mounted) return null;
 
   return createPortal(
-    <AnimatePresence initial={false} mode='sync'>
+    <AnimatePresence
+      initial={false}
+      mode='sync'
+    >
       {isOpen && (
         <>
           <motion.div
             key={`backdrop-${uniqueId}`}
-            className='fixed inset-0 h-full w-full bg-white/40 backdrop-blur-xs dark:bg-black/40'
+            className='fixed inset-0 h-full w-full bg-white/40 backdrop-blur-xs'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -266,7 +271,7 @@ export type MorphingDialogTitleProps = {
 function MorphingDialogTitle({
   children,
   className,
-  style,
+  style
 }: MorphingDialogTitleProps) {
   const { uniqueId } = useMorphingDialog();
 
@@ -291,7 +296,7 @@ export type MorphingDialogSubtitleProps = {
 function MorphingDialogSubtitle({
   children,
   className,
-  style,
+  style
 }: MorphingDialogSubtitleProps) {
   const { uniqueId } = useMorphingDialog();
 
@@ -321,7 +326,7 @@ function MorphingDialogDescription({
   children,
   className,
   variants,
-  disableLayoutAnimation,
+  disableLayoutAnimation
 }: MorphingDialogDescriptionProps) {
   const { uniqueId } = useMorphingDialog();
 
@@ -356,7 +361,7 @@ function MorphingDialogImage({
   src,
   alt,
   className,
-  style,
+  style
 }: MorphingDialogImageProps) {
   const { uniqueId } = useMorphingDialog();
 
@@ -384,7 +389,7 @@ export type MorphingDialogCloseProps = {
 function MorphingDialogClose({
   children,
   className,
-  variants,
+  variants
 }: MorphingDialogCloseProps) {
   const { setIsOpen, uniqueId } = useMorphingDialog();
 
@@ -418,5 +423,5 @@ export {
   MorphingDialogTitle,
   MorphingDialogSubtitle,
   MorphingDialogDescription,
-  MorphingDialogImage,
+  MorphingDialogImage
 };

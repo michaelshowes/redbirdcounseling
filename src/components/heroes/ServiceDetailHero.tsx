@@ -16,9 +16,7 @@ export default async function ServiceDetailHero(props: Service['hero']) {
         'section-spacing bg-secondary-1 relative mb-[100px] pb-0 md:px-0'
       }
     >
-      <span
-        className={'absolute right-0 bottom-0 left-0 h-20 bg-neutral-100'}
-      />
+      <span className={'absolute right-0 bottom-0 left-0 h-20 bg-white'} />
       <div
         className={
           'md:site-padding mx-auto mb-10 max-w-[1440px] text-center lg:mb-20'
@@ -45,13 +43,6 @@ export default async function ServiceDetailHero(props: Service['hero']) {
           'relative mx-auto h-[200px] max-w-[1440px] overflow-hidden rounded-2xl sm:h-[300px] md:h-[400px]'
         }
       >
-        {/* <Image
-          src={'https://placehold.co/1440x400?text=Hello+World'}
-          alt={'Service Image'}
-          width={image?.width || 1440}
-          height={image?.height || 400}
-          className={'object-cover'}
-        /> */}
         <ImageWithPlaceholder image={image} />
       </div>
     </section>

@@ -5,6 +5,7 @@ import FooterCTA from '@/components/global/FooterCTA';
 import SiteFooter from '@/components/global/SiteFooter';
 import SiteHeader from '@/components/global/SiteHeader';
 import { sentient, sora } from '@/lib/fonts';
+import { cn } from '@/lib/utils';
 
 import '../../globals.css';
 
@@ -25,16 +26,11 @@ export default async function RootLayout({
       lang='en'
       className={`${sentient.variable} ${sora.variable} h-full`}
     >
-      <body className={'h-full'}>
-        {draft && (
-          <div
-            className={
-              'fixed top-0 left-0 z-50 w-full bg-neutral-800/90 p-2 text-center text-neutral-100 backdrop-blur-xs'
-            }
-          >
-            Draft Mode
-          </div>
-        )}
+      <body
+        className={cn('h-full', {
+          'pt-[66px] md:pt-[46px]': draft
+        })}
+      >
         <SiteHeader />
         {children}
         <FooterCTA />

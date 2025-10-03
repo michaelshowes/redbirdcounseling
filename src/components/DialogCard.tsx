@@ -23,7 +23,7 @@ export function DialogCard() {
         style={{
           borderRadius: '12px'
         }}
-        className='flex max-w-[270px] flex-col overflow-hidden border border-zinc-950/10 bg-white dark:border-zinc-50/10 dark:bg-zinc-900'
+        className='flex max-w-[270px] flex-col overflow-hidden border border-zinc-950/10 bg-white'
       >
         <MorphingDialogImage
           src='https://picsum.photos/498/344'
@@ -32,10 +32,10 @@ export function DialogCard() {
         />
         <div className='flex grow flex-row items-end justify-between px-3 py-2'>
           <div>
-            <MorphingDialogTitle className='text-zinc-950 dark:text-zinc-50'>
+            <MorphingDialogTitle className='text-zinc-950'>
               EB27
             </MorphingDialogTitle>
-            <MorphingDialogSubtitle className='text-zinc-700 dark:text-zinc-400'>
+            <MorphingDialogSubtitle className='text-zinc-700'>
               Edouard Wilfrid Buquet
             </MorphingDialogSubtitle>
           </div>
@@ -46,7 +46,7 @@ export function DialogCard() {
           style={{
             borderRadius: '24px'
           }}
-          className='pointer-events-auto relative flex h-auto w-full flex-col overflow-hidden border border-zinc-950/10 bg-white sm:w-[500px] dark:border-zinc-50/10 dark:bg-zinc-900'
+          className='pointer-events-auto relative flex h-auto w-full flex-col overflow-hidden border border-zinc-950/10 bg-white sm:w-[500px]'
         >
           <MorphingDialogImage
             src='https://picsum.photos/498/344'
@@ -54,10 +54,10 @@ export function DialogCard() {
             className='h-full w-full'
           />
           <div className='p-6'>
-            <MorphingDialogTitle className='text-2xl text-zinc-950 dark:text-zinc-50'>
+            <MorphingDialogTitle className='text-2xl text-zinc-950'>
               EB27
             </MorphingDialogTitle>
-            <MorphingDialogSubtitle className='text-zinc-700 dark:text-zinc-400'>
+            <MorphingDialogSubtitle className='text-zinc-700'>
               Edouard Wilfrid Buquet
             </MorphingDialogSubtitle>
             <MorphingDialogDescription
@@ -68,7 +68,7 @@ export function DialogCard() {
                 exit: { opacity: 0, scale: 0.8, y: 100 }
               }}
             >
-              <p className='mt-2 text-zinc-500 dark:text-zinc-500'>
+              <p className='mt-2 text-zinc-500'>
                 Little is known about the life of Édouard-Wilfrid Buquet. He was
                 born in France in 1866, but the time and place of his death is
                 unfortunately a mystery.
