@@ -408,8 +408,8 @@ export interface MediaBlock {
 export interface CredentialsGrid {
   title?: string | null;
   headline?: string | null;
-  description_old?: string | null;
-  description?: {
+  description?: string | null;
+  richTextDescription?: {
     root: {
       type: string;
       children: {
@@ -982,12 +982,12 @@ export interface Setting {
       };
     };
   };
-  contactForm: {
-    contactForm: {
+  contactForm?: {
+    contactForm?: {
       /**
        * The email address to send the form to.
        */
-      recipient: string;
+      recipient?: string | null;
     };
   };
   updatedAt?: string | null;

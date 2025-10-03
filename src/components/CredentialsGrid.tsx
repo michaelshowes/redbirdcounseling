@@ -9,7 +9,7 @@ import SectionHeader from './shared/SectionHeader';
 import { Button } from './ui/button';
 
 export default function CredentialsGrid(props: CredentialsGridProps) {
-  const { title, headline, description, links, credentials } = props;
+  const { title, headline, richTextDescription, links, credentials } = props;
 
   return (
     <section className={'section-spacing'}>
@@ -32,8 +32,7 @@ export default function CredentialsGrid(props: CredentialsGridProps) {
               align={'left'}
               className={'mb-4'}
             />
-            {/* <p>{description}</p> */}
-            <RichText data={description as DefaultTypedEditorState} />
+            <RichText data={richTextDescription as DefaultTypedEditorState} />
             <Button
               size={'lg'}
               className={'mt-8 lg:mt-12'}
