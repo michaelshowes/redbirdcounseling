@@ -28,6 +28,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
       <DraftModeBanner
         collection={'services'}
         id={service.id}
+        status={service._status}
       />
       {draft && <LivePreviewListener />}
       <ServiceDetailHero {...service.hero} />
