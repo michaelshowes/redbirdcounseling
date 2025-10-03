@@ -27,13 +27,19 @@ export default function InfoGrid(props: InfoGridProps) {
                 'flex items-start gap-4 rounded-2xl border border-neutral-300 bg-neutral-100 p-6 md:px-8 md:py-10'
               }
             >
-              <Image
-                src={`/icons/${item.icon}.svg`}
-                alt={'alt'}
-                width={32}
-                height={32}
-              />
-              <div>
+              <div className={'relative'}>
+                <div
+                  className={
+                    'absolute -top-5 -left-6 size-10 lg:-top-5 lg:-left-6'
+                  }
+                >
+                  <Image
+                    src={'/images/redbird.svg'}
+                    alt={'Logo'}
+                    fill
+                    className={'rounded-full'}
+                  />
+                </div>
                 <h3 className={'text-2xl'}>{item.title}</h3>
                 <p>{item.description}</p>
               </div>
