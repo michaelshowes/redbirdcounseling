@@ -1,10 +1,13 @@
 // import CardGrid from './CardGrid';
 import { draftMode } from 'next/headers';
 
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
+
 import { getServices } from '@/db/queries/services';
 import { Media, Page } from '@/payload-types';
 
 import Card from '../Card';
+import RichText from '../RichTextRenderer';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
 export default async function ServicesHero({
@@ -13,7 +16,7 @@ export default async function ServicesHero({
   servicesHero: Page['hero'];
 }) {
   // @ts-expect-error - hero exists
-  const { title, subtext } = servicesHero || {};
+  const { title, richTextSubtext } = servicesHero || {};
   const { isEnabled: draft } = await draftMode();
   const services = await getServices();
 
@@ -38,7 +41,10 @@ export default async function ServicesHero({
               />
             )}
           </h1>
-          <p className={'mx-auto max-w-[765px]'}>{subtext}</p>
+          <RichText
+            className={'mx-auto max-w-[765px]'}
+            data={richTextSubtext as DefaultTypedEditorState}
+          />
         </header>
 
         <div className={'[&>section]:py-0'}>
@@ -48,6 +54,8 @@ export default async function ServicesHero({
             }
           >
             {services.map((service) => {
+              if (!service.title) return null;
+
               return (
                 <Card
                   key={service.id}

@@ -26,6 +26,10 @@ export const homeHeroFields: Field[] = [
         type: 'textarea'
       },
       {
+        name: 'richTextSubtext',
+        type: 'richText'
+      },
+      {
         name: 'image',
         type: 'upload',
         relationTo: 'media',

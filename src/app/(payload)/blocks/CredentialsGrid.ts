@@ -20,6 +20,7 @@ export const CredentialsGrid: Block = {
     },
     {
       name: 'richTextDescription',
+      label: 'Description',
       type: 'richText'
     },
     linkGroup({

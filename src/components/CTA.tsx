@@ -1,12 +1,15 @@
 import Link from 'next/link';
 
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
+
 import { CTA as CTAProps } from '@/payload-types';
 
+import RichText from './RichTextRenderer';
 import SectionHeader from './shared/SectionHeader';
 import { Button } from './ui/button';
 
 export default function CTA(props: CTAProps) {
-  const { title, headline, text, link } = props;
+  const { title, headline, richTextText, link } = props;
 
   return (
     <section className={'section-spacing'}>
@@ -15,7 +18,7 @@ export default function CTA(props: CTAProps) {
           title={title || ''}
           headline={headline || ''}
         />
-        <p>{text}</p>
+        <RichText data={richTextText as DefaultTypedEditorState} />
         <Button
           variant={'secondary'}
           size={'lg'}

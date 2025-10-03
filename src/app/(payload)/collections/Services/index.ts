@@ -94,6 +94,10 @@ export const Services: CollectionConfig = {
               type: 'textarea'
             },
             {
+              name: 'richTextSubtext',
+              type: 'richText'
+            },
+            {
               name: 'image',
               type: 'upload',
               relationTo: 'media',

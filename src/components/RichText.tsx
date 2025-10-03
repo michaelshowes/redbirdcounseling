@@ -17,7 +17,10 @@ export default function RichText(props: RichTextProps) {
         />
 
         <section className={'mx-auto w-full max-w-[800px]'}>
-          <RichTextRenderer data={content as DefaultTypedEditorState} />
+          <RichTextRenderer
+            data={content as DefaultTypedEditorState}
+            enableGutter
+          />
         </section>
       </article>
     </div>

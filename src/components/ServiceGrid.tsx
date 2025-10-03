@@ -48,6 +48,8 @@ export default async function ServiceGrid({
           {services
             .slice(0, showCount === 'all' ? undefined : showCount)
             .map((service) => {
+              if (!service.title) return null;
+
               return (
                 <Card
                   key={service.id}

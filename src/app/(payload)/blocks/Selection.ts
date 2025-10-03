@@ -22,6 +22,11 @@ export const Selection: Block = {
           type: 'textarea'
         }
       ]
+    },
+    {
+      name: 'footerText',
+      label: 'Footer Text',
+      type: 'richText'
     }
   ]
 };

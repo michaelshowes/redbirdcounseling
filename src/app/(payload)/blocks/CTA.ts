@@ -25,6 +25,11 @@ export const CTA: Block = {
       name: 'text',
       type: 'textarea'
     },
+    {
+      name: 'richTextText',
+      label: 'Text',
+      type: 'richText'
+    },
     link()
   ]
 };

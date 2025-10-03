@@ -2,12 +2,15 @@
 
 import Image from 'next/image';
 
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
+
 import { Selection as SelectionProps } from '@/payload-types';
 
+import RichText from './RichTextRenderer';
 import SectionHeader from './shared/SectionHeader';
 
 export default function Selection(props: SelectionProps) {
-  const { title, items } = props;
+  const { title, items, footerText } = props;
 
   return (
     <section className={'section-spacing'}>
@@ -37,6 +40,10 @@ export default function Selection(props: SelectionProps) {
               <p className={'text-base'}>{item.text}</p>
             </div>
           ))}
+        </div>
+
+        <div>
+          <RichText data={footerText as DefaultTypedEditorState} />
         </div>
       </div>
     </section>

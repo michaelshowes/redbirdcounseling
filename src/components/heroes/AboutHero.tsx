@@ -1,8 +1,11 @@
 import { draftMode } from 'next/headers';
 import Image from 'next/image';
 
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
+
 import { Page } from '@/payload-types';
 
+import RichText from '../RichTextRenderer';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
 export default async function AboutHero({
@@ -11,7 +14,7 @@ export default async function AboutHero({
   aboutHero: Page['hero'];
 }) {
   // @ts-expect-error - hero exists
-  const { title, subtext, image, secondaryImage } = aboutHero || {};
+  const { title, richTextSubtext, image, secondaryImage } = aboutHero || {};
   const { isEnabled: draft } = await draftMode();
 
   return (
@@ -51,7 +54,10 @@ export default async function AboutHero({
               />
             )}
           </h1>
-          <p className={'max-w-[520px]'}>{subtext}</p>
+          <RichText
+            className={'max-w-[520px]'}
+            data={richTextSubtext as DefaultTypedEditorState}
+          />
         </header>
 
         <div className={'grid aspect-[1440/770] grid-cols-[3fr_2fr] gap-12'}>

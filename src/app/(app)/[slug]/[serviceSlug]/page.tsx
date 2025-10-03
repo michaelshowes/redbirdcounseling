@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
+import { RenderBlocks } from '@/components/RenderBlocks';
 import RichTextRenderer from '@/components/RichTextRenderer';
 import DraftModeBanner from '@/components/global/DraftModeBanner';
 import ServiceDetailHero from '@/components/heroes/ServiceDetailHero';
@@ -38,7 +39,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
           enableProse
         />
       </div>
-      ServicePage
+      <div className={'[&>section]:even:bg-secondary-1'}>
+        {service?.content?.content && (
+          // @ts-expect-error - content exists
+          <RenderBlocks blocks={service.content.content} />
+        )}
+      </div>
     </div>
   );
 }

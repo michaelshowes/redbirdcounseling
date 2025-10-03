@@ -2,7 +2,8 @@ import {
   DefaultNodeTypes,
   type DefaultTypedEditorState,
   SerializedBlockNode,
-  SerializedLinkNode
+  SerializedLinkNode,
+  SerializedParagraphNode
 } from '@payloadcms/richtext-lexical';
 import {
   RichText as ConvertRichText,
@@ -15,7 +16,10 @@ import type { MediaBlock as MediaBlockProps } from '@/payload-types';
 
 import MediaBlock from './MediaBlock';
 
-type NodeTypes = DefaultNodeTypes | SerializedBlockNode<MediaBlockProps>;
+type NodeTypes =
+  | DefaultNodeTypes
+  | SerializedBlockNode<MediaBlockProps>
+  | SerializedParagraphNode;
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -52,12 +56,17 @@ type Props = {
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export default function RichText(props: Props) {
-  const { className, enableProse = true, enableGutter = true, ...rest } = props;
+  const {
+    className,
+    enableProse = false,
+    enableGutter = false,
+    ...rest
+  } = props;
   return (
     <ConvertRichText
       converters={jsxConverters}
       className={cn(
-        'payload-richtext items-center',
+        'payload-richtext items-center [&>p]:not-last:mb-4',
         {
           container: enableGutter,
           'max-w-none': !enableGutter,

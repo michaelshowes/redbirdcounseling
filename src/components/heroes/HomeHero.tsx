@@ -2,9 +2,12 @@ import { draftMode } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
+
 import { Button } from '@/components/ui/button';
 import { Media, Page } from '@/payload-types';
 
+import RichText from '../RichTextRenderer';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
 interface LinkType {
@@ -23,7 +26,7 @@ async function LeftSide({
   links
 }: {
   title: string;
-  subtext: string;
+  subtext: DefaultTypedEditorState;
   links: LinkType[];
 }) {
   const { isEnabled: draft } = await draftMode();
@@ -55,7 +58,8 @@ async function LeftSide({
           />
         )}
       </h1>
-      <p>{subtext}</p>
+      <RichText data={subtext} />
+
       <div className={'mt-6 flex flex-wrap gap-4'}>
         {links.map((link, i) => (
           <Button
@@ -96,7 +100,7 @@ function RightSide({ image }: { image: Media }) {
 
 export default function HomeHero({ homeHero }: { homeHero: Page['hero'] }) {
   // @ts-expect-error - hero exists
-  const { title, subtext, image, links } = homeHero || {};
+  const { title, richTextSubtext, image, links } = homeHero || {};
 
   return (
     <section
@@ -111,7 +115,7 @@ export default function HomeHero({ homeHero }: { homeHero: Page['hero'] }) {
       >
         <LeftSide
           title={title || ''}
-          subtext={subtext || ''}
+          subtext={(richTextSubtext as DefaultTypedEditorState) || ''}
           links={links as LinkType[]}
         />
         <RightSide image={image as Media} />

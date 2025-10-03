@@ -145,6 +145,21 @@ export interface CTA {
   title: string;
   headline: string;
   text?: string | null;
+  richTextText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   link: {
     type?: ('reference' | 'custom') | null;
     newTab?: boolean | null;
@@ -171,6 +186,21 @@ export interface Page {
     homeHero?: {
       title: string;
       subtext?: string | null;
+      richTextSubtext?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
       image: number | Media;
       links?:
         | {
@@ -191,6 +221,21 @@ export interface Page {
     aboutHero?: {
       title: string;
       subtext?: string | null;
+      richTextSubtext?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
       image: number | Media;
       secondaryImage: number | Media;
     };
@@ -204,6 +249,21 @@ export interface Page {
     servicesHero?: {
       title: string;
       subtext?: string | null;
+      richTextSubtext?: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
     };
   };
   content?: {
@@ -312,6 +372,21 @@ export interface Selection {
         id?: string | null;
       }[]
     | null;
+  footerText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'selection';
@@ -524,6 +599,21 @@ export interface Service {
   hero: {
     title?: string | null;
     subtext?: string | null;
+    richTextSubtext?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
     image: number | Media;
   };
   content: {
@@ -667,6 +757,7 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               title?: T;
               subtext?: T;
+              richTextSubtext?: T;
               image?: T;
               links?:
                 | T
@@ -688,6 +779,7 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               title?: T;
               subtext?: T;
+              richTextSubtext?: T;
               image?: T;
               secondaryImage?: T;
             };
@@ -707,6 +799,7 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               title?: T;
               subtext?: T;
+              richTextSubtext?: T;
             };
       };
   content?:
@@ -743,6 +836,7 @@ export interface ServicesSelect<T extends boolean = true> {
     | {
         title?: T;
         subtext?: T;
+        richTextSubtext?: T;
         image?: T;
       };
   content?:

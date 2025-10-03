@@ -7,7 +7,7 @@ import { contactFormSchema } from '@/lib/formSchemas';
 import { resend } from '@/lib/resend';
 
 export async function send(formData: z.infer<typeof contactFormSchema>) {
-  console.log(formData);
+  // console.log(formData);
 
   const { data, error } = await resend.emails.send({
     from: formData.email,

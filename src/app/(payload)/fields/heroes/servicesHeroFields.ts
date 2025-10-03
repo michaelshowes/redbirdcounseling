@@ -22,6 +22,10 @@ export const servicesHeroFields: Field[] = [
       {
         name: 'subtext',
         type: 'textarea'
+      },
+      {
+        name: 'richTextSubtext',
+        type: 'richText'
       }
     ]
   }

@@ -1,13 +1,16 @@
 import { draftMode } from 'next/headers';
 
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
+
 import { Media, Service } from '@/payload-types';
 
+import RichText from '../RichTextRenderer';
 import ImageWithPlaceholder from '../utils/ImageWithPlaceholder';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
 export default async function ServiceDetailHero(props: Service['hero']) {
   const { isEnabled: draft } = await draftMode();
-  const { title, subtext } = props || {};
+  const { title, richTextSubtext } = props || {};
   const image = props?.image as Media;
 
   return (
@@ -35,7 +38,10 @@ export default async function ServiceDetailHero(props: Service['hero']) {
             />
           )}
         </h1>
-        <p className={'mx-auto max-w-[765px]'}>{subtext}</p>
+        <RichText
+          className={'mx-auto max-w-[765px]'}
+          data={richTextSubtext as DefaultTypedEditorState}
+        />
       </div>
 
       <div
