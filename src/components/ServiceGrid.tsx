@@ -73,7 +73,7 @@ export default async function ServiceGrid({
                 link?.type === 'reference' &&
                 link.reference?.value &&
                 typeof link.reference.value === 'object'
-                  ? `/${link.reference.value.slug}`
+                  ? `/services/${link.reference.value.slug}`
                   : link?.url || '#'
               }
             >
