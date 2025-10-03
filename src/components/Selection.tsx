@@ -23,12 +23,14 @@ export default function Selection(props: SelectionProps) {
                     'absolute -top-7 -left-7 size-14 lg:-top-8 lg:-left-8'
                   }
                 >
-                  <Image
-                    src={'/images/redbird.svg'}
-                    alt={'Logo'}
-                    fill
-                    className={'rounded-full'}
-                  />
+                  {item.title && (
+                    <Image
+                      src={'/images/redbird.svg'}
+                      alt={'Logo'}
+                      fill
+                      className={'rounded-full'}
+                    />
+                  )}
                 </div>
                 <h3 className={'lg:text-display-3 mb-2'}>{item.title}</h3>
               </div>
