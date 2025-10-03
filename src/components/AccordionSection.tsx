@@ -1,7 +1,10 @@
 import Image from 'next/image';
 
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
+
 import { Accordion as AccordionProps } from '@/payload-types';
 
+import RichText from './RichTextRenderer';
 import SectionHeader from './shared/SectionHeader';
 import {
   Accordion,
@@ -22,7 +25,7 @@ export default function AccordionSection(props: AccordionProps) {
             title={title}
             headline={headline}
           />
-          {text && <p>{text}</p>}
+          {text && <RichText data={text as DefaultTypedEditorState} />}
 
           <Accordion
             type='single'

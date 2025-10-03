@@ -22,11 +22,8 @@ export const homeHeroFields: Field[] = [
         required: true
       },
       {
-        name: 'subtext',
-        type: 'textarea'
-      },
-      {
         name: 'richTextSubtext',
+        label: 'Subtext',
         type: 'richText'
       },
       {

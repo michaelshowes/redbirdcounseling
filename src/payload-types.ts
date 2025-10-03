@@ -144,7 +144,6 @@ export interface UserAuthOperations {
 export interface CTA {
   title: string;
   headline: string;
-  text?: string | null;
   richTextText?: {
     root: {
       type: string;
@@ -185,7 +184,6 @@ export interface Page {
   hero?: {
     homeHero?: {
       title: string;
-      subtext?: string | null;
       richTextSubtext?: {
         root: {
           type: string;
@@ -220,7 +218,6 @@ export interface Page {
     };
     aboutHero?: {
       title: string;
-      subtext?: string | null;
       richTextSubtext?: {
         root: {
           type: string;
@@ -248,7 +245,6 @@ export interface Page {
     };
     servicesHero?: {
       title: string;
-      subtext?: string | null;
       richTextSubtext?: {
         root: {
           type: string;
@@ -483,7 +479,6 @@ export interface MediaBlock {
 export interface CredentialsGrid {
   title?: string | null;
   headline?: string | null;
-  description?: string | null;
   richTextDescription?: {
     root: {
       type: string;
@@ -517,7 +512,6 @@ export interface CredentialsGrid {
   credentials?:
     | {
         title?: string | null;
-        description?: string | null;
         source?: string | null;
         year?: string | null;
         id?: string | null;
@@ -534,7 +528,21 @@ export interface CredentialsGrid {
 export interface Accordion {
   title: string;
   headline: string;
-  text?: string | null;
+  text?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   items?:
     | {
         question: string;
@@ -598,7 +606,6 @@ export interface Service {
   slugLock?: boolean | null;
   hero: {
     title?: string | null;
-    subtext?: string | null;
     richTextSubtext?: {
       root: {
         type: string;
@@ -756,7 +763,6 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               title?: T;
-              subtext?: T;
               richTextSubtext?: T;
               image?: T;
               links?:
@@ -778,7 +784,6 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               title?: T;
-              subtext?: T;
               richTextSubtext?: T;
               image?: T;
               secondaryImage?: T;
@@ -798,7 +803,6 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               title?: T;
-              subtext?: T;
               richTextSubtext?: T;
             };
       };
@@ -835,7 +839,6 @@ export interface ServicesSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        subtext?: T;
         richTextSubtext?: T;
         image?: T;
       };

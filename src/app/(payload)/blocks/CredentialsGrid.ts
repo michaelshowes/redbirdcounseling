@@ -15,10 +15,6 @@ export const CredentialsGrid: Block = {
       type: 'text'
     },
     {
-      name: 'description',
-      type: 'textarea'
-    },
-    {
       name: 'richTextDescription',
       label: 'Description',
       type: 'richText'
@@ -35,13 +31,6 @@ export const CredentialsGrid: Block = {
         {
           name: 'title',
           type: 'text'
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          admin: {
-            rows: 3
-          }
         },
         {
           name: 'source',

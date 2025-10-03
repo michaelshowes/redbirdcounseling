@@ -22,10 +22,6 @@ export const CTA: Block = {
       required: true
     },
     {
-      name: 'text',
-      type: 'textarea'
-    },
-    {
       name: 'richTextText',
       label: 'Text',
       type: 'richText'

@@ -90,11 +90,8 @@ export const Services: CollectionConfig = {
               type: 'text'
             },
             {
-              name: 'subtext',
-              type: 'textarea'
-            },
-            {
               name: 'richTextSubtext',
+              label: 'Subtext',
               type: 'richText'
             },
             {
