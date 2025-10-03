@@ -33,6 +33,13 @@ export const CredentialsGrid: Block = {
           type: 'text'
         },
         {
+          name: 'description',
+          type: 'textarea',
+          admin: {
+            rows: 3
+          }
+        },
+        {
           name: 'source',
           type: 'text'
         },

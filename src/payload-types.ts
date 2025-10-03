@@ -512,6 +512,7 @@ export interface CredentialsGrid {
   credentials?:
     | {
         title?: string | null;
+        description?: string | null;
         source?: string | null;
         year?: string | null;
         id?: string | null;
