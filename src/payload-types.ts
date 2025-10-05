@@ -596,10 +596,6 @@ export interface Accordion {
   items?:
     | {
         itemTitle: string;
-        /**
-         * Deprecated. This will be removed in the future. Use Item Text instead.
-         */
-        answer?: string | null;
         text?: {
           root: {
             type: string;

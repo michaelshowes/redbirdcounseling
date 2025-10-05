@@ -37,15 +37,6 @@ export const Accordion: Block = {
           required: true
         },
         {
-          name: 'answer',
-          type: 'textarea',
-          admin: {
-            readOnly: true,
-            description:
-              'Deprecated. This will be removed in the future. Use Item Text instead.'
-          }
-        },
-        {
           name: 'text',
           label: 'Item Text',
           type: 'richText'
