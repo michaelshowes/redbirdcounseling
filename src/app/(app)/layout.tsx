@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 
+import { Analytics } from '@vercel/analytics/next';
+
 import FooterCTA from '@/components/global/FooterCTA';
 import SiteFooter from '@/components/global/SiteFooter';
 import SiteHeader from '@/components/global/SiteHeader';
@@ -35,6 +37,7 @@ export default async function RootLayout({
         {children}
         <FooterCTA />
         <SiteFooter />
+        <Analytics />
       </body>
     </html>
   );
