@@ -14,17 +14,23 @@ const heroes = {
   basic: BasicHero,
   contact: ContactHero,
   services: ServicesHero
+} as const;
+
+type HeroType = keyof typeof heroes;
+
+export const HeroComponents: React.FC<{ data: Page['hero'] }> = ({ data }) => {
+  return <></>;
 };
 
-export default function RenderHero(props: Page) {
-  const { template } = props;
-
+export default function RenderHero({ template, hero }: Page) {
   if (!template) return null;
 
-  const HeroToRender = heroes[template as keyof typeof heroes];
+  if (template && template in heroes) {
+    const Hero = heroes[template as HeroType];
+    const heroData = hero?.[`${template}Hero`];
 
-  if (!HeroToRender) return null;
-
-  // @ts-expect-error - TODO: fix this
-  return <HeroToRender {...props.hero} />;
+    if (Hero) {
+      return <Hero {...(heroData as any)} />;
+    }
+  }
 }

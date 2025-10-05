@@ -2,16 +2,24 @@ import { draftMode } from 'next/headers';
 
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
-import { Media, Service } from '@/payload-types';
+import {
+  Media,
+  Service,
+  ServiceDetailHero as ServiceDetailHeroProps
+} from '@/payload-types';
 
 import RichText from '../RichTextRenderer';
 import ImageWithPlaceholder from '../utils/ImageWithPlaceholder';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
-export default async function ServiceDetailHero(props: Service['hero']) {
+type Props = ServiceDetailHeroProps & {
+  image: Media;
+};
+
+export default async function ServiceDetailHero(props: Props) {
   const { isEnabled: draft } = await draftMode();
   const { title, richTextSubtext } = props || {};
-  const image = props?.image as Media;
+  const image = props.image;
 
   return (
     <section

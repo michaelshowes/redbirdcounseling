@@ -84,6 +84,7 @@ export const Services: CollectionConfig = {
       tabs: [
         {
           name: 'hero',
+          interfaceName: 'ServiceDetailHero',
           fields: [
             {
               name: 'title',

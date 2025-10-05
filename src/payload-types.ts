@@ -182,85 +182,12 @@ export interface Page {
   title: string;
   template?: ('basic' | 'home' | 'about' | 'services' | 'faq' | 'contact') | null;
   hero?: {
-    homeHero?: {
-      title: string;
-      richTextSubtext?: {
-        root: {
-          type: string;
-          children: {
-            type: string;
-            version: number;
-            [k: string]: unknown;
-          }[];
-          direction: ('ltr' | 'rtl') | null;
-          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-          indent: number;
-          version: number;
-        };
-        [k: string]: unknown;
-      } | null;
-      image: number | Media;
-      links?:
-        | {
-            link: {
-              type?: ('reference' | 'custom') | null;
-              newTab?: boolean | null;
-              reference?: {
-                relationTo: 'pages';
-                value: number | Page;
-              } | null;
-              url?: string | null;
-              label: string;
-            };
-            id?: string | null;
-          }[]
-        | null;
-    };
-    aboutHero?: {
-      title: string;
-      richTextSubtext?: {
-        root: {
-          type: string;
-          children: {
-            type: string;
-            version: number;
-            [k: string]: unknown;
-          }[];
-          direction: ('ltr' | 'rtl') | null;
-          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-          indent: number;
-          version: number;
-        };
-        [k: string]: unknown;
-      } | null;
-      image: number | Media;
-      secondaryImage: number | Media;
-    };
-    faqHero?: {
-      image: number | Media;
-    };
-    contactHero?: {
-      title: string;
-      subtext?: string | null;
-    };
-    servicesHero?: {
-      title: string;
-      richTextSubtext?: {
-        root: {
-          type: string;
-          children: {
-            type: string;
-            version: number;
-            [k: string]: unknown;
-          }[];
-          direction: ('ltr' | 'rtl') | null;
-          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-          indent: number;
-          version: number;
-        };
-        [k: string]: unknown;
-      } | null;
-    };
+    basicHero?: BasicHero;
+    homeHero?: HomeHero;
+    aboutHero?: AboutHero;
+    faqHero?: FaqHero;
+    contactHero?: ContactHero;
+    servicesHero?: ServicesHero;
   };
   content?: {
     content?:
@@ -282,6 +209,29 @@ export interface Page {
   createdAt: string;
   deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BasicHero".
+ */
+export interface BasicHero {
+  title?: string | null;
+  subtext?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image?: (number | null) | Media;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -354,6 +304,105 @@ export interface FolderInterface {
   folderType?: 'media'[] | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HomeHero".
+ */
+export interface HomeHero {
+  title: string;
+  richTextSubtext?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image: number | Media;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutHero".
+ */
+export interface AboutHero {
+  title: string;
+  richTextSubtext?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image: number | Media;
+  secondaryImage: number | Media;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqHero".
+ */
+export interface FaqHero {
+  image: number | Media;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactHero".
+ */
+export interface ContactHero {
+  title: string;
+  subtext?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesHero".
+ */
+export interface ServicesHero {
+  title: string;
+  richTextSubtext?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -527,8 +576,8 @@ export interface CredentialsGrid {
  * via the `definition` "Accordion".
  */
 export interface Accordion {
-  title: string;
-  headline: string;
+  title?: string | null;
+  headline?: string | null;
   text?: {
     root: {
       type: string;
@@ -546,8 +595,26 @@ export interface Accordion {
   } | null;
   items?:
     | {
-        question: string;
-        answer: string;
+        itemTitle: string;
+        /**
+         * Deprecated. This will be removed in the future. Use Item Text instead.
+         */
+        answer?: string | null;
+        text?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         id?: string | null;
       }[]
     | null;
@@ -605,25 +672,7 @@ export interface Service {
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
-  hero: {
-    title?: string | null;
-    richTextSubtext?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    image: number | Media;
-  };
+  hero: ServiceDetailHero;
   content: {
     description: {
       root: {
@@ -656,6 +705,29 @@ export interface Service {
   createdAt: string;
   deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceDetailHero".
+ */
+export interface ServiceDetailHero {
+  title?: string | null;
+  richTextSubtext?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image: number | Media;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -760,52 +832,12 @@ export interface PagesSelect<T extends boolean = true> {
   hero?:
     | T
     | {
-        homeHero?:
-          | T
-          | {
-              title?: T;
-              richTextSubtext?: T;
-              image?: T;
-              links?:
-                | T
-                | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          newTab?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                        };
-                    id?: T;
-                  };
-            };
-        aboutHero?:
-          | T
-          | {
-              title?: T;
-              richTextSubtext?: T;
-              image?: T;
-              secondaryImage?: T;
-            };
-        faqHero?:
-          | T
-          | {
-              image?: T;
-            };
-        contactHero?:
-          | T
-          | {
-              title?: T;
-              subtext?: T;
-            };
-        servicesHero?:
-          | T
-          | {
-              title?: T;
-              richTextSubtext?: T;
-            };
+        basicHero?: T | BasicHeroSelect<T>;
+        homeHero?: T | HomeHeroSelect<T>;
+        aboutHero?: T | AboutHeroSelect<T>;
+        faqHero?: T | FaqHeroSelect<T>;
+        contactHero?: T | ContactHeroSelect<T>;
+        servicesHero?: T | ServicesHeroSelect<T>;
       };
   content?:
     | T
@@ -829,6 +861,71 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BasicHero_select".
+ */
+export interface BasicHeroSelect<T extends boolean = true> {
+  title?: T;
+  subtext?: T;
+  image?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HomeHero_select".
+ */
+export interface HomeHeroSelect<T extends boolean = true> {
+  title?: T;
+  richTextSubtext?: T;
+  image?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutHero_select".
+ */
+export interface AboutHeroSelect<T extends boolean = true> {
+  title?: T;
+  richTextSubtext?: T;
+  image?: T;
+  secondaryImage?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqHero_select".
+ */
+export interface FaqHeroSelect<T extends boolean = true> {
+  image?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactHero_select".
+ */
+export interface ContactHeroSelect<T extends boolean = true> {
+  title?: T;
+  subtext?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesHero_select".
+ */
+export interface ServicesHeroSelect<T extends boolean = true> {
+  title?: T;
+  richTextSubtext?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
@@ -836,13 +933,7 @@ export interface ServicesSelect<T extends boolean = true> {
   publishedAt?: T;
   slug?: T;
   slugLock?: T;
-  hero?:
-    | T
-    | {
-        title?: T;
-        richTextSubtext?: T;
-        image?: T;
-      };
+  hero?: T | ServiceDetailHeroSelect<T>;
   content?:
     | T
     | {
@@ -860,6 +951,15 @@ export interface ServicesSelect<T extends boolean = true> {
   createdAt?: T;
   deletedAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceDetailHero_select".
+ */
+export interface ServiceDetailHeroSelect<T extends boolean = true> {
+  title?: T;
+  richTextSubtext?: T;
+  image?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

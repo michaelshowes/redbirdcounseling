@@ -3,18 +3,20 @@ import Image from 'next/image';
 
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
-import { Page } from '@/payload-types';
+import { AboutHero as AboutHeroProps, Media, Page } from '@/payload-types';
 
 import RichText from '../RichTextRenderer';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
-export default async function AboutHero({
-  aboutHero
-}: {
-  aboutHero: Page['hero'];
-}) {
-  // @ts-expect-error - hero exists
-  const { title, richTextSubtext, image, secondaryImage } = aboutHero || {};
+type Props = AboutHeroProps & {
+  image: Media;
+  secondaryImage: Media;
+};
+
+export default async function AboutHero(props: Props) {
+  const { title, richTextSubtext } = props || {};
+  const image = props.image;
+  const secondaryImage = props.secondaryImage;
   const { isEnabled: draft } = await draftMode();
 
   return (
@@ -50,7 +52,7 @@ export default async function AboutHero({
             ) : (
               <TextGenerateEffect
                 hasPeriod
-                words={title}
+                words={title || ''}
               />
             )}
           </h1>
@@ -63,10 +65,10 @@ export default async function AboutHero({
         <div className={'grid aspect-[1440/770] grid-cols-[3fr_2fr] gap-12'}>
           <div className={'relative overflow-hidden rounded-2xl'}>
             <Image
-              src={image.url}
+              src={image.url || ''}
               alt={image.alt}
-              width={image.width}
-              height={image.height}
+              width={image.width || 0}
+              height={image.height || 0}
               priority
               className={'object-cover'}
             />
@@ -74,8 +76,8 @@ export default async function AboutHero({
 
           <div className={'relative overflow-hidden rounded-2xl'}>
             <Image
-              src={secondaryImage.url}
-              alt={secondaryImage.alt}
+              src={secondaryImage.url || ''}
+              alt={secondaryImage.alt || ''}
               fill
               priority
               className={'object-cover'}

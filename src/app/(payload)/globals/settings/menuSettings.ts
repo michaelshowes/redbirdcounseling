@@ -13,8 +13,15 @@ export const menuSettings: GlobalConfig['fields'] = [
       },
       {
         name: 'menuItems',
-        type: 'array',
         label: 'Menu Items',
+        type: 'array',
+        admin: {
+          components: {
+            RowLabel: {
+              path: '@/app/(payload)/components/ArrayRowLabel'
+            }
+          }
+        },
         fields: [
           {
             type: 'relationship',

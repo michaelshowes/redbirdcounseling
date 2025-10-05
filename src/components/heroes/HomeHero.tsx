@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 import { Button } from '@/components/ui/button';
-import { Media, Page } from '@/payload-types';
+import { HomeHero as HomeHeroProps, Media, Page } from '@/payload-types';
 
 import RichText from '../RichTextRenderer';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';
@@ -19,6 +19,10 @@ interface LinkType {
     type: string;
   };
 }
+
+type Props = HomeHeroProps & {
+  image: Media;
+};
 
 async function LeftSide({
   title,
@@ -98,15 +102,12 @@ function RightSide({ image }: { image: Media }) {
   );
 }
 
-export default function HomeHero({ homeHero }: { homeHero: Page['hero'] }) {
-  // @ts-expect-error - hero exists
-  const { title, richTextSubtext, image, links } = homeHero || {};
+export default function HomeHero(props: Props) {
+  const { title, richTextSubtext, image, links } = props || {};
 
   return (
     <section
-      className={
-        'bg-secondary-1 px-4 py-8 md:px-8 md:pr-0 lg:py-20 xl:mb-20 xl:pr-8'
-      }
+      className={'bg-secondary-1 px-4 py-8 md:px-8 md:pr-0 lg:py-20 xl:pr-8'}
     >
       <div
         className={
@@ -118,7 +119,7 @@ export default function HomeHero({ homeHero }: { homeHero: Page['hero'] }) {
           subtext={(richTextSubtext as DefaultTypedEditorState) || ''}
           links={links as LinkType[]}
         />
-        <RightSide image={image as Media} />
+        <RightSide image={image} />
       </div>
     </section>
   );

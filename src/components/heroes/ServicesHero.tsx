@@ -4,19 +4,22 @@ import { draftMode } from 'next/headers';
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 import { getServices } from '@/db/queries/services';
-import { Media, Page } from '@/payload-types';
+import {
+  Media,
+  Page,
+  ServicesHero as ServicesHeroProps
+} from '@/payload-types';
 
 import Card from '../Card';
 import RichText from '../RichTextRenderer';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
-export default async function ServicesHero({
-  servicesHero
-}: {
-  servicesHero: Page['hero'];
-}) {
-  // @ts-expect-error - hero exists
-  const { title, richTextSubtext } = servicesHero || {};
+type Props = ServicesHeroProps & {
+  image: Media;
+};
+
+export default async function ServicesHero(props: Props) {
+  const { title, richTextSubtext } = props || {};
   const { isEnabled: draft } = await draftMode();
   const services = await getServices();
 
@@ -37,7 +40,7 @@ export default async function ServicesHero({
             ) : (
               <TextGenerateEffect
                 hasPeriod
-                words={title}
+                words={title || ''}
               />
             )}
           </h1>

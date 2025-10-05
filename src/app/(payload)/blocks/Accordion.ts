@@ -6,13 +6,11 @@ export const Accordion: Block = {
   fields: [
     {
       name: 'title',
-      type: 'text',
-      required: true
+      type: 'text'
     },
     {
       name: 'headline',
-      type: 'text',
-      required: true
+      type: 'text'
     },
     {
       name: 'text',
@@ -21,16 +19,36 @@ export const Accordion: Block = {
     {
       name: 'items',
       type: 'array',
+      admin: {
+        components: {
+          RowLabel: {
+            path: '@/app/(payload)/components/AccordionRowLabel',
+            clientProps: {
+              customProp: 'customValue'
+            }
+          }
+        }
+      },
       fields: [
         {
-          name: 'question',
+          name: 'itemTitle',
+          label: 'Item Title',
           type: 'text',
           required: true
         },
         {
           name: 'answer',
           type: 'textarea',
-          required: true
+          admin: {
+            readOnly: true,
+            description:
+              'Deprecated. This will be removed in the future. Use Item Text instead.'
+          }
+        },
+        {
+          name: 'text',
+          label: 'Item Text',
+          type: 'richText'
         }
       ]
     }

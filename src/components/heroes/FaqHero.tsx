@@ -1,10 +1,13 @@
 import Image from 'next/image';
 
-import { Page } from '@/payload-types';
+import { FaqHero as FaqHeroProps, Media, Page } from '@/payload-types';
 
-export default function FaqHero({ faqHero }: { faqHero: Page['hero'] }) {
-  // @ts-expect-error - hero exists
-  const { image } = faqHero || {};
+type Props = FaqHeroProps & {
+  image: Media;
+};
+
+export default function FaqHero(props: Props) {
+  const image = props.image;
 
   return (
     <section className={'bg-secondary-1 relative px-8 pt-10'}>

@@ -4,6 +4,7 @@ export const aboutHeroFields: Field[] = [
   {
     name: 'aboutHero',
     type: 'group',
+    interfaceName: 'AboutHero',
     admin: {
       condition: (data) => {
         if (data.template === 'about') {

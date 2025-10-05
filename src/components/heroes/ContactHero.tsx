@@ -1,17 +1,16 @@
 import { draftMode } from 'next/headers';
 
-import { Page } from '@/payload-types';
+import { ContactHero as ContactHeroProps, Media, Page } from '@/payload-types';
 
 import ContactForm from '../ContactForm';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
-export default async function ContactHero({
-  contactHero
-}: {
-  contactHero: Page['hero'];
-}) {
-  // @ts-expect-error - hero exists
-  const { title, subtext } = contactHero || {};
+type Props = ContactHeroProps & {
+  image: Media;
+};
+
+export default async function ContactHero(props: Props) {
+  const { title, subtext } = props || {};
 
   const { isEnabled: draft } = await draftMode();
 
@@ -31,7 +30,7 @@ export default async function ContactHero({
           ) : (
             <TextGenerateEffect
               hasPeriod
-              words={title}
+              words={title || ''}
             />
           )}
         </h1>

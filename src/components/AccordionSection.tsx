@@ -22,8 +22,8 @@ export default function AccordionSection(props: AccordionProps) {
         <h1 className={'sr-only'}>{title}</h1>
         <div>
           <SectionHeader
-            title={title}
-            headline={headline}
+            title={title || ''}
+            headline={headline || ''}
           />
           {text && <RichText data={text as DefaultTypedEditorState} />}
 
@@ -31,7 +31,7 @@ export default function AccordionSection(props: AccordionProps) {
             type='single'
             collapsible
             className={
-              'bg-secondary-1 mt-20 rounded-2xl px-4 py-10 md:px-8 lg:px-32 lg:py-20'
+              'bg-secondary-1 rounded-2xl px-4 py-10 md:px-8 lg:px-32 lg:py-20'
             }
           >
             {items?.map((item, i) => (
@@ -42,7 +42,7 @@ export default function AccordionSection(props: AccordionProps) {
                 <AccordionTrigger
                   className={'cursor-pointer py-8 text-xl md:text-2xl'}
                 >
-                  {item.question}
+                  {item.itemTitle}
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className={'flex items-start gap-1'}>
@@ -53,7 +53,7 @@ export default function AccordionSection(props: AccordionProps) {
                         fill
                       />
                     </div>
-                    <p className={'mb-4 text-base'}>{item.answer}</p>
+                    <RichText data={item.text as DefaultTypedEditorState} />
                   </div>
                 </AccordionContent>
               </AccordionItem>

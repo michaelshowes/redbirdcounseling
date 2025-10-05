@@ -28,14 +28,12 @@ type BlockType = keyof typeof blockComponents;
 
 export const RenderBlocks: React.FC<{
   blocks: Page['content'];
-}> = (props) => {
-  const { blocks } = props;
-
+}> = ({ blocks }) => {
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0;
 
   if (hasBlocks) {
     return (
-      <Fragment>
+      <>
         {blocks.map((block) => {
           const { blockType } = block;
 
@@ -53,7 +51,7 @@ export const RenderBlocks: React.FC<{
           }
           return null;
         })}
-      </Fragment>
+      </>
     );
   }
 

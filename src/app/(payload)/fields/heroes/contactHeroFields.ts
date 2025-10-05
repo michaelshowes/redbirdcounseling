@@ -4,6 +4,7 @@ export const contactHeroFields: Field[] = [
   {
     name: 'contactHero',
     type: 'group',
+    interfaceName: 'ContactHero',
     admin: {
       condition: (data) => {
         if (data.template === 'contact') {

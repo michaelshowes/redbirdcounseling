@@ -8,6 +8,8 @@ import SectionHeader from './shared/SectionHeader';
 export default function RichText(props: RichTextProps) {
   const { title, headline, content } = props;
 
+  console.log();
+
   return (
     <div className={'section-spacing'}>
       <article className={'mx-auto max-w-[1440px]'}>

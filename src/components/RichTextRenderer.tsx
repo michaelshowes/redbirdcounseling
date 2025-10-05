@@ -35,6 +35,44 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 }) => ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
+  link: ({ node, nodesToJSX }) => {
+    const children = nodesToJSX({ nodes: node.children });
+
+    return (
+      <a
+        href={node.fields.url}
+        className={
+          'group relative isolate inline-block leading-normal hover:text-white'
+        }
+      >
+        <span
+          className={
+            'bg-redbird absolute top-[90%] right-0 bottom-0 left-0 -z-100 rounded-md text-white transition-all group-hover:top-0 group-hover:-right-1 group-hover:-left-1'
+          }
+        />
+        {children}
+      </a>
+    );
+  },
+  list: ({ node, nodesToJSX }) => {
+    const children = nodesToJSX({ nodes: node.children });
+
+    if (node.tag === 'ul') {
+      return (
+        <ul className={'marker:text-redbird mb-4 ml-4 list-disc'}>
+          {children}
+        </ul>
+      );
+    }
+
+    if (node.tag === 'ol') {
+      return (
+        <ol className={'marker:text-redbird mb-4 ml-4 list-decimal'}>
+          {children}
+        </ol>
+      );
+    }
+  },
   blocks: {
     'media-block': ({ node }) => (
       <MediaBlock
@@ -66,7 +104,7 @@ export default function RichText(props: Props) {
     <ConvertRichText
       converters={jsxConverters}
       className={cn(
-        'payload-richtext items-center [&>p]:not-last:mb-4',
+        'payload-richtext items-center [&>*]:text-base [&>p]:not-last:mb-4',
         {
           container: enableGutter,
           'max-w-none': !enableGutter,

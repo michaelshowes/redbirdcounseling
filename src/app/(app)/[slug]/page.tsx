@@ -25,7 +25,10 @@ export default async function Page({ params }: Props) {
         status={page._status}
       />
       {draft && <LivePreviewListener />}
-      <RenderHero {...page} />
+      <RenderHero
+        template={page.template}
+        hero={page.hero}
+      />
       <div className={'[&>section]:even:bg-secondary-1'}>
         {page?.content?.content && (
           // @ts-expect-error - content exists

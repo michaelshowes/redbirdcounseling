@@ -12,6 +12,7 @@ import { generatePreviewPath } from '@/utils/generatePreviewPath';
 import { authenticated } from '../../access/authenticated';
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished';
 import { aboutHeroFields } from '../../fields/heroes/aboutHeroFields';
+import { basicHeroFields } from '../../fields/heroes/basicHeroFields';
 import { contactHeroFields } from '../../fields/heroes/contactHeroFields';
 import { faqHeroFields } from '../../fields/heroes/faqHeroFields';
 import { homeHeroFields } from '../../fields/heroes/homeHeroFields';
@@ -29,10 +30,10 @@ export const Pages: CollectionConfig = {
     update: authenticated
   },
   trash: true,
-  defaultPopulate: {
-    title: true,
-    slug: true
-  },
+  // defaultPopulate: {
+  //   title: true,
+  //   slug: true
+  // },
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'updatedAt'],
@@ -85,30 +86,12 @@ export const Pages: CollectionConfig = {
       type: 'select',
       defaultValue: 'basic',
       options: [
-        {
-          label: 'Basic',
-          value: 'basic'
-        },
-        {
-          label: 'Home',
-          value: 'home'
-        },
-        {
-          label: 'About',
-          value: 'about'
-        },
-        {
-          label: 'Services',
-          value: 'services'
-        },
-        {
-          label: 'FAQ',
-          value: 'faq'
-        },
-        {
-          label: 'Contact',
-          value: 'contact'
-        }
+        { label: 'Basic', value: 'basic' },
+        { label: 'Home', value: 'home' },
+        { label: 'About', value: 'about' },
+        { label: 'Services', value: 'services' },
+        { label: 'FAQ', value: 'faq' },
+        { label: 'Contact', value: 'contact' }
       ]
     },
     {
@@ -117,6 +100,7 @@ export const Pages: CollectionConfig = {
         {
           name: 'hero',
           fields: [
+            ...basicHeroFields,
             ...homeHeroFields,
             ...aboutHeroFields,
             ...faqHeroFields,
