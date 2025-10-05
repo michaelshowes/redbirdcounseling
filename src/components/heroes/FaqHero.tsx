@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { FaqHero as FaqHeroProps, Media, Page } from '@/payload-types';
+import { FaqHero as FaqHeroProps, Media } from '@/payload-types';
 
 type Props = FaqHeroProps & {
   image: Media;

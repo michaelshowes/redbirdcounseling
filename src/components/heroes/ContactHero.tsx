@@ -1,6 +1,6 @@
 import { draftMode } from 'next/headers';
 
-import { ContactHero as ContactHeroProps, Media, Page } from '@/payload-types';
+import { ContactHero as ContactHeroProps, Media } from '@/payload-types';
 
 import ContactForm from '../ContactForm';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';

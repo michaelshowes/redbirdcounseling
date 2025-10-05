@@ -18,10 +18,6 @@ const heroes = {
 
 type HeroType = keyof typeof heroes;
 
-export const HeroComponents: React.FC<{ data: Page['hero'] }> = ({ data }) => {
-  return <></>;
-};
-
 export default function RenderHero({ template, hero }: Page) {
   if (!template) return null;
 

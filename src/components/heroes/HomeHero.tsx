@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 import { Button } from '@/components/ui/button';
-import { HomeHero as HomeHeroProps, Media, Page } from '@/payload-types';
+import { HomeHero as HomeHeroProps, Media } from '@/payload-types';
 
 import RichText from '../RichTextRenderer';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';

@@ -4,11 +4,7 @@ import { draftMode } from 'next/headers';
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 import { getServices } from '@/db/queries/services';
-import {
-  Media,
-  Page,
-  ServicesHero as ServicesHeroProps
-} from '@/payload-types';
+import { Media, ServicesHero as ServicesHeroProps } from '@/payload-types';
 
 import Card from '../Card';
 import RichText from '../RichTextRenderer';

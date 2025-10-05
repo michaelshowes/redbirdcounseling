@@ -4,7 +4,6 @@ import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 import {
   Media,
-  Service,
   ServiceDetailHero as ServiceDetailHeroProps
 } from '@/payload-types';
 

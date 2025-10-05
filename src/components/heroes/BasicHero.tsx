@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
-import { BasicHero as BasicHeroProps, Media, Page } from '@/payload-types';
+import { BasicHero as BasicHeroProps, Media } from '@/payload-types';
 
 import RichText from '../RichTextRenderer';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';
