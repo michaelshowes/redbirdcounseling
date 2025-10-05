@@ -9,6 +9,10 @@ import DraftModeBanner from '@/components/global/DraftModeBanner';
 import ServiceDetailHero from '@/components/heroes/ServiceDetailHero';
 import { LivePreviewListener } from '@/components/utils/LivePreviewListener';
 import { getServiceBySlug } from '@/db/queries/services';
+import {
+  Media,
+  ServiceDetailHero as ServiceDetailHeroProps
+} from '@/payload-types';
 
 type ServicePageProps = {
   params: Promise<{ slug: string; serviceSlug: string }>;
@@ -23,6 +27,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
   }
 
   const service = await getServiceBySlug(serviceSlug);
+  const hero = service.hero as ServiceDetailHeroProps & { image: Media };
 
   return (
     <div>
@@ -32,7 +37,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         status={service._status}
       />
       {draft && <LivePreviewListener />}
-      <ServiceDetailHero {...service.hero} />
+      <ServiceDetailHero {...hero} />
       <div className={'mx-auto max-w-[700px]'}>
         <RichTextRenderer
           data={service.content.description as DefaultTypedEditorState}

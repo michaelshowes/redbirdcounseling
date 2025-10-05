@@ -25,8 +25,11 @@ export default function RenderHero({ template, hero }: Page) {
     const Hero = heroes[template as HeroType];
     const heroData = hero?.[`${template}Hero`];
 
-    if (Hero) {
-      return <Hero {...(heroData as any)} />;
+    if (Hero && heroData) {
+      // Dynamic hero component rendering with CMS-managed props
+      // TypeScript can't verify the dynamic prop/component matching, but PayloadCMS schema ensures type safety
+      // @ts-expect-error - Dynamic component props from CMS
+      return <Hero {...heroData} />;
     }
   }
 }
