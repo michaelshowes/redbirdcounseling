@@ -6,7 +6,8 @@ import {
   Img,
   Preview,
   Tailwind,
-  Text
+  Text,
+  pixelBasedPreset
 } from '@react-email/components';
 
 import { ContactFormSchema } from '@/lib/formSchemas';
@@ -15,13 +16,17 @@ export function EmailTemplate(props: ContactFormSchema) {
   return (
     <Html>
       <Head />
-      <Tailwind>
+      <Tailwind
+        config={{
+          presets: [pixelBasedPreset]
+        }}
+      >
         <Body>
           <Preview>New message from {props.name}</Preview>
           <Container>
             <div className={'mb-8 flex flex-col items-center'}>
               <Img
-                src={'images/logo.png'}
+                src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/logo.png`}
                 alt='Redbird Counseling Logo'
                 width={100}
                 height={100}
