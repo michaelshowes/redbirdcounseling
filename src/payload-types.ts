@@ -560,10 +560,21 @@ export interface CredentialsGrid {
     | null;
   credentials?:
     | {
-        title?: string | null;
-        description?: string | null;
-        source?: string | null;
-        year?: string | null;
+        richTextDescription?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         id?: string | null;
       }[]
     | null;
@@ -1097,6 +1108,14 @@ export interface Setting {
       | null;
   };
   footer: {
+    serviceLinks?: {
+      services?:
+        | {
+            service?: (number | null) | Service;
+            id?: string | null;
+          }[]
+        | null;
+    };
     contact: {
       phone?: string | null;
       email: string;
@@ -1211,6 +1230,16 @@ export interface SettingsSelect<T extends boolean = true> {
   footer?:
     | T
     | {
+        serviceLinks?:
+          | T
+          | {
+              services?:
+                | T
+                | {
+                    service?: T;
+                    id?: T;
+                  };
+            };
         contact?:
           | T
           | {

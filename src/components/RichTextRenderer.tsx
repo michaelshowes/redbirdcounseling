@@ -35,6 +35,38 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 }) => ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
+  heading: ({ node, nodesToJSX }) => {
+    const children = nodesToJSX({ nodes: node.children });
+    const tag = node.tag;
+
+    const baseHeading = 'mb-4 font-semibold';
+
+    if (tag === 'h1') {
+      return <h1 className={cn('', baseHeading)}>{children}</h1>;
+    }
+
+    if (tag === 'h2') {
+      return <h2 className={cn('', baseHeading)}>{children}</h2>;
+    }
+
+    if (tag === 'h3') {
+      return <h3 className={cn('!text-xl', baseHeading)}>{children}</h3>;
+    }
+
+    if (tag === 'h4') {
+      return <h4 className={cn('', baseHeading)}>{children}</h4>;
+    }
+
+    if (tag === 'h5') {
+      return <h5 className={cn('', baseHeading)}>{children}</h5>;
+    }
+
+    if (tag === 'h6') {
+      return <h6 className={cn('', baseHeading)}>{children}</h6>;
+    }
+
+    return null;
+  },
   link: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children });
 

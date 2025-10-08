@@ -55,17 +55,9 @@ export default function CredentialsGrid(props: CredentialsGridProps) {
                 'rounded-2xl border border-neutral-300 bg-white p-6 lg:p-12'
               }
             >
-              <h3 className={'mb-3 text-2xl'}>{credential.title}</h3>
-              <p>{credential.description}</p>
-              <p
-                className={
-                  'text-redbird mt-8 flex justify-between gap-4 font-semibold uppercase lg:mt-16'
-                }
-              >
-                <span>{credential.source}</span>
-                <span>{credential.year}</span>
-              </p>
-              <p></p>
+              <RichText
+                data={credential.richTextDescription as DefaultTypedEditorState}
+              />
             </div>
           ))}
         </div>

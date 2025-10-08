@@ -29,23 +29,8 @@ export const CredentialsGrid: Block = {
       type: 'array',
       fields: [
         {
-          name: 'title',
-          type: 'text'
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          admin: {
-            rows: 3
-          }
-        },
-        {
-          name: 'source',
-          type: 'text'
-        },
-        {
-          name: 'year',
-          type: 'text'
+          name: 'richTextDescription',
+          type: 'richText'
         }
       ]
     }

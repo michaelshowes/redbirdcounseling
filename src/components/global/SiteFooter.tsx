@@ -4,11 +4,12 @@ import { MailIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
 
 import { getServices } from '@/db/queries/services';
 import { getSettings } from '@/db/queries/settings';
+import { Service } from '@/payload-types';
 
 export default async function SiteFooter() {
   const services = await getServices();
   const { footer } = await getSettings();
-  const { contact } = footer;
+  const { contact, serviceLinks } = footer;
 
   return (
     <footer className='bg-secondary-1 pt-40'>
@@ -26,16 +27,20 @@ export default async function SiteFooter() {
           <h3 className={'mb-2'}>Services</h3>
           <nav>
             <ul className={'flex flex-col gap-2'}>
-              {services.map((service) => (
-                <li key={service.id}>
-                  <a
-                    href={`/services/${service.slug}`}
-                    className='block text-base'
-                  >
-                    {service.title}
-                  </a>
-                </li>
-              ))}
+              {serviceLinks?.services?.map((serviceData) => {
+                const service = serviceData.service as Service;
+
+                return (
+                  <li key={service.id}>
+                    <a
+                      href={`/services/${service.slug}`}
+                      className='block text-base'
+                    >
+                      {service.title}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         </div>
