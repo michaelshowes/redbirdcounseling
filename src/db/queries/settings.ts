@@ -7,6 +7,7 @@ export const getSettings = async () => {
 
   return {
     ...result,
+    mainMenuCTA: result.menus.link,
     menus: result.menus?.menus,
     footer: result.footer
   };

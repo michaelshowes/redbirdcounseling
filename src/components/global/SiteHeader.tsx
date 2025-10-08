@@ -1,16 +1,18 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { getMenu } from '@/db/queries/settings';
-import { Page } from '@/payload-types';
+import { getMenu, getSettings } from '@/db/queries/settings';
+import { MenuItems } from '@/payload-types';
 
 import { Button } from '../ui/button';
+import SiteMenu from './SiteMenu';
 
 export default async function SiteHeader() {
   const menu = await getMenu('main');
+  const { mainMenuCTA } = await getSettings();
 
   return (
-    <header className={'site-padding bg-white'}>
+    <header className={'site-padding relative z-50 bg-white'}>
       <div
         className={
           'mx-auto flex w-full max-w-[1440px] items-center justify-between'
@@ -32,25 +34,15 @@ export default async function SiteHeader() {
           </Link>
         </div>
 
-        <nav>
-          <ul className={'flex items-center gap-4'}>
-            {menu?.menuItems?.map(({ id, page }) => (
-              <li key={id}>
-                <Link
-                  href={`/${(page as Page)?.slug}`}
-                  className={'px-4 py-10'}
-                >
-                  {(page as Page)?.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <SiteMenu menuItems={menu?.menuItems as MenuItems} />
 
         <div>
           <Button>
-            <Link href={'https://nicole-michels.clientsecure.me/'}>
-              Book an appointment
+            <Link
+              href={mainMenuCTA.url!}
+              target={mainMenuCTA.newTab ? '_blank' : '_self'}
+            >
+              {mainMenuCTA.label}
             </Link>
           </Button>
         </div>

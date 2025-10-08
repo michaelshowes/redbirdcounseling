@@ -7,6 +7,39 @@
  */
 
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MenuItems".
+ */
+export type MenuItems =
+  | {
+      page?: (number | null) | Page;
+      /**
+       * Subpage links will be displayed in a dropdown under the parent menu link
+       */
+      subpageOption?: boolean | null;
+      subpages?: Subpages;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Subpages".
+ */
+export type Subpages =
+  | {
+      subpage?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'services';
+            value: number | Service;
+          } | null);
+      id?: string | null;
+    }[]
+  | null;
+/**
  * Supported timezones in IANA format.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1093,19 +1126,24 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Setting {
   id: number;
-  menus?: {
+  menus: {
     menus?:
       | {
           menuName?: string | null;
-          menuItems?:
-            | {
-                page?: (number | null) | Page;
-                id?: string | null;
-              }[]
-            | null;
+          menuItems?: MenuItems;
           id?: string | null;
         }[]
       | null;
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?: {
+        relationTo: 'pages';
+        value: number | Page;
+      } | null;
+      url?: string | null;
+      label: string;
+    };
   };
   footer: {
     serviceLinks?: {
@@ -1218,13 +1256,17 @@ export interface SettingsSelect<T extends boolean = true> {
           | T
           | {
               menuName?: T;
-              menuItems?:
-                | T
-                | {
-                    page?: T;
-                    id?: T;
-                  };
+              menuItems?: T | MenuItemsSelect<T>;
               id?: T;
+            };
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
             };
       };
   footer?:
@@ -1282,6 +1324,24 @@ export interface SettingsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MenuItems_select".
+ */
+export interface MenuItemsSelect<T extends boolean = true> {
+  page?: T;
+  subpageOption?: T;
+  subpages?: T | SubpagesSelect<T>;
+  id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Subpages_select".
+ */
+export interface SubpagesSelect<T extends boolean = true> {
+  subpage?: T;
+  id?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
