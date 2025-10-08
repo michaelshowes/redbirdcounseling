@@ -7,12 +7,6 @@ export async function POST(req: Request) {
   const formData = await req.json();
   const { contactForm } = await getSettings();
 
-  console.log({
-    NEXT_PUBLIC_RECAPTCHA_SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-    RECAPTCHA_API_KEY: process.env.RECAPTCHA_API_KEY,
-    RESEND_API_KEY: process.env.RESEND_API_KEY
-  });
-
   try {
     const { data, error } = await resend.emails.send({
       from: 'Redbird Counseling <noreply@meetredbirdcounseling.com>',

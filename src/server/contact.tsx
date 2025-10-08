@@ -5,9 +5,7 @@ import { ContactFormSchema } from '@/lib/formSchemas';
 import { resend } from '@/lib/resend';
 
 export async function send(formData: ContactFormSchema) {
-  console.log(formData);
-
-  const { data, error } = await resend.emails.send({
+  const { error } = await resend.emails.send({
     from: `<${formData.email}>`,
     to: ['michael.showes@gmail.com'],
     subject: formData.subject,

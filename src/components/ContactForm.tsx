@@ -35,9 +35,9 @@ export default function ContactForm() {
   });
 
   async function handleSubmit(values: ContactFormSchema) {
-    // if (!recaptchaVerified) {
-    //   setMessage('Recaptcha verification failed. Please try again.');
-    // }
+    if (!recaptchaVerified) {
+      setMessage('Recaptcha verification failed. Please try again.');
+    }
 
     fetch('/api/send', {
       method: 'POST',
@@ -54,12 +54,6 @@ export default function ContactForm() {
       setMessage('Recaptcha verification failed. Please try again.');
     }
   }
-
-  console.log({
-    NEXT_PUBLIC_RECAPTCHA_SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-    RECAPTCHA_API_KEY: process.env.RECAPTCHA_API_KEY,
-    RESEND_API_KEY: process.env.RESEND_API_KEY
-  });
 
   return (
     <div className='mx-auto max-w-2xl rounded-lg bg-gray-50 p-8'>
