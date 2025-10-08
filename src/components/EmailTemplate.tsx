@@ -24,7 +24,13 @@ export function EmailTemplate(props: ContactFormSchema) {
         <Body>
           <Preview>New message from {props.name}</Preview>
           <Container>
-            <div className={'mb-8 flex flex-col items-center'}>
+            <div
+              className={'mb-8 flex flex-col items-center'}
+              style={{
+                flexDirection: 'column',
+                alignItems: 'center'
+              }}
+            >
               <Img
                 src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/logo.png`}
                 alt='Redbird Counseling Logo'
