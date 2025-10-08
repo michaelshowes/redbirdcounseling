@@ -5,6 +5,7 @@ import { linkGroup } from '../fields/linkGroup';
 export const CardGrid: Block = {
   slug: 'card-grid',
   interfaceName: 'CardGrid',
+  imageURL: '/images/block-thumbnails/card-grid.png',
   fields: [
     {
       name: 'title',

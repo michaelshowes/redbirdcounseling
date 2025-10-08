@@ -18,7 +18,7 @@ export default async function Page({ params }: Props) {
   if (!page) return null;
 
   return (
-    <main>
+    <>
       <DraftModeBanner
         collection={'pages'}
         id={page.id}
@@ -32,6 +32,6 @@ export default async function Page({ params }: Props) {
           <RenderBlocks blocks={page.content.content} />
         )}
       </div>
-    </main>
+    </>
   );
 }

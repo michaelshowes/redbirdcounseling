@@ -3,6 +3,7 @@ import { Block } from 'payload';
 export const InfoGrid: Block = {
   slug: 'info-grid',
   interfaceName: 'InfoGrid',
+  imageURL: '/images/block-thumbnails/info-grid.png',
   fields: [
     {
       name: 'title',

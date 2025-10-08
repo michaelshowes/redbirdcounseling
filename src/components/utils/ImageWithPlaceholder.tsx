@@ -33,6 +33,7 @@ export default function ImageWithPlaceholder({
       alt={image.alt || ''}
       fill
       className={'object-cover'}
+      priority
     />
   );
 }

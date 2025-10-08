@@ -5,6 +5,7 @@ import { linkGroup } from '../fields/linkGroup';
 export const CredentialsGrid: Block = {
   slug: 'credentials-grid',
   interfaceName: 'CredentialsGrid',
+  imageURL: '/images/block-thumbnails/credentials-grid.png',
   fields: [
     {
       name: 'title',

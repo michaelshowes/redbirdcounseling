@@ -72,6 +72,7 @@ export default async function ServicesHero(props: Props) {
                     label: 'Read more'
                   }}
                   fullCardLink
+                  priority
                 />
               );
             })}

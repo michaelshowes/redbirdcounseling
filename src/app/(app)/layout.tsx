@@ -34,8 +34,10 @@ export default async function RootLayout({
         })}
       >
         <SiteHeader />
-        {children}
-        <FooterCTA />
+        <main>
+          {children}
+          <FooterCTA />
+        </main>
         <SiteFooter />
         <Analytics />
       </body>

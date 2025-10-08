@@ -223,9 +223,7 @@ export interface Page {
     servicesHero?: ServicesHero;
   };
   content?: {
-    content?:
-      | (CTA | Selection | CardGrid | RichText | MediaBlock | CredentialsGrid | Accordion | InfoGrid | ServiceGrid)[]
-      | null;
+    content?: (CTA | Selection | CardGrid | RichText | CredentialsGrid | Accordion | InfoGrid | ServiceGrid)[] | null;
   };
   meta?: {
     title?: string | null;
@@ -546,16 +544,6 @@ export interface RichText {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
- */
-export interface MediaBlock {
-  media: number | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'media-block';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CredentialsGrid".
  */
 export interface CredentialsGrid {
@@ -704,6 +692,16 @@ export interface ServiceGrid {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+  media: number | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'media-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "services".
  */
 export interface Service {
@@ -729,9 +727,7 @@ export interface Service {
       };
       [k: string]: unknown;
     };
-    content?:
-      | (CTA | Selection | CardGrid | RichText | MediaBlock | CredentialsGrid | Accordion | InfoGrid | ServiceGrid)[]
-      | null;
+    content?: (CTA | Selection | CardGrid | RichText | CredentialsGrid | Accordion | InfoGrid | ServiceGrid)[] | null;
   };
   meta?: {
     title?: string | null;

@@ -22,6 +22,7 @@ export default function FaqHero(props: Props) {
           fill
           alt={image.alt || ''}
           className={'object-cover'}
+          priority
         />
       </div>
     </section>

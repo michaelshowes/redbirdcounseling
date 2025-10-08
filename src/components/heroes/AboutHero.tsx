@@ -37,6 +37,7 @@ export default async function AboutHero(props: Props) {
               alt={'Logo'}
               fill
               className={'rounded-full'}
+              priority
             />
           </div>
           <h1

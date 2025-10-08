@@ -96,7 +96,9 @@ export default function SiteMenu({ menuItems }: { menuItems: MenuItems }) {
                                     src={image.url!}
                                     alt={image.alt!}
                                     fill
-                                    className={'object-cover'}
+                                    className={
+                                      'object-cover transition-all duration-200 group-hover:scale-110'
+                                    }
                                   />
                                 </div>
                                 <div>

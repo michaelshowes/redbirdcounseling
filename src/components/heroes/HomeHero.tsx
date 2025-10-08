@@ -24,15 +24,13 @@ type Props = HomeHeroProps & {
   image: Media;
 };
 
-async function LeftSide({
-  title,
-  subtext,
-  links
-}: {
+type LeftSideProps = {
   title: string;
   subtext: DefaultTypedEditorState;
   links: LinkType[];
-}) {
+};
+
+async function LeftSide({ title, subtext, links }: LeftSideProps) {
   const { isEnabled: draft } = await draftMode();
 
   return (
@@ -47,6 +45,7 @@ async function LeftSide({
           alt={'Logo'}
           fill
           className={'rounded-full'}
+          priority
         />
       </div>
       <h1 className={'text-display-3 lg:text-display-1'}>

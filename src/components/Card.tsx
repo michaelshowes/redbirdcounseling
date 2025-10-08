@@ -21,6 +21,7 @@ export type CardProps = {
     };
   };
   fullCardLink?: boolean;
+  priority?: boolean;
 };
 
 export default function Card({
@@ -28,7 +29,8 @@ export default function Card({
   description,
   image,
   link,
-  fullCardLink
+  fullCardLink,
+  priority = false
 }: CardProps) {
   return (
     <article
@@ -47,6 +49,7 @@ export default function Card({
           alt={image?.alt || ''}
           fill
           className={'object-cover'}
+          priority={priority}
         />
       </div>
 

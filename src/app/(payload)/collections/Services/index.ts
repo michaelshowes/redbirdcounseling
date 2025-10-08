@@ -122,7 +122,6 @@ export const Services: CollectionConfig = {
                 'selection',
                 'card-grid',
                 'rich-text',
-                'media-block',
                 'credentials-grid',
                 'accordion',
                 'info-grid',

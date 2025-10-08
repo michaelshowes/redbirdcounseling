@@ -1,5 +1,3 @@
-import { Fragment } from 'react';
-
 import type { Page } from '@/payload-types';
 
 import AccordionSection from './AccordionSection';
@@ -7,7 +5,6 @@ import CTA from './CTA';
 import CardGrid from './CardGrid';
 import CredentialsGrid from './CredentialsGrid';
 import InfoGrid from './InfoGrid';
-import MediaBlock from './MediaBlock';
 import RichText from './RichText';
 import Selection from './Selection';
 import ServiceGrid from './ServiceGrid';
@@ -17,7 +14,6 @@ const blockComponents = {
   selection: Selection,
   'card-grid': CardGrid,
   'rich-text': RichText,
-  'media-block': MediaBlock,
   'credentials-grid': CredentialsGrid,
   accordion: AccordionSection,
   'info-grid': InfoGrid,

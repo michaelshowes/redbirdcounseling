@@ -123,7 +123,6 @@ export const Pages: CollectionConfig = {
                 'selection',
                 'card-grid',
                 'rich-text',
-                'media-block',
                 'credentials-grid',
                 'accordion',
                 'info-grid',

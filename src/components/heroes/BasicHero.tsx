@@ -51,6 +51,7 @@ export default async function BasicHero(props: Props) {
           fill
           alt={image.alt || ''}
           className={'object-cover'}
+          priority
         />
       </div>
     </section>

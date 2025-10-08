@@ -3,6 +3,7 @@ import { Block } from 'payload';
 export const Accordion: Block = {
   slug: 'accordion',
   interfaceName: 'Accordion',
+  imageURL: '/images/block-thumbnails/accordion.png',
   fields: [
     {
       name: 'title',
