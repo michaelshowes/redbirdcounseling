@@ -1,13 +1,57 @@
-import * as React from 'react';
+import {
+  Body,
+  Container,
+  Head,
+  Html,
+  Img,
+  Preview,
+  Tailwind,
+  Text
+} from '@react-email/components';
 
-import z from 'zod';
+import { ContactFormSchema } from '@/lib/formSchemas';
 
-import { contactFormSchema } from '@/lib/formSchemas';
-
-export function EmailTemplate(props: z.infer<typeof contactFormSchema>) {
+export function EmailTemplate(props: ContactFormSchema) {
   return (
-    <div>
-      <h1>Welcome, {props.name}!</h1>
-    </div>
+    <Html>
+      <Head />
+      <Tailwind>
+        <Body>
+          <Preview>New message from {props.name}</Preview>
+          <Container>
+            <div className={'mb-8 flex flex-col items-center'}>
+              <Img
+                src={'images/logo.png'}
+                alt='Redbird Counseling Logo'
+                width={100}
+                height={100}
+                className={'mb-4'}
+              />
+              <div className={'text-lg font-bold'}>
+                You have a new message from {props.name}
+              </div>
+              {props.subject && (
+                <div>
+                  <span className={'font-bold'}>Subject:</span> {props.subject}
+                </div>
+              )}
+            </div>
+
+            <div className={'bg-[#f4f4ec] p-4'}>
+              <Text className={'rounded-md bg-white/50 p-2'}>
+                {props.message}
+              </Text>
+              <Text>
+                <span className={'block'}>Name: {props.name}</span>
+                <span className={'block'}>Email: {props.email}</span>
+                {props.phone && (
+                  <span className={'block'}>Phone: {props.phone}</span>
+                )}
+              </Text>
+            </div>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
   );
 }

@@ -1,8 +1,10 @@
 'use client';
 
+import { useState } from 'react';
+
 import { zodResolver } from '@hookform/resolvers/zod';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -15,12 +17,13 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { contactFormSchema } from '@/lib/formSchemas';
-
-// import { send } from '@/server/contact';
+import { ContactFormSchema, contactFormSchema } from '@/lib/formSchemas';
+import { verifyRecaptcha } from '@/server/recaptcha';
 
 export default function ContactForm() {
-  const form = useForm<z.infer<typeof contactFormSchema>>({
+  const [message, setMessage] = useState('');
+  const [recaptchaVerified, setRecaptchaVerified] = useState(false);
+  const form = useForm<ContactFormSchema>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: '',
@@ -31,8 +34,25 @@ export default function ContactForm() {
     }
   });
 
-  function handleSubmit(values: z.infer<typeof contactFormSchema>) {
-    // send(values);
+  async function handleSubmit(values: ContactFormSchema) {
+    if (!recaptchaVerified) {
+      setMessage('Recaptcha verification failed. Please try again.');
+    }
+
+    fetch('/api/send', {
+      method: 'POST',
+      body: JSON.stringify(values)
+    });
+  }
+
+  async function onChange(token: string) {
+    const result = await verifyRecaptcha(token);
+    if (result.riskAnalysis.score >= 0.5) {
+      setMessage('');
+      setRecaptchaVerified(true);
+    } else {
+      setMessage('Recaptcha verification failed. Please try again.');
+    }
   }
 
   return (
@@ -142,7 +162,11 @@ export default function ContactForm() {
               )}
             />
           </div>
-
+          <ReCAPTCHA
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+            onChange={(token) => onChange(token as string)}
+          />
+          {message && <div className='text-redbird text-sm'>{message}</div>}
           <div className='pt-4'>
             <Button type='submit'>Send message</Button>
           </div>
