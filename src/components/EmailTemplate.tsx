@@ -4,6 +4,7 @@ import {
   Head,
   Html,
   Img,
+  Link,
   Preview,
   Tailwind,
   Text,
@@ -24,20 +25,16 @@ export function EmailTemplate(props: ContactFormSchema) {
         <Body>
           <Preview>New message from {props.name}</Preview>
           <Container>
-            <div
-              className={'mb-8 flex flex-col items-center'}
-              style={{
-                flexDirection: 'column',
-                alignItems: 'center'
-              }}
-            >
-              <Img
-                src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/logo.png`}
-                alt='Redbird Counseling Logo'
-                width={100}
-                height={100}
-                className={'mb-4'}
-              />
+            <div className={'mb-8 text-center'}>
+              <Link href={'https://meetredbirdcounseling.com'}>
+                <Img
+                  src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/logo.png`}
+                  alt='Redbird Counseling Logo'
+                  width={100}
+                  height={100}
+                  className={'mx-auto mb-4'}
+                />
+              </Link>
               <div className={'text-lg font-bold'}>
                 You have a new message from {props.name}
               </div>
