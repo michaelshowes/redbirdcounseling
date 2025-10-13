@@ -18,12 +18,18 @@ export const servicesHeroFields: Field[] = [
       {
         name: 'title',
         type: 'text',
-        required: true
+        required: true,
+        admin: {
+          disableListColumn: true
+        }
       },
       {
         name: 'richTextSubtext',
         label: 'Subtext',
-        type: 'richText'
+        type: 'richText',
+        admin: {
+          disableListColumn: true
+        }
       }
     ]
   }

@@ -227,9 +227,6 @@ export interface Page {
   };
   meta?: {
     title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
     image?: (number | null) | Media;
     description?: string | null;
   };
@@ -706,6 +703,7 @@ export interface MediaBlock {
  */
 export interface Service {
   id: number;
+  _order?: string | null;
   title: string;
   publishedAt?: string | null;
   slug?: string | null;
@@ -731,9 +729,6 @@ export interface Service {
   };
   meta?: {
     title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
     image?: (number | null) | Media;
     description?: string | null;
   };
@@ -965,6 +960,7 @@ export interface ServicesHeroSelect<T extends boolean = true> {
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
+  _order?: T;
   title?: T;
   publishedAt?: T;
   slug?: T;

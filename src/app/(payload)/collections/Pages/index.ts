@@ -36,7 +36,7 @@ export const Pages: CollectionConfig = {
   // },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'updatedAt'],
+    defaultColumns: ['title', 'updatedAt', 'status'],
     livePreview: {
       url: ({ data, req }) => {
         const slug = typeof data?.slug === 'string' ? data.slug : '';
@@ -85,6 +85,9 @@ export const Pages: CollectionConfig = {
       name: 'template',
       type: 'select',
       defaultValue: 'basic',
+      admin: {
+        disableListColumn: true
+      },
       options: [
         { label: 'Basic', value: 'basic' },
         { label: 'Home', value: 'home' },
@@ -116,7 +119,8 @@ export const Pages: CollectionConfig = {
               name: 'content',
               type: 'blocks',
               admin: {
-                initCollapsed: true
+                initCollapsed: true,
+                disableListColumn: true
               },
               blockReferences: [
                 'cta',
@@ -139,23 +143,49 @@ export const Pages: CollectionConfig = {
             OverviewField({
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
-              imagePath: 'meta.image'
+              imagePath: 'meta.image',
+              overrides: {
+                admin: {
+                  disableListColumn: true
+                }
+              }
             }),
             MetaTitleField({
-              hasGenerateFn: true
+              hasGenerateFn: true,
+              overrides: {
+                admin: {
+                  disableListColumn: true
+                }
+              }
             }),
             MetaImageField({
-              relationTo: 'media'
+              relationTo: 'media',
+              overrides: {
+                admin: {
+                  disableListColumn: true
+                }
+              }
             }),
 
-            MetaDescriptionField({}),
+            MetaDescriptionField({
+              overrides: {
+                admin: {
+                  disableListColumn: true
+                }
+              }
+            }),
             PreviewField({
               // if the `generateUrl` function is configured
               hasGenerateFn: true,
 
               // field paths to match the target field for data
               titlePath: 'meta.title',
-              descriptionPath: 'meta.description'
+              descriptionPath: 'meta.description',
+              overrides: {
+                admin: {
+                  disableListColumn: true
+                }
+              }
             })
           ]
         }

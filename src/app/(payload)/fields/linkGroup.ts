@@ -22,7 +22,8 @@ export const linkGroup: LinkGroupType = ({
       })
     ],
     admin: {
-      initCollapsed: true
+      initCollapsed: true,
+      disableListColumn: true
     }
   };
 

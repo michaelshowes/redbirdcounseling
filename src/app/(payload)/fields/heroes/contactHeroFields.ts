@@ -18,11 +18,17 @@ export const contactHeroFields: Field[] = [
       {
         name: 'title',
         type: 'text',
-        required: true
+        required: true,
+        admin: {
+          disableListColumn: true
+        }
       },
       {
         name: 'subtext',
-        type: 'textarea'
+        type: 'textarea',
+        admin: {
+          disableListColumn: true
+        }
       }
     ]
   }

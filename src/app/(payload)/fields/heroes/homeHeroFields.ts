@@ -20,18 +20,27 @@ export const homeHeroFields: Field[] = [
       {
         name: 'title',
         type: 'text',
-        required: true
+        required: true,
+        admin: {
+          disableListColumn: true
+        }
       },
       {
         name: 'richTextSubtext',
         label: 'Subtext',
-        type: 'richText'
+        type: 'richText',
+        admin: {
+          disableListColumn: true
+        }
       },
       {
         name: 'image',
         type: 'upload',
         relationTo: 'media',
-        required: true
+        required: true,
+        admin: {
+          disableListColumn: true
+        }
       },
       linkGroup({
         overrides: { maxRows: 2 }

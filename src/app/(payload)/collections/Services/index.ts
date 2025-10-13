@@ -23,6 +23,7 @@ export const Services: CollectionConfig = {
     update: authenticated
   },
   trash: true,
+  orderable: true,
   defaultPopulate: {
     title: true,
     slug: true,
@@ -34,7 +35,7 @@ export const Services: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'updatedAt'],
+    defaultColumns: ['title', 'updatedAt', 'status'],
     livePreview: {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
@@ -88,12 +89,18 @@ export const Services: CollectionConfig = {
           fields: [
             {
               name: 'title',
-              type: 'text'
+              type: 'text',
+              admin: {
+                disableListColumn: true
+              }
             },
             {
               name: 'richTextSubtext',
               label: 'Subtext',
-              type: 'richText'
+              type: 'richText',
+              admin: {
+                disableListColumn: true
+              }
             },
             {
               name: 'image',
@@ -109,13 +116,17 @@ export const Services: CollectionConfig = {
             {
               name: 'description',
               type: 'richText',
-              required: true
+              required: true,
+              admin: {
+                disableListColumn: true
+              }
             },
             {
               name: 'content',
               type: 'blocks',
               admin: {
-                initCollapsed: true
+                initCollapsed: true,
+                disableListColumn: true
               },
               blockReferences: [
                 'cta',
@@ -138,23 +149,49 @@ export const Services: CollectionConfig = {
             OverviewField({
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
-              imagePath: 'meta.image'
+              imagePath: 'meta.image',
+              overrides: {
+                admin: {
+                  disableListColumn: true
+                }
+              }
             }),
             MetaTitleField({
-              hasGenerateFn: true
+              hasGenerateFn: true,
+              overrides: {
+                admin: {
+                  disableListColumn: true
+                }
+              }
             }),
             MetaImageField({
-              relationTo: 'media'
+              relationTo: 'media',
+              overrides: {
+                admin: {
+                  disableListColumn: true
+                }
+              }
             }),
 
-            MetaDescriptionField({}),
+            MetaDescriptionField({
+              overrides: {
+                admin: {
+                  disableListColumn: true
+                }
+              }
+            }),
             PreviewField({
               // if the `generateUrl` function is configured
               hasGenerateFn: true,
 
               // field paths to match the target field for data
               titlePath: 'meta.title',
-              descriptionPath: 'meta.description'
+              descriptionPath: 'meta.description',
+              overrides: {
+                admin: {
+                  disableListColumn: true
+                }
+              }
             })
           ]
         }

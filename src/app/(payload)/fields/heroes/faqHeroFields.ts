@@ -20,7 +20,10 @@ export const faqHeroFields: Field[] = [
         name: 'image',
         type: 'upload',
         relationTo: 'media',
-        required: true
+        required: true,
+        admin: {
+          disableListColumn: true
+        }
       }
     ]
   }

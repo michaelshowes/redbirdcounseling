@@ -18,16 +18,25 @@ export const basicHeroFields: Field[] = [
     fields: [
       {
         name: 'title',
-        type: 'text'
+        type: 'text',
+        admin: {
+          disableListColumn: true
+        }
       },
       {
         name: 'subtext',
-        type: 'richText'
+        type: 'richText',
+        admin: {
+          disableListColumn: true
+        }
       },
       {
         name: 'image',
         type: 'upload',
-        relationTo: 'media'
+        relationTo: 'media',
+        admin: {
+          disableListColumn: true
+        }
       }
     ]
   }
