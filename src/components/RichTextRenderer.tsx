@@ -69,6 +69,25 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 
     return null;
   },
+  autolink: ({ node, nodesToJSX }) => {
+    const children = nodesToJSX({ nodes: node.children });
+
+    return (
+      <a
+        href={node.fields.url}
+        className={
+          'group relative isolate inline-block leading-normal hover:text-white'
+        }
+      >
+        <span
+          className={
+            'bg-redbird absolute top-[90%] right-0 bottom-0 left-0 -z-100 rounded-md text-white transition-all group-hover:top-0 group-hover:-right-1 group-hover:-left-1'
+          }
+        />
+        {children}
+      </a>
+    );
+  },
   link: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children });
 
