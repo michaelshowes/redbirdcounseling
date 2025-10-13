@@ -230,6 +230,9 @@ export interface Page {
   };
   meta?: {
     title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (number | null) | Media;
     description?: string | null;
   };
@@ -793,6 +796,9 @@ export interface Service {
   };
   meta?: {
     title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (number | null) | Media;
     description?: string | null;
   };

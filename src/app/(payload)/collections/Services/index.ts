@@ -150,49 +150,23 @@ export const Services: CollectionConfig = {
             OverviewField({
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
-              overrides: {
-                admin: {
-                  disableListColumn: true
-                }
-              }
+              imagePath: 'meta.image'
             }),
             MetaTitleField({
-              hasGenerateFn: true,
-              overrides: {
-                admin: {
-                  disableListColumn: true
-                }
-              }
+              hasGenerateFn: true
             }),
             MetaImageField({
-              relationTo: 'media',
-              overrides: {
-                admin: {
-                  disableListColumn: true
-                }
-              }
+              relationTo: 'media'
             }),
 
-            MetaDescriptionField({
-              overrides: {
-                admin: {
-                  disableListColumn: true
-                }
-              }
-            }),
+            MetaDescriptionField({}),
             PreviewField({
               // if the `generateUrl` function is configured
               hasGenerateFn: true,
 
               // field paths to match the target field for data
               titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-              overrides: {
-                admin: {
-                  disableListColumn: true
-                }
-              }
+              descriptionPath: 'meta.description'
             })
           ]
         }
