@@ -16,11 +16,11 @@ export default function SectionHeader({
   if (title || headline) {
     return (
       <header
-        className={cn('mb-12 flex flex-col', className, {
+        className={cn('mb-12 flex flex-col gap-6', className, {
           'items-center': align === 'center'
         })}
       >
-        <div className={'mb-6 flex items-end gap-1'}>
+        <div className={'flex items-end gap-1'}>
           <h2
             className={
               'text-single-200 lg:text-single-300 font-sans font-medium tracking-widest uppercase'

@@ -10,7 +10,8 @@ export const getSettings = async () => {
     contactForm: result.contactForm?.contactForm,
     mainMenuCTA: result.menus.link,
     menus: result.menus?.menus,
-    footer: result.footer
+    footer: result.footer,
+    orderedServices: result.services?.servicesOrder?.services
   };
 };
 

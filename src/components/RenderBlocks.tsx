@@ -4,6 +4,7 @@ import AccordionSection from './AccordionSection';
 import CTA from './CTA';
 import CardGrid from './CardGrid';
 import CredentialsGrid from './CredentialsGrid';
+import FiftyFifty from './FiftyFifty';
 import InfoGrid from './InfoGrid';
 import RichText from './RichText';
 import Selection from './Selection';
@@ -17,7 +18,8 @@ const blockComponents = {
   'credentials-grid': CredentialsGrid,
   accordion: AccordionSection,
   'info-grid': InfoGrid,
-  'service-grid': ServiceGrid
+  'service-grid': ServiceGrid,
+  'fifty-fifty': FiftyFifty
 } as const;
 
 type BlockType = keyof typeof blockComponents;

@@ -3,8 +3,12 @@ import { draftMode } from 'next/headers';
 
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
-import { getServices } from '@/db/queries/services';
-import { Media, ServicesHero as ServicesHeroProps } from '@/payload-types';
+import { getSettings } from '@/db/queries/settings';
+import {
+  Media,
+  Service,
+  ServicesHero as ServicesHeroProps
+} from '@/payload-types';
 
 import Card from '../Card';
 import RichText from '../RichTextRenderer';
@@ -17,7 +21,9 @@ type Props = ServicesHeroProps & {
 export default async function ServicesHero(props: Props) {
   const { title, richTextSubtext } = props || {};
   const { isEnabled: draft } = await draftMode();
-  const services = await getServices();
+  const { orderedServices } = (await getSettings()) as {
+    orderedServices: { service: Service }[];
+  };
 
   return (
     <section className={'section-spacing bg-secondary-1 relative'}>
@@ -52,8 +58,8 @@ export default async function ServicesHero(props: Props) {
               'w-full grid-cols-3 justify-center sm:grid md:gap-6 lg:gap-10'
             }
           >
-            {services.map((service) => {
-              if (!service.title) return null;
+            {orderedServices?.map(({ service }) => {
+              if (!service) return null;
 
               return (
                 <Card

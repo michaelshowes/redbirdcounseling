@@ -2,14 +2,12 @@ import Image from 'next/image';
 
 import { MailIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
 
-import { getServices } from '@/db/queries/services';
 import { getSettings } from '@/db/queries/settings';
 import { Service } from '@/payload-types';
 
 export default async function SiteFooter() {
-  const services = await getServices();
-  const { footer } = await getSettings();
-  const { contact, serviceLinks } = footer;
+  const { footer, orderedServices } = await getSettings();
+  const { contact } = footer;
 
   return (
     <footer className='bg-secondary-1 pt-40'>
@@ -27,7 +25,7 @@ export default async function SiteFooter() {
           <h3 className={'mb-2'}>Services</h3>
           <nav>
             <ul className={'flex flex-col gap-2'}>
-              {serviceLinks?.services?.map((serviceData) => {
+              {orderedServices?.map((serviceData) => {
                 const service = serviceData.service as Service;
 
                 return (

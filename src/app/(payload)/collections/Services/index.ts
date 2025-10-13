@@ -136,7 +136,8 @@ export const Services: CollectionConfig = {
                 'credentials-grid',
                 'accordion',
                 'info-grid',
-                'service-grid'
+                'service-grid',
+                'fifty-fifty'
               ],
               blocks: []
             }

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import { getServices } from '@/db/queries/services';
-import { Media } from '@/payload-types';
+import { getSettings } from '@/db/queries/settings';
+import { Media, Service } from '@/payload-types';
 
 import Card from './Card';
 import SectionHeader from './shared/SectionHeader';
@@ -31,7 +31,9 @@ export default async function ServiceGrid({
   headline,
   link
 }: ServiceGridProps) {
-  const services = await getServices();
+  const { orderedServices } = (await getSettings()) as {
+    orderedServices: { service: Service }[];
+  };
 
   return (
     <section className={'section-spacing'}>
@@ -45,9 +47,9 @@ export default async function ServiceGrid({
             'w-full grid-cols-3 justify-center gap-6 sm:grid lg:gap-10'
           }
         >
-          {services
+          {orderedServices
             .slice(0, showCount === 'all' ? undefined : showCount)
-            .map((service) => {
+            .map(({ service }) => {
               if (!service.title) return null;
 
               return (
@@ -75,7 +77,7 @@ export default async function ServiceGrid({
                 link?.type === 'reference' &&
                 link.reference?.value &&
                 typeof link.reference.value === 'object'
-                  ? `/services/${link.reference.value.slug}`
+                  ? `/${link.reference.value.slug}`
                   : link?.url || '#'
               }
             >

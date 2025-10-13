@@ -7,33 +7,6 @@ import { link } from '../../fields/link';
 export const footerSettings: GlobalConfig['fields'] = [
   {
     type: 'group',
-    name: 'serviceLinks',
-    label: '',
-    fields: [
-      {
-        name: 'services',
-        label: 'Service Links',
-        type: 'array',
-        admin: {
-          components: {
-            RowLabel: {
-              path: '@/app/(payload)/components/ArrayRowLabel'
-            }
-          }
-        },
-        fields: [
-          {
-            type: 'relationship',
-            name: 'service',
-            label: 'Service',
-            relationTo: 'services'
-          }
-        ]
-      }
-    ]
-  },
-  {
-    type: 'group',
     name: 'contact',
     label: 'Contact',
     fields: [

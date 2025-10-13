@@ -108,6 +108,7 @@ export interface Config {
     accordion: Accordion;
     'info-grid': InfoGrid;
     'service-grid': ServiceGrid;
+    'fifty-fifty': FiftyFifty;
   };
   collections: {
     pages: Page;
@@ -223,7 +224,9 @@ export interface Page {
     servicesHero?: ServicesHero;
   };
   content?: {
-    content?: (CTA | Selection | CardGrid | RichText | CredentialsGrid | Accordion | InfoGrid | ServiceGrid)[] | null;
+    content?:
+      | (CTA | Selection | CardGrid | RichText | CredentialsGrid | Accordion | InfoGrid | ServiceGrid | FiftyFifty)[]
+      | null;
   };
   meta?: {
     title?: string | null;
@@ -689,6 +692,65 @@ export interface ServiceGrid {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FiftyFifty".
+ */
+export interface FiftyFifty {
+  header: {
+    title: string;
+    headline?: string | null;
+  };
+  ctaLink: {
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?: {
+        relationTo: 'pages';
+        value: number | Page;
+      } | null;
+      url?: string | null;
+      label: string;
+    };
+  };
+  leftContentType?: ('richText' | 'image') | null;
+  leftContentText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  leftContentImage?: (number | null) | Media;
+  rightContentType?: ('richText' | 'image') | null;
+  rightContentText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  rightContentImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'fifty-fifty';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
@@ -725,7 +787,9 @@ export interface Service {
       };
       [k: string]: unknown;
     };
-    content?: (CTA | Selection | CardGrid | RichText | CredentialsGrid | Accordion | InfoGrid | ServiceGrid)[] | null;
+    content?:
+      | (CTA | Selection | CardGrid | RichText | CredentialsGrid | Accordion | InfoGrid | ServiceGrid | FiftyFifty)[]
+      | null;
   };
   meta?: {
     title?: string | null;
@@ -1138,14 +1202,6 @@ export interface Setting {
     };
   };
   footer: {
-    serviceLinks?: {
-      services?:
-        | {
-            service?: (number | null) | Service;
-            id?: string | null;
-          }[]
-        | null;
-    };
     contact: {
       phone?: string | null;
       email: string;
@@ -1233,6 +1289,19 @@ export interface Setting {
       recipient?: string | null;
     };
   };
+  services?: {
+    /**
+     * Set the order of the services as shown across the site.
+     */
+    servicesOrder?: {
+      services?:
+        | {
+            service?: (number | null) | Service;
+            id?: string | null;
+          }[]
+        | null;
+    };
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1264,16 +1333,6 @@ export interface SettingsSelect<T extends boolean = true> {
   footer?:
     | T
     | {
-        serviceLinks?:
-          | T
-          | {
-              services?:
-                | T
-                | {
-                    service?: T;
-                    id?: T;
-                  };
-            };
         contact?:
           | T
           | {
@@ -1311,6 +1370,20 @@ export interface SettingsSelect<T extends boolean = true> {
           | T
           | {
               recipient?: T;
+            };
+      };
+  services?:
+    | T
+    | {
+        servicesOrder?:
+          | T
+          | {
+              services?:
+                | T
+                | {
+                    service?: T;
+                    id?: T;
+                  };
             };
       };
   updatedAt?: T;

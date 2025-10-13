@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import {
   DefaultNodeTypes,
   type DefaultTypedEditorState,
@@ -12,7 +14,7 @@ import {
 } from '@payloadcms/richtext-lexical/react';
 
 import { cn } from '@/lib/utils';
-import type { MediaBlock as MediaBlockProps } from '@/payload-types';
+import type { Media, MediaBlock as MediaBlockProps } from '@/payload-types';
 
 import MediaBlock from './MediaBlock';
 
@@ -104,6 +106,21 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
         </ol>
       );
     }
+  },
+  upload: ({ node }) => {
+    // console.log(node);
+    const image = node.value as Media;
+
+    return (
+      <div className={'my-8 flex items-center justify-center'}>
+        <Image
+          src={image.url || ''}
+          alt={image.alt}
+          width={image.width || 0}
+          height={image.height || 0}
+        />
+      </div>
+    );
   },
   blocks: {
     'media-block': ({ node }) => (

@@ -14,7 +14,9 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "payload": "payload",
-    "reinstall": "rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install"
+    "reinstall": "rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
+    "db_dump:local": "pg_dump -Fc -v -d postgres://postgres:root@127.0.0.1:5432/redbird -f redbird_local_backup.bak",
+    "db_dump:prod": "pg_dump -Fc -v -d postgres://neondb_owner:npg_Cmf3MYDKcq5y@ep-red-lab-adyk6sjp-pooler.c-2.us-east-1.aws.neon.tech/neondb -f redbird_prod_backup.bak"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

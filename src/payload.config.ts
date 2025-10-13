@@ -10,6 +10,7 @@ import { Accordion } from './app/(payload)/blocks/Accordion';
 import { CTA } from './app/(payload)/blocks/CTA';
 import { CardGrid } from './app/(payload)/blocks/CardGrid';
 import { CredentialsGrid } from './app/(payload)/blocks/CredentialsGrid';
+import { FiftyFifty } from './app/(payload)/blocks/FiftyFifty';
 import { InfoGrid } from './app/(payload)/blocks/InfoGrid';
 import { MediaBlock } from './app/(payload)/blocks/MediaBlock';
 import { RichText } from './app/(payload)/blocks/RichText';
@@ -70,7 +71,8 @@ export default buildConfig({
     CredentialsGrid,
     Accordion,
     InfoGrid,
-    ServiceGrid
+    ServiceGrid,
+    FiftyFifty
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
