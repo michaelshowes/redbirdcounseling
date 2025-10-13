@@ -34,7 +34,8 @@ export default buildConfig({
     },
     components: {
       graphics: {
-        Logo: '@/app/(payload)/components/Logo'
+        Logo: '@/app/(payload)/components/Logo',
+        Icon: '@/app/(payload)/components/Icon'
       }
     },
     livePreview: {

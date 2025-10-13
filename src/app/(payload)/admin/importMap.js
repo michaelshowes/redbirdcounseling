@@ -27,6 +27,7 @@ import { FolderField as FolderField_ab83ff7e88da8d3530831f296ec4756a } from '@pa
 import { FolderTypeField as FolderTypeField_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
 import { default as default_80cbb9274e9fe3105fb7c2912a7be629 } from '@/app/(payload)/components/ArrayRowLabel'
 import { default as default_fffa11d06bdf3553480c50ec904295aa } from '@/app/(payload)/components/AccordionRowLabel'
+import { default as default_ce9f698b300d8b18af553d43b3b22b49 } from '@/app/(payload)/components/Icon'
 import { default as default_ed3cbed3b52ba9e0c712bb19e7066c56 } from '@/app/(payload)/components/Logo'
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
 
@@ -60,6 +61,7 @@ export const importMap = {
   "@payloadcms/ui#FolderTypeField": FolderTypeField_3817bf644402e67bfe6577f60ef982de,
   "@/app/(payload)/components/ArrayRowLabel#default": default_80cbb9274e9fe3105fb7c2912a7be629,
   "@/app/(payload)/components/AccordionRowLabel#default": default_fffa11d06bdf3553480c50ec904295aa,
+  "@/app/(payload)/components/Icon#default": default_ce9f698b300d8b18af553d43b3b22b49,
   "@/app/(payload)/components/Logo#default": default_ed3cbed3b52ba9e0c712bb19e7066c56,
   "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e
 }

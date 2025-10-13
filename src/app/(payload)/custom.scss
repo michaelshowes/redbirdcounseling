@@ -1,3 +1,34 @@
+:root {
+  &[data-theme='light'] {
+    --theme-input-bg: #f4f4ec;
+    --theme-elevation-50: #f4f4ec;
+
+    .list-create-new-doc__create-new-button {
+      background-color: #fd1701;
+      color: white;
+      font-weight: 600;
+
+      &:hover {
+        background-color: #db1200;
+      }
+    }
+
+    .pill {
+      &[aria-checked='true'] {
+        background-color: #fd1701;
+        color: white;
+        font-weight: 600;
+      }
+    }
+
+    .tabs-field__tab-button--active {
+      &:after {
+        background-color: #fd1701;
+      }
+    }
+  }
+}
+
 .logo-container {
   position: relative;
   width: 100%;
