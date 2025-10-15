@@ -23,7 +23,7 @@ export default async function ServiceDetailHero(props: Props) {
   return (
     <section
       className={
-        'section-spacing bg-secondary-1 relative mb-[100px] pb-0 md:px-0'
+        'section-spacing bg-secondary-1 relative mb-10 pb-0 md:mb-[100px] md:px-0'
       }
     >
       <span className={'absolute right-0 bottom-0 left-0 h-20 bg-white'} />

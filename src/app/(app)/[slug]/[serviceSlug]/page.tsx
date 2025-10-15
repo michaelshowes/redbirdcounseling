@@ -5,10 +5,12 @@ import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 import { RenderBlocks } from '@/components/RenderBlocks';
 import RichTextRenderer from '@/components/RichTextRenderer';
+import ServiceDetails from '@/components/ServiceDetails';
 import DraftModeBanner from '@/components/global/DraftModeBanner';
 import ServiceDetailHero from '@/components/heroes/ServiceDetailHero';
 import { LivePreviewListener } from '@/components/utils/LivePreviewListener';
 import { getServiceBySlug } from '@/db/queries/services';
+import { cn } from '@/lib/utils';
 import {
   Media,
   ServiceDetailHero as ServiceDetailHeroProps
@@ -38,17 +40,29 @@ export default async function ServicePage({ params }: ServicePageProps) {
       />
       {draft && <LivePreviewListener />}
       <ServiceDetailHero {...hero} />
-      <div className={'mx-auto max-w-[700px]'}>
-        <RichTextRenderer
-          data={service.content.description as DefaultTypedEditorState}
-          enableProse
-        />
-      </div>
-      <div className={'[&>section]:even:bg-secondary-1'}>
-        {service?.content?.content && (
-          // @ts-expect-error - content exists
-          <RenderBlocks blocks={service.content.content} />
-        )}
+      <div className={'flex justify-center px-4'}>
+        <div
+          className={cn('w-full max-w-[700px]', {
+            'grid max-w-[1092px] gap-8 md:grid-cols-[300px_1fr] lg:grid-cols-[360px_1fr]':
+              service.details?.showDetails
+          })}
+        >
+          <div className={'relative'}>
+            <div className={'sticky top-10'}>
+              <ServiceDetails {...service} />
+            </div>
+          </div>
+          <RichTextRenderer
+            data={service.content.description as DefaultTypedEditorState}
+            enableProse
+          />
+        </div>
+        <div className={'[&>section]:even:bg-secondary-1'}>
+          {service?.content?.content && (
+            // @ts-expect-error - content exists
+            <RenderBlocks blocks={service.content.content} />
+          )}
+        </div>
       </div>
     </div>
   );

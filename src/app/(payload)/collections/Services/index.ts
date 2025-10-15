@@ -111,6 +111,44 @@ export const Services: CollectionConfig = {
           ]
         },
         {
+          name: 'details',
+          fields: [
+            {
+              name: 'showDetails',
+              type: 'checkbox'
+            },
+            {
+              name: 'title',
+              type: 'text',
+              admin: {
+                condition: (_, siblingData) => siblingData.showDetails
+              }
+            },
+            {
+              name: 'subtext',
+              type: 'text',
+              admin: {
+                condition: (_, siblingData) => siblingData.showDetails
+              }
+            },
+            {
+              name: 'price',
+              type: 'number',
+              admin: {
+                condition: (_, siblingData) => siblingData.showDetails
+              }
+            },
+            {
+              name: 'details',
+              label: 'Details',
+              type: 'richText',
+              admin: {
+                condition: (_, siblingData) => siblingData.showDetails
+              }
+            }
+          ]
+        },
+        {
           name: 'content',
           fields: [
             {

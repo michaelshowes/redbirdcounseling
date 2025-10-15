@@ -774,6 +774,27 @@ export interface Service {
   slug?: string | null;
   slugLock?: boolean | null;
   hero: ServiceDetailHero;
+  details?: {
+    showDetails?: boolean | null;
+    title?: string | null;
+    subtext?: string | null;
+    price?: number | null;
+    details?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
   content: {
     description: {
       root: {
@@ -1036,6 +1057,15 @@ export interface ServicesSelect<T extends boolean = true> {
   slug?: T;
   slugLock?: T;
   hero?: T | ServiceDetailHeroSelect<T>;
+  details?:
+    | T
+    | {
+        showDetails?: T;
+        title?: T;
+        subtext?: T;
+        price?: T;
+        details?: T;
+      };
   content?:
     | T
     | {
