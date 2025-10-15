@@ -7,7 +7,6 @@ import { formatPrice } from '@/utils/formatPrice';
 
 import { CMSLink } from './CMSLink';
 import RichTextRenderer from './RichTextRenderer';
-import { Button } from './ui/button';
 
 export default function ServiceDetails(props: Service) {
   const { details } = props || {};

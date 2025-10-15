@@ -25,7 +25,7 @@ function MobileMenu({
   mainMenuCTA
 }: MobileSubMenuProps) {
   const [isActiveSubmenu, setIsActiveSubmenu] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  // const [isActive, setIsActive] = useState(false);
 
   function handleToggleSubmenu(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
@@ -69,8 +69,8 @@ function MobileMenu({
                       subpageOption ? handleToggleSubmenu : handleToggleMenu
                     }
                     className={cn(
-                      'flex items-center gap-2 py-2 font-bold transition-colors',
-                      { 'text-redbird': isActive }
+                      'flex items-center gap-2 py-2 font-bold transition-colors'
+                      // { 'text-redbird': isActive }
                     )}
                   >
                     {(page as Page)?.title}
@@ -154,6 +154,12 @@ export default function MobileMenuButton({
 
   const handleToggleMenu = () => {
     setIsOpen(!isOpen);
+
+    if (isOpen) {
+      document.body.style.overflow = 'auto';
+    } else {
+      document.body.style.overflow = 'hidden';
+    }
   };
 
   return (

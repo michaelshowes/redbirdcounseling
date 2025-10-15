@@ -1,13 +1,12 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
 import { ChevronDownIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { Media, MenuItems, Page, Service, Subpages } from '@/payload-types';
+import { MenuItems, Page, Subpages } from '@/payload-types';
 
 import MobileSubMenu from './MobileSubMenu';
 
