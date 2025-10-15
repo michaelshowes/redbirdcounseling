@@ -67,11 +67,9 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   return (
     <Button
-      // asChild
       className={className}
       variant={appearance}
       size={size}
-      // variant={appearance}
     >
       {isEmail ? (
         <a
