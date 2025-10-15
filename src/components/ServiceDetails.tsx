@@ -5,7 +5,9 @@ import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import { Service } from '@/payload-types';
 import { formatPrice } from '@/utils/formatPrice';
 
+import { CMSLink } from './CMSLink';
 import RichTextRenderer from './RichTextRenderer';
+import { Button } from './ui/button';
 
 export default function ServiceDetails(props: Service) {
   const { details } = props || {};
@@ -35,6 +37,24 @@ export default function ServiceDetails(props: Service) {
         )}
       </p>
       <RichTextRenderer data={details.details as DefaultTypedEditorState} />
+      {(details.ctaLink?.url || details.secondaryLink?.url) && (
+        <div className={'flex flex-col gap-4'}>
+          {details.ctaLink?.url && (
+            <CMSLink
+              size={'lg'}
+              {...details.ctaLink}
+            />
+          )}
+
+          {details.secondaryLink?.url && (
+            <CMSLink
+              size={'lg'}
+              appearance={'secondary'}
+              {...details.secondaryLink}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }

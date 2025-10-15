@@ -11,6 +11,7 @@ import { generatePreviewPath } from '@/utils/generatePreviewPath';
 
 import { authenticated } from '../../access/authenticated';
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished';
+import { link } from '../../fields/link';
 import { slugField } from '../../fields/slug';
 import { revalidateDelete, revalidateService } from './revalidateService';
 
@@ -145,7 +146,25 @@ export const Services: CollectionConfig = {
               admin: {
                 condition: (_, siblingData) => siblingData.showDetails
               }
-            }
+            },
+            link({
+              overrides: {
+                name: 'ctaLink',
+                label: 'CTA Link',
+                admin: {
+                  condition: (_, siblingData) => siblingData.showDetails
+                }
+              }
+            }),
+            link({
+              overrides: {
+                name: 'secondaryLink',
+                label: 'Secondary Link',
+                admin: {
+                  condition: (_, siblingData) => siblingData.showDetails
+                }
+              }
+            })
           ]
         },
         {

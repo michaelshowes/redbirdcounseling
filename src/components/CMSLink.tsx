@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import type { Page } from '@/payload-types';
 
 type CMSLinkType = {
-  appearance?: 'inline' | ButtonProps['variant'];
+  appearance?: ButtonProps['variant'];
   children?: React.ReactNode;
   className?: string;
   label?: string | null;
@@ -23,7 +23,8 @@ type CMSLinkType = {
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
   const {
     type,
-    appearance = 'inline',
+    appearance,
+    size,
     children,
     className,
     label,
@@ -48,34 +49,48 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     ? { rel: 'noopener noreferrer', target: '_blank' }
     : {};
 
+  const isEmail = href.includes('@');
+
   /* Ensure we don't break any styles set by richText */
-  if (appearance === 'inline') {
-    return (
-      <Link
-        className={cn(className)}
-        href={href || url || ''}
-        {...newTabProps}
-      >
-        {label && label}
-        {children && children}
-      </Link>
-    );
-  }
+  // if (appearance === 'inline') {
+  //   return (
+  //     <Link
+  //       className={cn(className)}
+  //       href={href || url || ''}
+  //       {...newTabProps}
+  //     >
+  //       {label && label}
+  //       {children && children}
+  //     </Link>
+  //   );
+  // }
 
   return (
     <Button
-      asChild
+      // asChild
       className={className}
       variant={appearance}
+      size={size}
+      // variant={appearance}
     >
-      <Link
-        className={cn(className)}
-        href={href || url || ''}
-        {...newTabProps}
-      >
-        {label && label}
-        {children && children}
-      </Link>
+      {isEmail ? (
+        <a
+          href={`mailto:${href}`}
+          {...newTabProps}
+        >
+          {label && label}
+          {children && children}
+        </a>
+      ) : (
+        <Link
+          className={cn(className)}
+          href={href || url || ''}
+          {...newTabProps}
+        >
+          {label && label}
+          {children && children}
+        </Link>
+      )}
     </Button>
   );
 };
