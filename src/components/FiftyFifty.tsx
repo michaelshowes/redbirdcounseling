@@ -41,7 +41,17 @@ export default function FiftyFifty({
       >
         <div className={'relative flex flex-col items-center'}>
           {leftContentType === 'richText' ? (
-            <RichText data={leftContentText as DefaultTypedEditorState} />
+            <>
+              <div className={'absolute inset-0 scale-75 opacity-[.04]'}>
+                <Image
+                  src={'/images/redbird.svg'}
+                  alt={'Logo'}
+                  fill
+                  className={'rounded-full'}
+                />
+              </div>
+              <RichText data={leftContentText as DefaultTypedEditorState} />
+            </>
           ) : (
             <Image
               src={leftContentImage?.url || ''}
@@ -53,7 +63,19 @@ export default function FiftyFifty({
         </div>
         <div className={'relative flex flex-col items-center'}>
           {rightContentType === 'richText' ? (
-            <RichText data={rightContentText as DefaultTypedEditorState} />
+            <>
+              {leftContentType !== 'richText' && (
+                <div className={'absolute inset-0 scale-75 opacity-[.04]'}>
+                  <Image
+                    src={'/images/redbird.svg'}
+                    alt={'Logo'}
+                    fill
+                    className={'rounded-full'}
+                  />
+                </div>
+              )}
+              <RichText data={rightContentText as DefaultTypedEditorState} />
+            </>
           ) : (
             <Image
               src={rightContentImage?.url || ''}
