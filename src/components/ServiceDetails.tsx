@@ -38,11 +38,12 @@ export default function ServiceDetails(props: Service) {
       </p>
       <RichTextRenderer data={details.details as DefaultTypedEditorState} />
       {(details.ctaLink?.url || details.secondaryLink?.url) && (
-        <div className={'flex flex-col gap-4'}>
+        <div className={'flex flex-wrap gap-4 md:flex-col'}>
           {details.ctaLink?.url && (
             <CMSLink
               size={'lg'}
               {...details.ctaLink}
+              className={'w-full sm:w-auto'}
             />
           )}
 
@@ -51,6 +52,7 @@ export default function ServiceDetails(props: Service) {
               size={'lg'}
               appearance={'secondary'}
               {...details.secondaryLink}
+              className={'w-full sm:w-auto'}
             />
           )}
         </div>
