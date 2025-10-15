@@ -1264,16 +1264,7 @@ export interface Setting {
           id?: string | null;
         }[]
       | null;
-    link: {
-      type?: ('reference' | 'custom') | null;
-      newTab?: boolean | null;
-      reference?: {
-        relationTo: 'pages';
-        value: number | Page;
-      } | null;
-      url?: string | null;
-      label: string;
-    };
+    link: MainMenuCTA;
   };
   footer: {
     contact: {
@@ -1381,6 +1372,20 @@ export interface Setting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MainMenuCTA".
+ */
+export interface MainMenuCTA {
+  type?: ('reference' | 'custom') | null;
+  newTab?: boolean | null;
+  reference?: {
+    relationTo: 'pages';
+    value: number | Page;
+  } | null;
+  url?: string | null;
+  label: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "settings_select".
  */
 export interface SettingsSelect<T extends boolean = true> {
@@ -1394,15 +1399,7 @@ export interface SettingsSelect<T extends boolean = true> {
               menuItems?: T | MenuItemsSelect<T>;
               id?: T;
             };
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-            };
+        link?: T | MainMenuCTASelect<T>;
       };
   footer?:
     | T
@@ -1481,6 +1478,17 @@ export interface MenuItemsSelect<T extends boolean = true> {
 export interface SubpagesSelect<T extends boolean = true> {
   subpage?: T;
   id?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MainMenuCTA_select".
+ */
+export interface MainMenuCTASelect<T extends boolean = true> {
+  type?: T;
+  newTab?: T;
+  reference?: T;
+  url?: T;
+  label?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

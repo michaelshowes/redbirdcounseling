@@ -65,6 +65,7 @@ export const menuSettings: GlobalConfig['fields'] = [
   },
   link({
     overrides: {
+      interfaceName: 'MainMenuCTA',
       label: 'Main Menu CTA Link'
     }
   })

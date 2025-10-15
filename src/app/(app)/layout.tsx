@@ -29,7 +29,7 @@ export default async function RootLayout({
       className={`${sentient.variable} ${sora.variable} h-full`}
     >
       <body
-        className={cn('h-full', {
+        className={cn('relative h-full', {
           'pt-[66px] md:pt-[46px]': draft
         })}
       >

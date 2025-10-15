@@ -5,7 +5,8 @@ import { getMenu, getSettings } from '@/db/queries/settings';
 import { MenuItems } from '@/payload-types';
 
 import { Button } from '../ui/button';
-import SiteMenu from './SiteMenu';
+import MobileMenuButton from './Menu/MobileMenu';
+import SiteMenu from './Menu/SiteMenu';
 
 export default async function SiteHeader() {
   const menu = await getMenu('main');
@@ -34,10 +35,13 @@ export default async function SiteHeader() {
           </Link>
         </div>
 
-        <SiteMenu menuItems={menu?.menuItems as MenuItems} />
+        <SiteMenu
+          menuItems={menu?.menuItems as MenuItems}
+          className={'hidden lg:block'}
+        />
 
-        <div>
-          <Button>
+        <div className={'flex items-center gap-2'}>
+          <Button className={'hidden sm:inline-flex'}>
             <Link
               href={mainMenuCTA.url!}
               target={mainMenuCTA.newTab ? '_blank' : '_self'}
@@ -45,6 +49,11 @@ export default async function SiteHeader() {
               {mainMenuCTA.label}
             </Link>
           </Button>
+
+          <MobileMenuButton
+            menuItems={menu?.menuItems as MenuItems}
+            mainMenuCTA={mainMenuCTA}
+          />
         </div>
       </div>
     </header>
