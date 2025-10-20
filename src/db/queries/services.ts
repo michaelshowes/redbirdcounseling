@@ -24,7 +24,7 @@ export const getServiceBySlug = async (slug: string) => {
       }
     },
     overrideAccess: draft,
-    draft: true,
+    draft,
     depth: 2
   });
 
