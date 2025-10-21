@@ -25,7 +25,7 @@ export default function ServiceDetails(props: Service) {
             priority
           />
         </div>
-        <h3 className={'font-sans text-xl font-semibold'}>{details.title}</h3>
+        <h3 className={'sans text-xl font-semibold'}>{details.title}</h3>
         <p className={'text-base'}>{details.subtext}</p>
       </div>
       <p className={'text-2xl font-medium'}>

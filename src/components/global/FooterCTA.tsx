@@ -19,7 +19,7 @@ export default async function FooterCTA() {
         >
           <span
             className={
-              'font-serif text-9xl text-[#f5f1ed] uppercase opacity-50'
+              'serif text-9xl text-[#f5f1ed] uppercase opacity-50'
             }
           >
             {data.marquee}
@@ -33,7 +33,7 @@ export default async function FooterCTA() {
           {cta.eyebrow}
         </p>
 
-        <h2 className='mb-12 font-serif text-6xl font-light tracking-tight text-black md:text-7xl'>
+        <h2 className='serif mb-12 text-6xl font-light tracking-tight text-black md:text-7xl'>
           {cta.headline}
         </h2>
         <FooterCTAButton link={cta.link as { url: string; label: string }} />

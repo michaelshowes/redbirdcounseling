@@ -44,7 +44,6 @@ async function LeftSide({ title, subtext, links }: LeftSideProps) {
           alt={'Logo'}
           fill
           className={'rounded-full'}
-          priority
         />
       </div>
       <h1 className={'text-display-3 lg:text-display-1'}>
@@ -93,6 +92,7 @@ function RightSide({ image }: { image: Media }) {
         width={image?.width || 0}
         height={image?.height || 0}
         className={'h-full w-full object-cover'}
+        priority
       />
     </div>
   );

@@ -107,7 +107,7 @@ function MobileMenu({
                           <div>
                             <h3
                               className={
-                                'font-sans text-lg font-medium lg:text-[22px]'
+                                'sans text-lg font-medium lg:text-[22px]'
                               }
                             >
                               Services Overview

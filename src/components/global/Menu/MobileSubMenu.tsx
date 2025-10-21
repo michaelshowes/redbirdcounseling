@@ -66,9 +66,7 @@ export default function MobileSubMenu({
                     </div>
                   )}
                   <div>
-                    <h3
-                      className={'font-sans text-lg font-medium lg:text-[22px]'}
-                    >
+                    <h3 className={'sans text-lg font-medium lg:text-[22px]'}>
                       {pageValue.title}
                       <span className={'text-redbird ml-1 !text-3xl'}>.</span>
                     </h3>

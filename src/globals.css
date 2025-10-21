@@ -54,7 +54,7 @@
   --text-single-400--line-height: 1.625rem; /* 26px */
 
   /* Display */
-  --text-display-1: 4.6875rem; /* 75px */
+  --text-display-1: 4.25rem; /* 68px */
   --text-display-1--line-height: 5.3125rem; /* 85px */
 
   --text-display-2: 3.5rem; /* 56px */
@@ -155,7 +155,8 @@
   }
 
   body {
-    @apply text-body font-sans text-neutral-700;
+    @apply text-body text-neutral-700;
+    font-family: var(--font-sora);
   }
 
   a {
@@ -168,7 +169,8 @@
   h4,
   h5,
   h6 {
-    @apply font-serif text-neutral-800;
+    @apply text-neutral-800;
+    font-family: var(--font-sentient);
   }
 
   h1 {
@@ -213,6 +215,14 @@
 
   .section-spacing {
     @apply px-4 py-6 md:px-8 lg:py-24;
+  }
+
+  .sans {
+    font-family: var(--font-sora);
+  }
+
+  .serif {
+    font-family: var(--font-sentient);
   }
 }
 

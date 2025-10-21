@@ -23,7 +23,7 @@ export default function SectionHeader({
         <div className={'flex items-end gap-1'}>
           <h2
             className={
-              'text-single-200 lg:text-single-300 font-sans font-medium tracking-widest uppercase'
+              'text-single-200 lg:text-single-200 sans font-medium tracking-widest uppercase'
             }
           >
             {title}
@@ -33,7 +33,7 @@ export default function SectionHeader({
         {headline && (
           <p
             className={cn(
-              'text-display-4 md:text-display-3 lg:text-display-2 max-w-[900px] font-serif text-balance',
+              'text-display-4 md:text-display-3 lg:text-display-2 serif max-w-[900px] text-balance',
               {
                 'text-center': align === 'center'
               }
