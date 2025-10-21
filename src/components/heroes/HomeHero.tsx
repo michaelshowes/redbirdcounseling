@@ -92,7 +92,7 @@ function RightSide({ image }: { image: Media }) {
         alt={image?.alt || ''}
         width={image?.width || 0}
         height={image?.height || 0}
-        className={'object-cover'}
+        className={'h-full w-full object-cover'}
       />
     </div>
   );
