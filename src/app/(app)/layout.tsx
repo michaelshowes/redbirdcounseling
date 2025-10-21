@@ -8,30 +8,64 @@ import SiteFooter from '@/components/global/SiteFooter';
 import SiteHeader from '@/components/global/SiteHeader';
 import { sentient, sora } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
+import {
+  StructuredData,
+  generateFAQSchema,
+  generateLocalBusinessSchema,
+  generateProfessionalServiceSchema
+} from '@/utils/structuredData';
 
 import '../../globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.meetredbirdcounseling.com'),
   title: {
-    default:
-      'Redbird Counseling and Consulting | Trauma & Substance Use Therapy in Cincinnati',
-    template: '%s | Redbird Counseling'
+    default: 'Redbird Counseling | Cincinnati Therapist & Counselor in Ohio',
+    template: '%s | Redbird Counseling Cincinnati'
   },
   description:
-    'Trauma-informed therapy and substance use counseling for women, veterans, and first responders in Cincinnati. Specializing in PTSD, addiction recovery, and mental health support.',
+    'Professional counselor and therapist in Cincinnati, Ohio. Trauma-informed therapy, substance use counseling, PTSD treatment, and addiction recovery for women, veterans, and first responders. Licensed in OH & KY. Call (513) 279-8949.',
   keywords: [
+    // Primary local keywords
+    'counselor Cincinnati',
+    'therapist Cincinnati',
+    'Cincinnati counselor',
+    'Cincinnati therapist',
+    'Cincinnati counseling',
+    'therapist in Cincinnati Ohio',
+    'counselor in Cincinnati OH',
+    'mental health counselor Cincinnati',
+    // Service-specific local keywords
+    'trauma therapist Cincinnati',
     'trauma therapy Cincinnati',
-    'substance use counseling',
-    'PTSD therapy',
-    'addiction recovery',
-    'veteran counseling',
-    'first responder therapy',
-    "women's mental health",
-    'LPCC-S Cincinnati'
+    'PTSD therapist Cincinnati',
+    'PTSD therapy Cincinnati',
+    'substance use counselor Cincinnati',
+    'addiction counselor Cincinnati',
+    'addiction therapy Cincinnati',
+    'substance abuse counselor Cincinnati',
+    // Specialty local keywords
+    'veteran counselor Cincinnati',
+    'veteran therapist Cincinnati',
+    'first responder therapist Cincinnati',
+    'women therapist Cincinnati',
+    'female therapist Cincinnati',
+    // Professional credentials
+    'LPCC-S Cincinnati',
+    'licensed counselor Cincinnati',
+    'licensed therapist Cincinnati Ohio',
+    // Regional
+    'therapist Ohio',
+    'counselor Ohio',
+    'therapist Kentucky',
+    // Additional
+    'mental health therapy Cincinnati',
+    'anxiety therapist Cincinnati',
+    'depression counselor Cincinnati'
   ],
   authors: [{ name: 'Nicole Michels, LPCC-S' }],
   creator: 'Redbird Counseling and Consulting',
+  publisher: 'Redbird Counseling and Consulting',
   robots: {
     index: true,
     follow: true,
@@ -43,8 +77,14 @@ export const metadata: Metadata = {
       'max-snippet': -1
     }
   },
-  verification: {
-    google: 'your-google-verification-code' // Replace with actual code
+  alternates: {
+    canonical: 'https://www.meetredbirdcounseling.com'
+  },
+  other: {
+    'geo.region': 'US-OH',
+    'geo.placename': 'Cincinnati',
+    'geo.position': '39.1431;-84.4280',
+    ICBM: '39.1431, -84.4280'
   }
 };
 
@@ -54,6 +94,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const { isEnabled: draft } = await draftMode();
+
+  // Generate structured data for local business SEO
+  const localBusinessSchema = generateLocalBusinessSchema();
+  const professionalServiceSchema = generateProfessionalServiceSchema();
+  const faqSchema = generateFAQSchema();
 
   return (
     <html
@@ -87,6 +132,11 @@ export default async function RootLayout({
           name='theme-color'
           content='#f4f4ec'
         />
+
+        {/* Structured Data for Local SEO */}
+        <StructuredData data={localBusinessSchema} />
+        <StructuredData data={professionalServiceSchema} />
+        <StructuredData data={await faqSchema} />
       </head>
       <body
         className={cn('relative h-full', {

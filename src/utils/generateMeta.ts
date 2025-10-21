@@ -25,28 +25,45 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image);
 
+  // Enhanced title with local SEO focus
   const title = doc?.meta?.title
-    ? doc?.meta?.title
-    : 'Redbird Counseling and Consulting | Trauma & Substance Use Therapy in Cincinnati';
+    ? `${doc?.meta?.title} | Cincinnati Counseling`
+    : 'Redbird Counseling | Cincinnati Therapist & Counselor in Ohio';
+
+  // Enhanced description with location keywords
+  const description =
+    doc?.meta?.description ||
+    'Professional counselor and therapist in Cincinnati, Ohio. Trauma-informed therapy, substance use counseling, PTSD treatment, and addiction recovery for women, veterans, and first responders. Licensed in OH & KY.';
 
   return {
-    description:
-      doc?.meta?.description ||
-      'Trauma-informed therapy and substance use counseling for women, veterans, and first responders in Cincinnati. Specializing in PTSD, addiction recovery, and mental health support.',
+    title,
+    description,
     openGraph: mergeOpenGraph({
-      description:
-        doc?.meta?.description ||
-        'Trauma-informed therapy and substance use counseling for women, veterans, and first responders in Cincinnati. Specializing in PTSD, addiction recovery, and mental health support.',
+      title,
+      description,
       images: ogImage
         ? [
             {
-              url: ogImage
+              url: ogImage,
+              alt: `${doc?.meta?.title || 'Redbird Counseling'} - Cincinnati Therapist`
             }
           ]
         : undefined,
-      title,
-      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/'
+      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
+      type: 'website',
+      siteName: 'Redbird Counseling - Cincinnati Therapist',
+      locale: 'en_US'
     }),
-    title
+    alternates: {
+      canonical: Array.isArray(doc?.slug)
+        ? `https://www.meetredbirdcounseling.com/${doc?.slug.join('/')}`
+        : 'https://www.meetredbirdcounseling.com'
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ogImage ? [ogImage] : undefined
+    }
   };
 };

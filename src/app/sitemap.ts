@@ -44,8 +44,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const pageEntries: MetadataRoute.Sitemap = pages.map((page) => ({
     url: `${baseUrl}/${page.slug}`,
     lastModified: new Date(page.updatedAt),
-    changeFrequency: 'weekly' as const,
-    priority: page.slug === 'home' ? 1 : 0.8
+    changeFrequency: page.slug === 'home' ? 'daily' : ('weekly' as const),
+    priority:
+      page.slug === 'home'
+        ? 1
+        : page.slug === 'about' || page.slug === 'contact'
+          ? 0.9
+          : 0.8
   }));
 
   // Map services to sitemap entries
@@ -54,7 +59,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}/services/${service.slug}`,
     lastModified: new Date(service.updatedAt),
     changeFrequency: 'monthly' as const,
-    priority: 0.6
+    priority: 0.7
   }));
 
   // Home page entry

@@ -5,15 +5,16 @@ import { getServerSideURL } from './getURL';
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
   description:
-    'Trauma-informed therapy and substance use counseling for women, veterans, and first responders in Cincinnati. Specializing in PTSD, addiction recovery, and mental health support.',
+    'Professional counselor and therapist in Cincinnati, Ohio. Trauma-informed therapy, substance use counseling, PTSD treatment, and addiction recovery for women, veterans, and first responders. Licensed in OH & KY.',
   images: [
     {
-      url: `${getServerSideURL()}/images/opengraph-image.png`
+      url: `${getServerSideURL()}/images/opengraph-image.png`,
+      alt: 'Redbird Counseling - Cincinnati Therapist & Counselor'
     }
   ],
-  siteName: 'Redbird Counseling and Consulting',
-  title:
-    'Redbird Counseling and Consulting | Trauma & Substance Use Therapy in Cincinnati'
+  siteName: 'Redbird Counseling - Cincinnati Therapist',
+  title: 'Redbird Counseling | Cincinnati Therapist & Counselor in Ohio',
+  locale: 'en_US'
 };
 
 export const mergeOpenGraph = (

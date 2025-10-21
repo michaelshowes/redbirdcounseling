@@ -6,18 +6,13 @@ import DraftModeBanner from '@/components/global/DraftModeBanner';
 import RenderHero from '@/components/heroes/RenderHero';
 import { LivePreviewListener } from '@/components/utils/LivePreviewListener';
 import { getPageBySlug } from '@/db/queries/pages';
+import { generateMeta } from '@/utils/generateMeta';
+import { StructuredData, generateWebPageSchema } from '@/utils/structuredData';
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug = 'home' } = await params;
   const page = await getPageBySlug(slug);
-  return {
-    title:
-      `${page?.title} | Redbird Counseling and Consulting` ||
-      'Redbird Counseling and Consulting',
-    description:
-      page?.meta?.description ||
-      'Trauma-informed therapy and substance use counseling for women, veterans, and first responders in Cincinnati. Specializing in PTSD, addiction recovery, and mental health support.'
-  };
+  return generateMeta({ doc: page });
 }
 
 type Props = {
@@ -29,10 +24,39 @@ export default async function Page({ params }: Props) {
   const { slug = 'home' } = await params;
   const page = await getPageBySlug(slug);
 
+  // console.log(
+  //   page?.content?.content?.filter((block) => block.blockType === 'accordion')
+  // );
+
   if (!page) return null;
+
+  // Generate breadcrumb structured data for pages
+  const breadcrumbs =
+    slug !== 'home'
+      ? [
+          {
+            name: 'Home',
+            url: 'https://www.meetredbirdcounseling.com'
+          },
+          {
+            name: page.title,
+            url: `https://www.meetredbirdcounseling.com/${slug}`
+          }
+        ]
+      : undefined;
+
+  const webPageSchema = generateWebPageSchema({
+    url: `https://www.meetredbirdcounseling.com/${slug === 'home' ? '' : slug}`,
+    title: page.title,
+    description:
+      page.meta?.description ||
+      'Professional counselor and therapist in Cincinnati, Ohio.',
+    breadcrumbs
+  });
 
   return (
     <>
+      <StructuredData data={webPageSchema} />
       <DraftModeBanner
         collection={'pages'}
         id={page.id}

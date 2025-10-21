@@ -17,6 +17,7 @@ import {
   ServiceDetailHero as ServiceDetailHeroProps
 } from '@/payload-types';
 import { generateMeta } from '@/utils/generateMeta';
+import { StructuredData, generateWebPageSchema } from '@/utils/structuredData';
 
 export async function generateMetadata({
   params: paramsPromise
@@ -42,8 +43,32 @@ export default async function ServicePage({ params }: ServicePageProps) {
   const service = await getServiceBySlug(serviceSlug);
   const hero = service.hero as ServiceDetailHeroProps & { image: Media };
 
+  // Generate breadcrumb structured data for SEO
+  const webPageSchema = generateWebPageSchema({
+    url: `https://www.meetredbirdcounseling.com/services/${serviceSlug}`,
+    title: service.title,
+    description:
+      service.meta?.description ||
+      `${service.title} services in Cincinnati, Ohio. Professional counseling and therapy by Redbird Counseling.`,
+    breadcrumbs: [
+      {
+        name: 'Home',
+        url: 'https://www.meetredbirdcounseling.com'
+      },
+      {
+        name: 'Services',
+        url: 'https://www.meetredbirdcounseling.com/services'
+      },
+      {
+        name: service.title,
+        url: `https://www.meetredbirdcounseling.com/services/${serviceSlug}`
+      }
+    ]
+  });
+
   return (
     <div>
+      <StructuredData data={webPageSchema} />
       <DraftModeBanner
         collection={'services'}
         id={service.id}
