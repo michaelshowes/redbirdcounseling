@@ -53,7 +53,10 @@ function MobileMenu({
           </Link>
         </div>
         <div className={'absolute top-4.5 right-4'}>
-          <Button onClick={handleToggleMenu}>
+          <Button
+            aria-label={'Close menu'}
+            onClick={handleToggleMenu}
+          >
             <XIcon />
           </Button>
         </div>
@@ -169,6 +172,7 @@ export default function MobileMenuButton({
         size={'icon'}
         className={'lg:hidden'}
         onClick={handleToggleMenu}
+        aria-label={'Open menu'}
       >
         <MenuIcon />
       </Button>

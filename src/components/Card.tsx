@@ -12,7 +12,7 @@ export type CardProps = {
   image: Media;
   link: {
     url?: string;
-    label: string;
+    label: string | React.ReactNode;
     type?: 'reference' | 'custom';
     reference?: {
       value?: {

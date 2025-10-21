@@ -60,7 +60,12 @@ export default async function ServiceGrid({
                   image={service.meta?.image as Media}
                   link={{
                     url: `/services/${service.slug}`,
-                    label: 'Read more'
+                    label: (
+                      <>
+                        Read more{' '}
+                        <span className={'sr-only'}>about{service.title}</span>
+                      </>
+                    )
                   }}
                   fullCardLink={fullCardLink}
                 />
