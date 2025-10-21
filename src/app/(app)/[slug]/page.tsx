@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 
 import { RenderBlocks } from '@/components/RenderBlocks';
@@ -5,6 +6,19 @@ import DraftModeBanner from '@/components/global/DraftModeBanner';
 import RenderHero from '@/components/heroes/RenderHero';
 import { LivePreviewListener } from '@/components/utils/LivePreviewListener';
 import { getPageBySlug } from '@/db/queries/pages';
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug = 'home' } = await params;
+  const page = await getPageBySlug(slug);
+  return {
+    title:
+      `${page?.title} | Redbird Counseling and Consulting` ||
+      'Redbird Counseling and Consulting',
+    description:
+      page?.meta?.description ||
+      'Trauma-informed therapy and substance use counseling for women, veterans, and first responders in Cincinnati. Specializing in PTSD, addiction recovery, and mental health support.'
+  };
+}
 
 type Props = {
   params: Promise<{ slug?: string }>;

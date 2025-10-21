@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
@@ -15,6 +16,16 @@ import {
   Media,
   ServiceDetailHero as ServiceDetailHeroProps
 } from '@/payload-types';
+import { generateMeta } from '@/utils/generateMeta';
+
+export async function generateMetadata({
+  params: paramsPromise
+}: ServicePageProps): Promise<Metadata> {
+  const { serviceSlug } = await paramsPromise;
+  const service = await getServiceBySlug(serviceSlug);
+
+  return generateMeta({ doc: service });
+}
 
 type ServicePageProps = {
   params: Promise<{ slug: string; serviceSlug: string }>;

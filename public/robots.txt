@@ -7,5 +7,5 @@ Disallow: /admin
 Disallow: /api/
 
 # Sitemap location
-Sitemap: https://redbirdcounseling.com/sitemap.xml
+Sitemap: https://www.meetredbirdcounseling.com/sitemap.xml
 
