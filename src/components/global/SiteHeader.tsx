@@ -41,13 +41,13 @@ export default async function SiteHeader() {
         />
 
         <div className={'flex items-center gap-2'}>
-          <Button className={'hidden sm:inline-flex'}>
-            <Link
-              href={mainMenuCTA.url!}
-              target={mainMenuCTA.newTab ? '_blank' : '_self'}
-            >
-              {mainMenuCTA.label}
-            </Link>
+          <Button
+            className={'hidden sm:inline-flex'}
+            link
+            href={mainMenuCTA.url!}
+            target={mainMenuCTA.newTab ? '_blank' : '_self'}
+          >
+            {mainMenuCTA.label}
           </Button>
 
           <MobileMenuButton

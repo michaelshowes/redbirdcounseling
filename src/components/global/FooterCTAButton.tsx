@@ -1,7 +1,3 @@
-'use client';
-
-import Link from 'next/link';
-
 import { Button } from '../ui/button';
 
 type Props = {
@@ -13,8 +9,12 @@ type Props = {
 
 export default function FooterCTAButton({ link }: Props) {
   return (
-    <Button size='lg'>
-      <Link href={link.url}>{link.label}</Link>
+    <Button
+      size='lg'
+      link
+      href={link.url}
+    >
+      {link.label}
     </Button>
   );
 }

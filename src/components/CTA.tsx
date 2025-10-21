@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 import { CTA as CTAProps } from '@/payload-types';
@@ -19,25 +17,24 @@ export default function CTA(props: CTAProps) {
           headline={headline || ''}
         />
         <RichText data={richTextText as DefaultTypedEditorState} />
-        <Button
-          variant={'secondary'}
-          size={'lg'}
-          className={'mt-10'}
-        >
-          {link && (
-            <Link
-              href={
-                link.type === 'reference' &&
-                link.reference?.value &&
-                typeof link.reference.value === 'object'
-                  ? `/${link.reference.value.slug}`
-                  : link.url || '#'
-              }
-            >
-              {link.label}
-            </Link>
-          )}
-        </Button>
+        {link && (
+          <Button
+            variant={'secondary'}
+            size={'lg'}
+            className={'mt-10'}
+            link
+            href={
+              link.type === 'reference' &&
+              link.reference?.value &&
+              typeof link.reference.value === 'object'
+                ? `/${link.reference.value.slug}`
+                : link.url || '#'
+            }
+            target={link.newTab === true ? '_blank' : '_self'}
+          >
+            {link.label}
+          </Button>
+        )}
       </div>
     </section>
   );

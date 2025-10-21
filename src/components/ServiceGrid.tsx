@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { getSettings } from '@/db/queries/settings';
 import { Media, Service } from '@/payload-types';
 
@@ -76,18 +74,16 @@ export default async function ServiceGrid({
           <Button
             variant={'secondary'}
             size={'lg'}
+            link
+            href={
+              link?.type === 'reference' &&
+              link.reference?.value &&
+              typeof link.reference.value === 'object'
+                ? `/${link.reference.value.slug}`
+                : link?.url || '#'
+            }
           >
-            <Link
-              href={
-                link?.type === 'reference' &&
-                link.reference?.value &&
-                typeof link.reference.value === 'object'
-                  ? `/${link.reference.value.slug}`
-                  : link?.url || '#'
-              }
-            >
-              {link?.label}
-            </Link>
+            {link?.label}
           </Button>
         </div>
       </div>

@@ -1,8 +1,6 @@
-import Link from 'next/link';
 import React from 'react';
 
 import { Button, type ButtonProps } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import type { Page } from '@/payload-types';
 
 type CMSLinkType = {
@@ -70,25 +68,12 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
       className={className}
       variant={appearance}
       size={size}
+      link
+      href={isEmail ? `mailto:${href}` : href || url || ''}
+      target={newTab ? '_blank' : '_self'}
     >
-      {isEmail ? (
-        <a
-          href={`mailto:${href}`}
-          {...newTabProps}
-        >
-          {label && label}
-          {children && children}
-        </a>
-      ) : (
-        <Link
-          className={cn(className)}
-          href={href || url || ''}
-          {...newTabProps}
-        >
-          {label && label}
-          {children && children}
-        </Link>
-      )}
+      {label && label}
+      {children && children}
     </Button>
   );
 };

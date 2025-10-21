@@ -59,10 +59,11 @@ export default function ComingSoon() {
         <Button
           size={'lg'}
           className={'mt-10'}
+          link
+          href='https://nicole-michels.clientsecure.me/'
+          target='_blank'
         >
-          <a href='https://nicole-michels.clientsecure.me/'>
-            Book an appointment
-          </a>
+          Book an appointment
         </Button>
       </div>
 

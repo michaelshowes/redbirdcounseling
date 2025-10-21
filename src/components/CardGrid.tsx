@@ -92,8 +92,11 @@ export default function CardGrid(props: CardGridProps) {
                 key={i}
                 variant={'secondary'}
                 size={'lg'}
+                link
+                href={link.url || ''}
+                target={link.newTab === true ? '_blank' : '_self'}
               >
-                <Link href={link.url || ''}>{link.label}</Link>
+                {link.label}
               </Button>
             )
           )}

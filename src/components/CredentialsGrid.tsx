@@ -36,13 +36,11 @@ export default function CredentialsGrid(props: CredentialsGridProps) {
             <Button
               size={'lg'}
               className={'mt-8 lg:mt-12'}
+              link
+              href={links?.[0]?.link?.url || ''}
+              target={links?.[0]?.link?.newTab ? '_blank' : '_self'}
             >
-              <a
-                href={links?.[0]?.link?.url || ''}
-                target={links?.[0]?.link?.newTab ? '_blank' : '_self'}
-              >
-                Book an appointment
-              </a>
+              Book an appointment
             </Button>
           </div>
         </div>

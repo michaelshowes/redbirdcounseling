@@ -1,6 +1,5 @@
 import { draftMode } from 'next/headers';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
@@ -69,13 +68,11 @@ async function LeftSide({ title, subtext, links }: LeftSideProps) {
             key={i}
             size={'lg'}
             variant={i === 1 ? 'secondary' : 'default'}
+            link
+            href={link.link.url}
+            target={link.link.newTab === true ? '_blank' : '_self'}
           >
-            <Link
-              href={link.link.url}
-              target={link.link.newTab === true ? '_blank' : '_self'}
-            >
-              {link.link.label}
-            </Link>
+            {link.link.label}
           </Button>
         ))}
       </div>

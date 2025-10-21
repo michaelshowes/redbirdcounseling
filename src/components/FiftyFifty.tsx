@@ -91,13 +91,11 @@ export default function FiftyFifty({
         <Button
           size={'lg'}
           className={'mt-8 lg:mt-12'}
+          link
+          href={ctaLink?.link?.url || ''}
+          target={ctaLink?.link?.newTab ? '_blank' : '_self'}
         >
-          <a
-            href={ctaLink?.link?.url || ''}
-            target={ctaLink?.link?.newTab ? '_blank' : '_self'}
-          >
-            {ctaLink?.link?.label || ''}
-          </a>
+          {ctaLink?.link?.label || ''}
         </Button>
       </div>
     </section>

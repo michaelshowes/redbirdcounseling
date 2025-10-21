@@ -132,13 +132,13 @@ function MobileMenu({
         </nav>
 
         <div>
-          <Button className={'mt-8 w-full'}>
-            <Link
-              href={mainMenuCTA.url!}
-              target={mainMenuCTA.newTab ? '_blank' : '_self'}
-            >
-              {mainMenuCTA.label}
-            </Link>
+          <Button
+            className={'mt-8 w-full'}
+            link
+            href={mainMenuCTA.url!}
+            target={mainMenuCTA.newTab ? '_blank' : '_self'}
+          >
+            {mainMenuCTA.label}
           </Button>
         </div>
       </div>
