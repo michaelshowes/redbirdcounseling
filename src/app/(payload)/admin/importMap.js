@@ -30,6 +30,7 @@ import { SlugComponent as SlugComponent_4194f1527b761b071996016f1233fdb7 } from 
 import { FolderTableCell as FolderTableCell_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 import { FolderField as FolderField_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 import { FolderTypeField as FolderTypeField_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
+import { default as default_63e1fd6ccc8676d3683fa211ada7306f } from '@/app/(payload)/globals/mail/components/InboxComponent'
 import { default as default_80cbb9274e9fe3105fb7c2912a7be629 } from '@/app/(payload)/components/ArrayRowLabel'
 import { default as default_fffa11d06bdf3553480c50ec904295aa } from '@/app/(payload)/components/AccordionRowLabel'
 import { default as default_ce9f698b300d8b18af553d43b3b22b49 } from '@/app/(payload)/components/Icon'
@@ -69,6 +70,7 @@ export const importMap = {
   "@payloadcms/ui/rsc#FolderTableCell": FolderTableCell_ab83ff7e88da8d3530831f296ec4756a,
   "@payloadcms/ui/rsc#FolderField": FolderField_ab83ff7e88da8d3530831f296ec4756a,
   "@payloadcms/ui#FolderTypeField": FolderTypeField_3817bf644402e67bfe6577f60ef982de,
+  "@/app/(payload)/globals/mail/components/InboxComponent#default": default_63e1fd6ccc8676d3683fa211ada7306f,
   "@/app/(payload)/components/ArrayRowLabel#default": default_80cbb9274e9fe3105fb7c2912a7be629,
   "@/app/(payload)/components/AccordionRowLabel#default": default_fffa11d06bdf3553480c50ec904295aa,
   "@/app/(payload)/components/Icon#default": default_ce9f698b300d8b18af553d43b3b22b49,

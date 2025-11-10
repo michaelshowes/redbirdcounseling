@@ -139,9 +139,11 @@ export interface Config {
     defaultIDType: number;
   };
   globals: {
+    mail: Mail;
     settings: Setting;
   };
   globalsSelect: {
+    mail: MailSelect<false> | MailSelect<true>;
     settings: SettingsSelect<false> | SettingsSelect<true>;
   };
   locale: null;
@@ -1252,6 +1254,52 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mail".
+ */
+export interface Mail {
+  id: number;
+  inbox?: {
+    inbox?:
+      | {
+          subject?: string | null;
+          email?: string | null;
+          phone?: string | null;
+          message?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  contactForm: {
+    contactForm: {
+      /**
+       * The email address to send the message to.
+       */
+      recipient?: string | null;
+      /**
+       * The message to display to the user after the form is submitted. Use <name> to display the user's name for extra personalization.
+       */
+      confirmationMessage: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
+    };
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "settings".
  */
 export interface Setting {
@@ -1346,12 +1394,30 @@ export interface Setting {
       };
     };
   };
-  contactForm?: {
-    contactForm?: {
+  contactForm: {
+    contactForm: {
       /**
-       * The email address to send the form to.
+       * The email address to send the message to.
        */
       recipient?: string | null;
+      /**
+       * The message to display to the user after the form is submitted. Use <name> to display the user's name for extra personalization.
+       */
+      confirmationMessage: {
+        root: {
+          type: string;
+          children: {
+            type: string;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      };
     };
   };
   services?: {
@@ -1383,6 +1449,38 @@ export interface MainMenuCTA {
   } | null;
   url?: string | null;
   label: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mail_select".
+ */
+export interface MailSelect<T extends boolean = true> {
+  inbox?:
+    | T
+    | {
+        inbox?:
+          | T
+          | {
+              subject?: T;
+              email?: T;
+              phone?: T;
+              message?: T;
+              id?: T;
+            };
+      };
+  contactForm?:
+    | T
+    | {
+        contactForm?:
+          | T
+          | {
+              recipient?: T;
+              confirmationMessage?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1441,6 +1539,7 @@ export interface SettingsSelect<T extends boolean = true> {
           | T
           | {
               recipient?: T;
+              confirmationMessage?: T;
             };
       };
   services?:

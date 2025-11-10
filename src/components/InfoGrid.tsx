@@ -28,11 +28,7 @@ export default function InfoGrid(props: InfoGridProps) {
               }
             >
               <div className={'relative'}>
-                <div
-                  className={
-                    'absolute -top-5 -left-6 size-10 lg:-top-5 lg:-left-6'
-                  }
-                >
+                <div className={'absolute -top-5 -left-6 size-10'}>
                   <Image
                     src={'/images/redbird.svg'}
                     alt={'Logo'}

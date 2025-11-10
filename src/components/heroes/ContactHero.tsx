@@ -1,5 +1,6 @@
 import { draftMode } from 'next/headers';
 
+import { getSettings } from '@/db/queries/settings';
 import { ContactHero as ContactHeroProps, Media } from '@/payload-types';
 
 import ContactForm from '../ContactForm';
@@ -10,6 +11,7 @@ type Props = ContactHeroProps & {
 };
 
 export default async function ContactHero(props: Props) {
+  const { contactForm } = await getSettings();
   const { title, subtext } = props || {};
 
   const { isEnabled: draft } = await draftMode();
@@ -37,7 +39,7 @@ export default async function ContactHero(props: Props) {
         <p className={'mx-auto max-w-[765px]'}>{subtext}</p>
       </div>
 
-      <ContactForm />
+      <ContactForm confirmationMessage={contactForm?.confirmationMessage} />
     </section>
   );
 }

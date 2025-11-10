@@ -20,6 +20,7 @@ import { Media } from './app/(payload)/collections/Media';
 import { Pages } from './app/(payload)/collections/Pages';
 import { Services } from './app/(payload)/collections/Services';
 import { Users } from './app/(payload)/collections/Users';
+import { Mail } from './app/(payload)/globals/mail';
 import { Settings } from './app/(payload)/globals/settings';
 import { plugins } from './app/(payload)/plugins';
 
@@ -62,7 +63,7 @@ export default buildConfig({
     }
   },
   collections: [Pages, Services, Media, Users],
-  globals: [Settings],
+  globals: [Mail, Settings],
   blocks: [
     CTA,
     Selection,

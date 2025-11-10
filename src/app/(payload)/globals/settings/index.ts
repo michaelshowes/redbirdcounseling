@@ -1,12 +1,15 @@
 import { GlobalConfig } from 'payload';
 
-import { contactFormSettings } from './contactFormSettings';
+import { contactFormSettings } from '../mail/contactFormSettings';
 import { footerSettings } from './footerSettings';
 import { menuSettings } from './menuSettings';
 import { serviceSettings } from './serviceSettings';
 
 export const Settings: GlobalConfig = {
   slug: 'settings',
+  admin: {
+    group: 'Global'
+  },
   fields: [
     {
       type: 'tabs',

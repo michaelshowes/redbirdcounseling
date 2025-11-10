@@ -9,7 +9,7 @@ export async function POST(req: Request) {
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Redbird Counseling <noreply@meetredbirdcounseling.com>',
+      from: 'Redbird Counseling <contact@meetredbirdcounseling.com>',
       to: [contactForm?.recipient || 'nicole@meetredbirdcounseling.com'],
       subject: formData.subject,
       react: EmailTemplate({
