@@ -20,7 +20,7 @@ export const DEFAULT_KEYWORDS = [
   'Denver therapist',
   'Denver counseling',
   'therapist in Denver Colorado',
-  'counselor in Denver OH',
+  'counselor in Denver CO',
   'mental health counselor Denver',
   // Service-specific local keywords
   'trauma therapist Denver',
@@ -44,7 +44,6 @@ export const DEFAULT_KEYWORDS = [
   // Regional
   'therapist Colorado',
   'counselor Colorado',
-  'therapist Kentucky',
   // Additional
   'mental health therapy Denver',
   'anxiety therapist Denver',
