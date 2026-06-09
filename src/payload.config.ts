@@ -63,7 +63,7 @@ export default buildConfig({
     }
   },
   collections: [Pages, Services, Media, Users],
-  globals: [Mail, Settings],
+  globals: [Settings],
   blocks: [
     CTA,
     Selection,
