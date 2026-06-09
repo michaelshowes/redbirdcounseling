@@ -27,13 +27,13 @@ export const generateMeta = async (args: {
 
   // Enhanced title with local SEO focus
   const title = doc?.meta?.title
-    ? `${doc?.meta?.title} | Cincinnati Counseling`
-    : 'Redbird Counseling | Cincinnati Therapist & Counselor in Ohio';
+    ? `${doc?.meta?.title} | Denver Counseling`
+    : 'Redbird Counseling | Denver Therapist & Counselor in Colorado';
 
   // Enhanced description with location keywords
   const description =
     doc?.meta?.description ||
-    'Professional counselor and therapist in Cincinnati, Ohio. Trauma-informed therapy, substance use counseling, PTSD treatment, and addiction recovery for women, veterans, and first responders. Licensed in OH & KY.';
+    'Professional counselor and therapist in Denver, Colorado. Trauma-informed therapy, substance use counseling, PTSD treatment, and addiction recovery for women, veterans, and first responders. Licensed in OH & KY.';
 
   return {
     title,
@@ -45,13 +45,13 @@ export const generateMeta = async (args: {
         ? [
             {
               url: ogImage,
-              alt: `${doc?.meta?.title || 'Redbird Counseling'} - Cincinnati Therapist`
+              alt: `${doc?.meta?.title || 'Redbird Counseling'} - Denver Therapist`
             }
           ]
         : undefined,
       url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
       type: 'website',
-      siteName: 'Redbird Counseling - Cincinnati Therapist',
+      siteName: 'Redbird Counseling - Denver Therapist',
       locale: 'en_US'
     }),
     alternates: {

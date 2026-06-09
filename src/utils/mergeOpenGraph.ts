@@ -5,15 +5,15 @@ import { getServerSideURL } from './getURL';
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
   description:
-    'Professional counselor and therapist in Cincinnati, Ohio. Trauma-informed therapy, substance use counseling, PTSD treatment, and addiction recovery for women, veterans, and first responders. Licensed in OH & KY.',
+    'Professional counselor and therapist in Denver, Colorado. Trauma-informed therapy, substance use counseling, PTSD treatment, and addiction recovery for women, veterans, and first responders. Licensed in OH & KY.',
   images: [
     {
       url: `${getServerSideURL()}/images/opengraph-image.png`,
-      alt: 'Redbird Counseling - Cincinnati Therapist & Counselor'
+      alt: 'Redbird Counseling - Denver Therapist & Counselor'
     }
   ],
-  siteName: 'Redbird Counseling - Cincinnati Therapist',
-  title: 'Redbird Counseling | Cincinnati Therapist & Counselor in Ohio',
+  siteName: 'Redbird Counseling - Denver Therapist',
+  title: 'Redbird Counseling | Denver Therapist & Counselor in Colorado',
   locale: 'en_US'
 };
 
