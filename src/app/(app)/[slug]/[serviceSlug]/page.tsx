@@ -49,7 +49,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
     title: service.title,
     description:
       service.meta?.description ||
-      `${service.title} services in Cincinnati, Ohio. Professional counseling and therapy by Redbird Counseling.`,
+      `${service.title} services in Denver, Colorado. Professional counseling and therapy by Redbird Counseling.`,
     breadcrumbs: [
       {
         name: 'Home',

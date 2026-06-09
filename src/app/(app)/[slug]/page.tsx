@@ -50,7 +50,7 @@ export default async function Page({ params }: Props) {
     title: page.title,
     description:
       page.meta?.description ||
-      'Professional counselor and therapist in Cincinnati, Ohio.',
+      'Professional counselor and therapist in Denver, Colorado.',
     breadcrumbs
   });
 

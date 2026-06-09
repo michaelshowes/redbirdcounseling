@@ -136,7 +136,7 @@ export const stateList = [
     value: 'ND'
   },
   {
-    label: 'Ohio',
+    label: 'Colorado',
     value: 'OH'
   },
   {

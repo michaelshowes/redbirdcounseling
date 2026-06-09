@@ -22,7 +22,7 @@ export function generateLocalBusinessSchema(): WithContext<LocalBusiness> {
     name: 'Redbird Counseling and Consulting',
     alternateName: 'Redbird Counseling',
     description:
-      'Professional trauma-informed therapy and substance use counseling in Cincinnati, Ohio. Specializing in PTSD, addiction recovery, and mental health support for women, veterans, and first responders.',
+      'Professional trauma-informed therapy and substance use counseling in Denver, Colorado. Specializing in PTSD, addiction recovery, and mental health support for women, veterans, and first responders.',
     url: 'https://www.meetredbirdcounseling.com',
     logo: 'https://www.meetredbirdcounseling.com/images/logo.png',
     image: 'https://www.meetredbirdcounseling.com/images/opengraph-image.png',
@@ -32,7 +32,7 @@ export function generateLocalBusinessSchema(): WithContext<LocalBusiness> {
     address: {
       '@type': 'PostalAddress',
       streetAddress: '5725 Dragon Way, Suite 320',
-      addressLocality: 'Cincinnati',
+      addressLocality: 'Denver',
       addressRegion: 'OH',
       postalCode: '45227',
       addressCountry: 'US'
@@ -45,7 +45,7 @@ export function generateLocalBusinessSchema(): WithContext<LocalBusiness> {
     areaServed: [
       {
         '@type': 'State',
-        name: 'Ohio'
+        name: 'Colorado'
       },
       {
         '@type': 'State',
@@ -53,8 +53,8 @@ export function generateLocalBusinessSchema(): WithContext<LocalBusiness> {
       },
       {
         '@type': 'City',
-        name: 'Cincinnati',
-        '@id': 'https://en.wikipedia.org/wiki/Cincinnati'
+        name: 'Denver',
+        '@id': 'https://en.wikipedia.org/wiki/Denver'
       }
     ],
     hasOfferCatalog: {
@@ -115,7 +115,7 @@ export function generateLocalBusinessSchema(): WithContext<LocalBusiness> {
       }
     ],
     sameAs: [
-      'https://www.psychologytoday.com/us/therapists/nicole-michels-cincinnati-oh/1086696'
+      'https://www.psychologytoday.com/us/therapists/nicole-michels-Denver-oh/1086696'
     ]
   };
 }
@@ -131,7 +131,7 @@ export function generateProfessionalServiceSchema(): WithContext<ProfessionalSer
     '@id': 'https://www.meetredbirdcounseling.com/#service',
     name: 'Redbird Counseling and Consulting',
     description:
-      'Licensed professional counseling services in Cincinnati, Ohio. Trauma-informed therapy, substance use counseling, and mental health support.',
+      'Licensed professional counseling services in Denver, Colorado. Trauma-informed therapy, substance use counseling, and mental health support.',
     provider: {
       '@type': 'Person',
       name: 'Nicole Michels',
@@ -149,7 +149,7 @@ export function generateProfessionalServiceSchema(): WithContext<ProfessionalSer
     ],
     areaServed: {
       '@type': 'State',
-      name: 'Ohio'
+      name: 'Colorado'
     },
     availableChannel: {
       '@type': 'ServiceChannel',
@@ -158,7 +158,7 @@ export function generateProfessionalServiceSchema(): WithContext<ProfessionalSer
         address: {
           '@type': 'PostalAddress',
           streetAddress: '5725 Dragon Way, Suite 320',
-          addressLocality: 'Cincinnati',
+          addressLocality: 'Denver',
           addressRegion: 'OH',
           postalCode: '45227',
           addressCountry: 'US'
@@ -204,15 +204,15 @@ export async function generateFAQSchema(): Promise<WithContext<FAQPage>> {
         // Fallback FAQ items if page isn't found or doesn't have accordion
         {
           '@type': 'Question' as const,
-          name: 'What types of therapy does Redbird Counseling offer in Cincinnati?',
+          name: 'What types of therapy does Redbird Counseling offer in Denver?',
           acceptedAnswer: {
             '@type': 'Answer' as const,
-            text: 'Redbird Counseling in Cincinnati offers trauma-informed therapy, substance use counseling, PTSD treatment, addiction recovery support, and specialized counseling for women, veterans, and first responders. We use evidence-based approaches including CBT, DBT, and trauma-focused therapies.'
+            text: 'Redbird Counseling in Denver offers trauma-informed therapy, substance use counseling, PTSD treatment, addiction recovery support, and specialized counseling for women, veterans, and first responders. We use evidence-based approaches including CBT, DBT, and trauma-focused therapies.'
           }
         },
         {
           '@type': 'Question' as const,
-          name: 'Do you accept insurance for counseling services in Cincinnati?',
+          name: 'Do you accept insurance for counseling services in Denver?',
           acceptedAnswer: {
             '@type': 'Answer' as const,
             text: 'Yes, Redbird Counseling accepts most major insurance plans including Aetna, Anthem, BlueCross BlueShield, UnitedHealthcare, and others. We also offer a sliding scale for those who qualify. Contact us to verify your specific insurance coverage.'
@@ -223,7 +223,7 @@ export async function generateFAQSchema(): Promise<WithContext<FAQPage>> {
           name: 'Are counseling sessions available online or in-person?',
           acceptedAnswer: {
             '@type': 'Answer' as const,
-            text: 'Redbird Counseling offers both in-person sessions at our Cincinnati office (5725 Dragon Way, Suite 320) and secure online teletherapy sessions for clients in Ohio and Kentucky. This flexibility allows you to receive care in the way that works best for you.'
+            text: 'Redbird Counseling offers both in-person sessions at our Denver office (5725 Dragon Way, Suite 320) and secure online teletherapy sessions for clients in Colorado and Kentucky. This flexibility allows you to receive care in the way that works best for you.'
           }
         },
         {
@@ -231,12 +231,12 @@ export async function generateFAQSchema(): Promise<WithContext<FAQPage>> {
           name: 'What credentials does Nicole Michels have?',
           acceptedAnswer: {
             '@type': 'Answer' as const,
-            text: 'Nicole Michels is a Licensed Professional Clinical Counselor Supervisor (LPCC-S) with a Master of Arts from Xavier University. She is licensed in both Ohio and Kentucky and has over 16 years of experience specializing in trauma, substance use, and mental health counseling.'
+            text: 'Nicole Michels is a Licensed Professional Clinical Counselor Supervisor (LPCC-S) with a Master of Arts from Xavier University. She is licensed in both Colorado and Kentucky and has over 16 years of experience specializing in trauma, substance use, and mental health counseling.'
           }
         },
         {
           '@type': 'Question' as const,
-          name: 'How do I schedule a consultation with a Cincinnati counselor?',
+          name: 'How do I schedule a consultation with a Denver counselor?',
           acceptedAnswer: {
             '@type': 'Answer' as const,
             text: 'Redbird Counseling offers a free 15-minute consultation. You can call us at (513) 279-8949 or email nicole@meetredbirdcounseling.com to schedule your initial consultation and see if our services are right for you.'
