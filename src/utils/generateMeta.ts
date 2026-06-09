@@ -1,29 +1,26 @@
 import type { Metadata } from 'next';
 
-import type { Config, Media, Page, Service } from '../payload-types';
-import { getServerSideURL } from './getURL';
+import { getSiteMetadata } from '@/db/queries/settings';
+
+import type { Page, Service } from '../payload-types';
+import { getOGImageURL } from './getOGImageURL';
 import { mergeOpenGraph } from './mergeOpenGraph';
-
-const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
-  const serverUrl = getServerSideURL();
-
-  let url = serverUrl + '/images/opengraph-image.png';
-
-  if (image && typeof image === 'object' && 'url' in image) {
-    const ogUrl = image.sizes?.og?.url;
-
-    url = ogUrl ? serverUrl + ogUrl : serverUrl + image.url;
-  }
-
-  return url;
-};
 
 export const generateMeta = async (args: {
   doc: Partial<Page> | Partial<Service> | null;
 }): Promise<Metadata> => {
   const { doc } = args;
 
-  const ogImage = getImageURL(doc?.meta?.image);
+  const docImage = doc?.meta?.image;
+  const hasDocImage =
+    docImage && typeof docImage === 'object' && 'url' in docImage;
+
+  // Per-page image wins; otherwise fall back to the site-wide Open Graph image
+  // set in Settings → Metadata (which itself falls back to the static default).
+  const siteMetadata = hasDocImage ? null : await getSiteMetadata();
+  const ogImage = hasDocImage
+    ? getOGImageURL(docImage)
+    : getOGImageURL(siteMetadata?.openGraph?.image);
 
   // Enhanced title with local SEO focus
   const title = doc?.meta?.title

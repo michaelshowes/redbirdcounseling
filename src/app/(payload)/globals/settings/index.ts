@@ -3,6 +3,7 @@ import { GlobalConfig } from 'payload';
 import { contactFormSettings } from '../mail/contactFormSettings';
 import { footerSettings } from './footerSettings';
 import { menuSettings } from './menuSettings';
+import { metadataSettings } from './metadataSettings';
 import { serviceSettings } from './serviceSettings';
 
 export const Settings: GlobalConfig = {
@@ -14,6 +15,11 @@ export const Settings: GlobalConfig = {
     {
       type: 'tabs',
       tabs: [
+        {
+          name: 'metadata',
+          label: 'Metadata',
+          fields: metadataSettings
+        },
         {
           name: 'menus',
           label: 'Menus',

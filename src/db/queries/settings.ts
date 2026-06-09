@@ -15,6 +15,14 @@ export const getSettings = async () => {
   };
 };
 
+export const getSiteMetadata = async () => {
+  const result = await payload.findGlobal({
+    slug: 'settings'
+  });
+
+  return result.metadata;
+};
+
 export async function getMenu(menuName: string) {
   const result = await payload.findGlobal({
     slug: 'settings'

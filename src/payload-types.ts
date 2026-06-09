@@ -1286,6 +1286,46 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Setting {
   id: number;
+  metadata?: {
+    general?: {
+      /**
+       * The default page title, used when a page has no title of its own. Leave empty to use the default shown in the field.
+       */
+      siteName?: string | null;
+      /**
+       * Template for individual page titles. Use %s where the page title should appear (e.g. "%s | Redbird Counseling" = "Page Title | Redbird Counseling"). Leave empty to use the default shown in the field.
+       */
+      titleTemplate?: string | null;
+      /**
+       * The default site description shown in search results and social shares. Leave empty to use the default shown in the field.
+       */
+      description?: string | null;
+      /**
+       * SEO keywords. Press enter after each keyword.
+       */
+      keywords?: string[] | null;
+    };
+    openGraph?: {
+      /**
+       * Default image shown when the site is shared on social media (Facebook, X, LinkedIn, etc.). Recommended size: 1200×630px. Leave empty to use the built-in default image.
+       */
+      image?: (number | null) | Media;
+    };
+    attribution?: {
+      /**
+       * Leave empty to use the default shown in the field.
+       */
+      author?: string | null;
+      /**
+       * Leave empty to use the default shown in the field.
+       */
+      creator?: string | null;
+      /**
+       * Leave empty to use the default shown in the field.
+       */
+      publisher?: string | null;
+    };
+  };
   menus: {
     menus?:
       | {
@@ -1437,6 +1477,30 @@ export interface MainMenuCTA {
  * via the `definition` "settings_select".
  */
 export interface SettingsSelect<T extends boolean = true> {
+  metadata?:
+    | T
+    | {
+        general?:
+          | T
+          | {
+              siteName?: T;
+              titleTemplate?: T;
+              description?: T;
+              keywords?: T;
+            };
+        openGraph?:
+          | T
+          | {
+              image?: T;
+            };
+        attribution?:
+          | T
+          | {
+              author?: T;
+              creator?: T;
+              publisher?: T;
+            };
+      };
   menus?:
     | T
     | {
