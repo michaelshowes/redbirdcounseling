@@ -27,16 +27,17 @@ import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c08
 import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { SlugComponent as SlugComponent_4194f1527b761b071996016f1233fdb7 } from '@/app/(payload)/fields/slug/SlugComponent'
-import { FolderTableCell as FolderTableCell_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
-import { FolderField as FolderField_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
-import { FolderTypeField as FolderTypeField_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
-import { default as default_63e1fd6ccc8676d3683fa211ada7306f } from '@/app/(payload)/globals/mail/components/InboxComponent'
+import { FolderTableCell as FolderTableCell_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
+import { FolderField as FolderField_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
+import { FolderTypeField as FolderTypeField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
 import { default as default_80cbb9274e9fe3105fb7c2912a7be629 } from '@/app/(payload)/components/ArrayRowLabel'
 import { default as default_fffa11d06bdf3553480c50ec904295aa } from '@/app/(payload)/components/AccordionRowLabel'
 import { default as default_ce9f698b300d8b18af553d43b3b22b49 } from '@/app/(payload)/components/Icon'
 import { default as default_ed3cbed3b52ba9e0c712bb19e7066c56 } from '@/app/(payload)/components/Logo'
 import { VercelBlobClientUploadHandler as VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e } from '@payloadcms/storage-vercel-blob/client'
+import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
+/** @type import('payload').ImportMap */
 export const importMap = {
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -67,13 +68,13 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@/app/(payload)/fields/slug/SlugComponent#SlugComponent": SlugComponent_4194f1527b761b071996016f1233fdb7,
-  "@payloadcms/ui/rsc#FolderTableCell": FolderTableCell_ab83ff7e88da8d3530831f296ec4756a,
-  "@payloadcms/ui/rsc#FolderField": FolderField_ab83ff7e88da8d3530831f296ec4756a,
-  "@payloadcms/ui#FolderTypeField": FolderTypeField_3817bf644402e67bfe6577f60ef982de,
-  "@/app/(payload)/globals/mail/components/InboxComponent#default": default_63e1fd6ccc8676d3683fa211ada7306f,
+  "@payloadcms/next/rsc#FolderTableCell": FolderTableCell_f9c02e79a4aed9a3924487c0cd4cafb1,
+  "@payloadcms/next/rsc#FolderField": FolderField_f9c02e79a4aed9a3924487c0cd4cafb1,
+  "@payloadcms/next/client#FolderTypeField": FolderTypeField_2b8867833a34864a02ddf429b0728a40,
   "@/app/(payload)/components/ArrayRowLabel#default": default_80cbb9274e9fe3105fb7c2912a7be629,
   "@/app/(payload)/components/AccordionRowLabel#default": default_fffa11d06bdf3553480c50ec904295aa,
   "@/app/(payload)/components/Icon#default": default_ce9f698b300d8b18af553d43b3b22b49,
   "@/app/(payload)/components/Logo#default": default_ed3cbed3b52ba9e0c712bb19e7066c56,
-  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e
+  "@payloadcms/storage-vercel-blob/client#VercelBlobClientUploadHandler": VercelBlobClientUploadHandler_16c82c5e25f430251a3e3ba57219ff4e,
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

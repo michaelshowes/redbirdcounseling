@@ -3,11 +3,23 @@ import { draftMode } from 'next/headers';
 
 import { Analytics } from '@vercel/analytics/next';
 
+import {
+  DEFAULT_AUTHOR,
+  DEFAULT_CREATOR,
+  DEFAULT_DESCRIPTION,
+  DEFAULT_KEYWORDS,
+  DEFAULT_PUBLISHER,
+  DEFAULT_SITE_NAME,
+  DEFAULT_TITLE_TEMPLATE
+} from '@/app/constants/metadataDefaults';
 import FooterCTA from '@/components/global/FooterCTA';
 import SiteFooter from '@/components/global/SiteFooter';
 import SiteHeader from '@/components/global/SiteHeader';
+import { getSiteMetadata } from '@/db/queries/settings';
 import { sentient, sora } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
+import { getOGImageURL } from '@/utils/getOGImageURL';
+import { mergeOpenGraph } from '@/utils/mergeOpenGraph';
 import {
   StructuredData,
   generateFAQSchema,
@@ -17,76 +29,63 @@ import {
 
 import '../../globals.css';
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://www.meetredbirdcounseling.com'),
-  title: {
-    default: 'Redbird Counseling | Cincinnati Therapist & Counselor in Ohio',
-    template: '%s | Redbird Counseling Cincinnati'
-  },
-  description:
-    'Professional counselor and therapist in Cincinnati, Ohio. Trauma-informed therapy, substance use counseling, PTSD treatment, and addiction recovery for women, veterans, and first responders. Licensed in OH & KY. Call (513) 279-8949.',
-  keywords: [
-    // Primary local keywords
-    'counselor Cincinnati',
-    'therapist Cincinnati',
-    'Cincinnati counselor',
-    'Cincinnati therapist',
-    'Cincinnati counseling',
-    'therapist in Cincinnati Ohio',
-    'counselor in Cincinnati OH',
-    'mental health counselor Cincinnati',
-    // Service-specific local keywords
-    'trauma therapist Cincinnati',
-    'trauma therapy Cincinnati',
-    'PTSD therapist Cincinnati',
-    'PTSD therapy Cincinnati',
-    'substance use counselor Cincinnati',
-    'addiction counselor Cincinnati',
-    'addiction therapy Cincinnati',
-    'substance abuse counselor Cincinnati',
-    // Specialty local keywords
-    'veteran counselor Cincinnati',
-    'veteran therapist Cincinnati',
-    'first responder therapist Cincinnati',
-    'women therapist Cincinnati',
-    'female therapist Cincinnati',
-    // Professional credentials
-    'LPCC-S Cincinnati',
-    'licensed counselor Cincinnati',
-    'licensed therapist Cincinnati Ohio',
-    // Regional
-    'therapist Ohio',
-    'counselor Ohio',
-    'therapist Kentucky',
-    // Additional
-    'mental health therapy Cincinnati',
-    'anxiety therapist Cincinnati',
-    'depression counselor Cincinnati'
-  ],
-  authors: [{ name: 'Nicole Michels, LPCC-S' }],
-  creator: 'Redbird Counseling and Consulting',
-  publisher: 'Redbird Counseling and Consulting',
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+export async function generateMetadata(): Promise<Metadata> {
+  const metadata = await getSiteMetadata();
+  const { general, attribution, openGraph } = metadata ?? {};
+
+  const siteName = general?.siteName || DEFAULT_SITE_NAME;
+  const description = general?.description || DEFAULT_DESCRIPTION;
+  const ogImage = getOGImageURL(openGraph?.image);
+
+  return {
+    metadataBase: new URL('https://www.meetredbirdcounseling.com'),
+    title: {
+      default: siteName,
+      template: general?.titleTemplate || DEFAULT_TITLE_TEMPLATE
+    },
+    description,
+    keywords: general?.keywords?.length ? general.keywords : DEFAULT_KEYWORDS,
+    authors: [{ name: attribution?.author || DEFAULT_AUTHOR }],
+    creator: attribution?.creator || DEFAULT_CREATOR,
+    publisher: attribution?.publisher || DEFAULT_PUBLISHER,
+    openGraph: mergeOpenGraph({
+      title: siteName,
+      description,
+      images: [
+        {
+          url: ogImage,
+          alt: siteName
+        }
+      ]
+    }),
+    twitter: {
+      card: 'summary_large_image',
+      title: siteName,
+      description,
+      images: [ogImage]
+    },
+    robots: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1
+      }
+    },
+    alternates: {
+      canonical: 'https://www.meetredbirdcounseling.com'
+    },
+    other: {
+      'geo.region': 'US-OH',
+      'geo.placename': 'Denver',
+      'geo.position': '39.1431;-84.4280',
+      ICBM: '39.1431, -84.4280'
     }
-  },
-  alternates: {
-    canonical: 'https://www.meetredbirdcounseling.com'
-  },
-  other: {
-    'geo.region': 'US-OH',
-    'geo.placename': 'Cincinnati',
-    'geo.position': '39.1431;-84.4280',
-    ICBM: '39.1431, -84.4280'
-  }
-};
+  };
+}
 
 export default async function RootLayout({
   children
