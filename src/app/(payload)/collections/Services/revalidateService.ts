@@ -19,7 +19,7 @@ export const revalidateService: CollectionAfterChangeHook<Service> = ({
       payload.logger.info(`Revalidating service at path: ${path}`);
 
       revalidatePath(path);
-      revalidateTag('services-sitemap');
+      revalidateTag('services-sitemap', 'max');
     }
 
     // If the post was previously published, we need to revalidate the old path
@@ -29,7 +29,7 @@ export const revalidateService: CollectionAfterChangeHook<Service> = ({
       payload.logger.info(`Revalidating old service at path: ${oldPath}`);
 
       revalidatePath(oldPath);
-      revalidateTag('services-sitemap');
+      revalidateTag('services-sitemap', 'max');
     }
   }
   return doc;
@@ -43,7 +43,7 @@ export const revalidateDelete: CollectionAfterDeleteHook<Service> = ({
     const path = `/services/${doc?.slug}`;
 
     revalidatePath(path);
-    revalidateTag('services-sitemap');
+    revalidateTag('services-sitemap', 'max');
   }
 
   return doc;

@@ -115,6 +115,7 @@ export interface Config {
     services: Service;
     media: Media;
     users: User;
+    'payload-kv': PayloadKv;
     'payload-folders': FolderInterface;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -130,6 +131,7 @@ export interface Config {
     services: ServicesSelect<false> | ServicesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-folders': PayloadFoldersSelect<false> | PayloadFoldersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -138,18 +140,18 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
+  fallbackLocale: null;
   globals: {
-    mail: Mail;
     settings: Setting;
   };
   globalsSelect: {
-    mail: MailSelect<false> | MailSelect<true>;
     settings: SettingsSelect<false> | SettingsSelect<true>;
   };
   locale: null;
-  user: User & {
-    collection: 'users';
+  widgets: {
+    collections: CollectionsWidget;
   };
+  user: User;
   jobs: {
     tasks: unknown;
     workflows: unknown;
@@ -184,7 +186,7 @@ export interface CTA {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -256,7 +258,7 @@ export interface BasicHero {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -351,7 +353,7 @@ export interface HomeHero {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -389,7 +391,7 @@ export interface AboutHero {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -428,7 +430,7 @@ export interface ServicesHero {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -457,7 +459,7 @@ export interface Selection {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -532,7 +534,7 @@ export interface RichText {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -558,7 +560,7 @@ export interface CredentialsGrid {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -590,7 +592,7 @@ export interface CredentialsGrid {
           root: {
             type: string;
             children: {
-              type: string;
+              type: any;
               version: number;
               [k: string]: unknown;
             }[];
@@ -619,7 +621,7 @@ export interface Accordion {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -637,7 +639,7 @@ export interface Accordion {
           root: {
             type: string;
             children: {
-              type: string;
+              type: any;
               version: number;
               [k: string]: unknown;
             }[];
@@ -721,7 +723,7 @@ export interface FiftyFifty {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -738,7 +740,7 @@ export interface FiftyFifty {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -785,7 +787,7 @@ export interface Service {
       root: {
         type: string;
         children: {
-          type: string;
+          type: any;
           version: number;
           [k: string]: unknown;
         }[];
@@ -822,7 +824,7 @@ export interface Service {
       root: {
         type: string;
         children: {
-          type: string;
+          type: any;
           version: number;
           [k: string]: unknown;
         }[];
@@ -860,7 +862,7 @@ export interface ServiceDetailHero {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -896,6 +898,24 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+  collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv".
+ */
+export interface PayloadKv {
+  id: number;
+  key: string;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1210,6 +1230,14 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv_select".
+ */
+export interface PayloadKvSelect<T extends boolean = true> {
+  key?: T;
+  data?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-folders_select".
  */
 export interface PayloadFoldersSelect<T extends boolean = true> {
@@ -1251,52 +1279,6 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mail".
- */
-export interface Mail {
-  id: number;
-  inbox?: {
-    inbox?:
-      | {
-          subject?: string | null;
-          email?: string | null;
-          phone?: string | null;
-          message?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  contactForm: {
-    contactForm: {
-      /**
-       * The email address to send the message to.
-       */
-      recipient?: string | null;
-      /**
-       * The message to display to the user after the form is submitted. Use <name> to display the user's name for extra personalization.
-       */
-      confirmationMessage: {
-        root: {
-          type: string;
-          children: {
-            type: string;
-            version: number;
-            [k: string]: unknown;
-          }[];
-          direction: ('ltr' | 'rtl') | null;
-          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-          indent: number;
-          version: number;
-        };
-        [k: string]: unknown;
-      };
-    };
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1407,7 +1389,7 @@ export interface Setting {
         root: {
           type: string;
           children: {
-            type: string;
+            type: any;
             version: number;
             [k: string]: unknown;
           }[];
@@ -1449,38 +1431,6 @@ export interface MainMenuCTA {
   } | null;
   url?: string | null;
   label: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "mail_select".
- */
-export interface MailSelect<T extends boolean = true> {
-  inbox?:
-    | T
-    | {
-        inbox?:
-          | T
-          | {
-              subject?: T;
-              email?: T;
-              phone?: T;
-              message?: T;
-              id?: T;
-            };
-      };
-  contactForm?:
-    | T
-    | {
-        contactForm?:
-          | T
-          | {
-              recipient?: T;
-              confirmationMessage?: T;
-            };
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1588,6 +1538,16 @@ export interface MainMenuCTASelect<T extends boolean = true> {
   reference?: T;
   url?: T;
   label?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
