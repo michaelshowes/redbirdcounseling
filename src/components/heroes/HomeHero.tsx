@@ -47,17 +47,8 @@ async function LeftSide({ title, subtext, links }: LeftSideProps) {
         />
       </div>
       <h1 className={'text-display-3 lg:text-display-1'}>
-        {draft ? (
-          <>
-            {title}
-            <span className='text-redbird'>.</span>
-          </>
-        ) : (
-          <TextGenerateEffect
-            hasPeriod
-            words={title}
-          />
-        )}
+        {title}
+        <span className='text-redbird'>.</span>
       </h1>
       <RichText data={subtext} />
 

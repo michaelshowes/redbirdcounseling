@@ -38,22 +38,12 @@ export const Pages: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'updatedAt', 'status'],
     livePreview: {
-      url: ({ data, req }) => {
-        const slug = typeof data?.slug === 'string' ? data.slug : '';
-
-        // Return root path for home page
-        if (slug === 'home') {
-          return '/';
-        }
-
-        const path = generatePreviewPath({
-          slug,
+      url: ({ data, req }) =>
+        generatePreviewPath({
+          slug: typeof data?.slug === 'string' ? data.slug : '',
           collection: 'pages',
           req
-        });
-
-        return path;
-      }
+        })
     },
     preview: (data, { req }) =>
       generatePreviewPath({
