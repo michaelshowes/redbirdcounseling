@@ -27,6 +27,26 @@ import { plugins } from './app/(payload)/plugins';
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+/**
+ * Force `sslmode=verify-full` on the Postgres connection string.
+ *
+ * Neon ships its connection string with `sslmode=require`. In pg / pg-connection-string,
+ * `require` is currently an alias for `verify-full`, but it will adopt weaker libpq
+ * semantics (encrypt-only, no cert/hostname check) in pg v9. Pinning `verify-full` keeps
+ * strong verification (Neon uses publicly-trusted certs) and silences the deprecation
+ * warning. Applied in code so it survives the Neon–Vercel integration re-syncing the env vars.
+ */
+function withVerifyFull(connectionString: string): string {
+  if (!connectionString) return connectionString;
+  try {
+    const url = new URL(connectionString);
+    url.searchParams.set('sslmode', 'verify-full');
+    return url.toString();
+  } catch {
+    return connectionString;
+  }
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -83,7 +103,7 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || ''
+      connectionString: withVerifyFull(process.env.DATABASE_URL || '')
     }
   }),
   sharp,
