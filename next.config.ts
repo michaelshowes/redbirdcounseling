@@ -19,7 +19,6 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   experimental: {
-    multiZoneDraftMode: true,
     optimizePackageImports: [
       '@radix-ui/react-accordion',
       '@radix-ui/react-label',
