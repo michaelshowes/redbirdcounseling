@@ -95,10 +95,10 @@ function MobileMenu({
                       }
                     )}
                   >
-                    {(page as Page).slug === 'services' && (
+                    {(page as Page).slug === 'specialties' && (
                       <div className={'flex flex-col gap-4 overflow-hidden'}>
                         <Link
-                          href={'/services'}
+                          href={'/specialties'}
                           onClick={handleToggleMenu}
                           className={cn(
                             'bg-secondary-1 hover:border-redbird grid items-center gap-4 rounded-lg border border-neutral-300 p-2 transition-all'
@@ -110,10 +110,10 @@ function MobileMenu({
                                 'sans text-lg font-medium lg:text-[22px]'
                               }
                             >
-                              Services Overview
+                              Specialties Overview
                             </h3>
                             <p className={'text-sm lg:text-base'}>
-                              See all our services
+                              See all our specialties
                             </p>
                           </div>
                         </Link>

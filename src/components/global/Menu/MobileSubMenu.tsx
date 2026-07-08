@@ -30,7 +30,7 @@ export default function MobileSubMenu({
             return `/${pageValue.slug}`;
           }
 
-          return `/${subpage?.relationTo}/${pageValue.slug}`;
+          return `/specialties/${pageValue.slug}`;
         }
 
         return (

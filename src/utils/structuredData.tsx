@@ -59,7 +59,7 @@ export function generateLocalBusinessSchema(): WithContext<LocalBusiness> {
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Counseling Services',
+      name: 'Counseling Specialties',
       itemListElement: [
         {
           '@type': 'Offer',

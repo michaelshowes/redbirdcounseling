@@ -17,6 +17,10 @@ import { revalidateDelete, revalidateService } from './revalidateService';
 
 export const Services: CollectionConfig = {
   slug: 'services',
+  labels: {
+    singular: 'Specialty',
+    plural: 'Specialties'
+  },
   access: {
     create: authenticated,
     delete: authenticated,

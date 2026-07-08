@@ -20,9 +20,9 @@ export default async function SiteFooter() {
           />
         </div>
 
-        {/* Services */}
+        {/* Specialties */}
         <div>
-          <h3 className={'mb-2'}>Services</h3>
+          <h3 className={'mb-2'}>Specialties</h3>
           <nav>
             <ul className={'flex flex-col gap-2'}>
               {orderedServices?.map((serviceData) => {
@@ -31,7 +31,7 @@ export default async function SiteFooter() {
                 return (
                   <li key={service.id}>
                     <a
-                      href={`/services/${service.slug}`}
+                      href={`/specialties/${service.slug}`}
                       className='block text-base'
                     >
                       {service.title}

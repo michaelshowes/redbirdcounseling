@@ -37,7 +37,7 @@ export const Settings: GlobalConfig = {
         },
         {
           name: 'services',
-          label: 'Services',
+          label: 'Specialties',
           fields: serviceSettings
         }
       ]

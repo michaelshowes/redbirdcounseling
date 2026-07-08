@@ -1444,7 +1444,7 @@ export interface Setting {
   };
   services?: {
     /**
-     * Set the order of the services as shown across the site.
+     * Set the order of the specialties as shown across the site.
      */
     servicesOrder?: {
       services?:

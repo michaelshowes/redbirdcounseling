@@ -18,6 +18,21 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  async redirects() {
+    // The "Services" section was renamed to "Specialties"; preserve old URLs.
+    return [
+      {
+        source: '/services',
+        destination: '/specialties',
+        permanent: true
+      },
+      {
+        source: '/services/:slug',
+        destination: '/specialties/:slug',
+        permanent: true
+      }
+    ];
+  },
   experimental: {
     optimizePackageImports: [
       '@radix-ui/react-accordion',

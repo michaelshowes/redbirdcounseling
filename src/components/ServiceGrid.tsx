@@ -57,7 +57,7 @@ export default async function ServiceGrid({
                   description={service.meta?.description || ''}
                   image={service.meta?.image as Media}
                   link={{
-                    url: `/services/${service.slug}`,
+                    url: `/specialties/${service.slug}`,
                     label: (
                       <>
                         Read more{' '}
