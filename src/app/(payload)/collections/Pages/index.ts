@@ -82,7 +82,7 @@ export const Pages: CollectionConfig = {
         { label: 'Basic', value: 'basic' },
         { label: 'Home', value: 'home' },
         { label: 'About', value: 'about' },
-        { label: 'Services', value: 'services' },
+        { label: 'Specialties', value: 'services' },
         { label: 'FAQ', value: 'faq' },
         { label: 'Contact', value: 'contact' }
       ]

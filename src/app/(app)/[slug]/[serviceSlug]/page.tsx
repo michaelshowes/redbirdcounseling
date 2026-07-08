@@ -36,7 +36,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
   const { slug, serviceSlug } = await params;
   const { isEnabled: draft } = await draftMode();
 
-  if (slug !== 'services') {
+  if (slug !== 'specialties') {
     notFound();
   }
 
@@ -45,7 +45,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   // Generate breadcrumb structured data for SEO
   const webPageSchema = generateWebPageSchema({
-    url: `https://www.meetredbirdcounseling.com/services/${serviceSlug}`,
+    url: `https://www.meetredbirdcounseling.com/specialties/${serviceSlug}`,
     title: service.title,
     description:
       service.meta?.description ||
@@ -56,12 +56,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
         url: 'https://www.meetredbirdcounseling.com'
       },
       {
-        name: 'Services',
-        url: 'https://www.meetredbirdcounseling.com/services'
+        name: 'Specialties',
+        url: 'https://www.meetredbirdcounseling.com/specialties'
       },
       {
         name: service.title,
-        url: `https://www.meetredbirdcounseling.com/services/${serviceSlug}`
+        url: `https://www.meetredbirdcounseling.com/specialties/${serviceSlug}`
       }
     ]
   });

@@ -14,7 +14,7 @@ export const revalidateService: CollectionAfterChangeHook<Service> = ({
 }) => {
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
-      const path = `/services/${doc.slug}`;
+      const path = `/specialties/${doc.slug}`;
 
       payload.logger.info(`Revalidating service at path: ${path}`);
 
@@ -24,7 +24,7 @@ export const revalidateService: CollectionAfterChangeHook<Service> = ({
 
     // If the post was previously published, we need to revalidate the old path
     if (previousDoc._status === 'published' && doc._status !== 'published') {
-      const oldPath = `/services/${previousDoc.slug}`;
+      const oldPath = `/specialties/${previousDoc.slug}`;
 
       payload.logger.info(`Revalidating old service at path: ${oldPath}`);
 
@@ -40,7 +40,7 @@ export const revalidateDelete: CollectionAfterDeleteHook<Service> = ({
   req: { context }
 }) => {
   if (!context.disableRevalidate) {
-    const path = `/services/${doc?.slug}`;
+    const path = `/specialties/${doc?.slug}`;
 
     revalidatePath(path);
     revalidateTag('services-sitemap', 'max');

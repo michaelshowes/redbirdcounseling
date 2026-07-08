@@ -54,9 +54,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Map services to sitemap entries
-  // Services are nested under /services/{slug}
+  // Services are nested under /specialties/{slug}
   const serviceEntries: MetadataRoute.Sitemap = services.map((service) => ({
-    url: `${baseUrl}/services/${service.slug}`,
+    url: `${baseUrl}/specialties/${service.slug}`,
     lastModified: new Date(service.updatedAt),
     changeFrequency: 'monthly' as const,
     priority: 0.7

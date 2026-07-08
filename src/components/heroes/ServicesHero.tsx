@@ -74,7 +74,7 @@ export default async function ServicesHero(props: Props) {
                         slug: service.slug || ''
                       }
                     },
-                    url: `/services/${service.slug}`,
+                    url: `/specialties/${service.slug}`,
                     label: 'Read more'
                   }}
                   fullCardLink
