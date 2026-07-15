@@ -41,17 +41,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const services = servicesResult.docs as Service[];
 
   // Map pages to sitemap entries
-  const pageEntries: MetadataRoute.Sitemap = pages.map((page) => ({
-    url: `${baseUrl}/${page.slug}`,
-    lastModified: new Date(page.updatedAt),
-    changeFrequency: page.slug === 'home' ? 'daily' : ('weekly' as const),
-    priority:
-      page.slug === 'home'
-        ? 1
-        : page.slug === 'about' || page.slug === 'contact'
-          ? 0.9
-          : 0.8
-  }));
+  // The home page is emitted separately as the root URL below, so exclude its
+  // slug here to avoid listing both `/` and `/home` (duplicate content).
+  const pageEntries: MetadataRoute.Sitemap = pages
+    .filter((page) => page.slug !== 'home')
+    .map((page) => ({
+      url: `${baseUrl}/${page.slug}`,
+      lastModified: new Date(page.updatedAt),
+      changeFrequency: 'weekly' as const,
+      priority: page.slug === 'about' || page.slug === 'contact' ? 0.9 : 0.8
+    }));
 
   // Map services to sitemap entries
   // Services are nested under /specialties/{slug}
