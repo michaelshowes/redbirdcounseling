@@ -120,7 +120,6 @@ function MobileMenu({
                         <MobileSubMenu
                           subpages={subpages as Subpages}
                           handleToggleMenu={handleToggleMenu}
-                          hideImages
                         />
                       </div>
                     )}

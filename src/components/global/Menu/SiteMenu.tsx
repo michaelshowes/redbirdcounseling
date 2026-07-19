@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { ChevronDownIcon } from 'lucide-react';
+import { ArrowRightIcon, ChevronDownIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { MenuItems, Page, Subpages } from '@/payload-types';
@@ -37,6 +37,7 @@ export default function SiteMenu({ menuItems, className }: SiteMenuProps) {
           return (
             <li
               key={id}
+              className={'relative'}
               onMouseOver={handleMouseOver}
               onMouseLeave={handleMouseLeave}
             >
@@ -60,8 +61,31 @@ export default function SiteMenu({ menuItems, className }: SiteMenuProps) {
               </Link>
 
               {isActive && (
-                <div className={'absolute left-0 w-full bg-white p-4'}>
+                <div
+                  className={
+                    'absolute top-full left-0 z-50 w-[340px] overflow-hidden rounded-2xl border border-neutral-300 bg-white shadow-[0_22px_44px_-18px_rgba(10,19,22,0.22)]'
+                  }
+                >
                   <MobileSubMenu subpages={subpages as Subpages} />
+                  <Link
+                    href={'/specialties'}
+                    className={
+                      'group bg-secondary-3 flex items-center justify-between gap-3 border-t border-neutral-300 px-5 py-3.5'
+                    }
+                  >
+                    <span
+                      className={
+                        'sans text-xs font-semibold tracking-[0.14em] text-neutral-600 uppercase transition-colors group-hover:text-redbird'
+                      }
+                    >
+                      View all specialties
+                    </span>
+                    <ArrowRightIcon
+                      className={
+                        'size-4 text-neutral-600 transition-all group-hover:translate-x-1 group-hover:text-redbird'
+                      }
+                    />
+                  </Link>
                 </div>
               )}
             </li>
