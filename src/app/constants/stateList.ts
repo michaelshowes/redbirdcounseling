@@ -20,7 +20,7 @@ export const stateList = [
     value: 'CA'
   },
   {
-    label: 'Denver',
+    label: 'Colorado',
     value: 'CO'
   },
   {
@@ -136,7 +136,7 @@ export const stateList = [
     value: 'ND'
   },
   {
-    label: 'Colorado',
+    label: 'Ohio',
     value: 'OH'
   },
   {
