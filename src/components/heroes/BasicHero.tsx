@@ -1,4 +1,3 @@
-import { draftMode } from 'next/headers';
 import Image from 'next/image';
 
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
@@ -10,11 +9,12 @@ import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
 type Props = BasicHeroProps & {
   image: Media;
+  preview?: boolean;
 };
 
-export default async function BasicHero(props: Props) {
+export default function BasicHero(props: Props) {
   if (!props) return null;
-  const { isEnabled: draft } = await draftMode();
+  const draft = props.preview;
 
   const { title, subtext } = props;
   const image = props.image;

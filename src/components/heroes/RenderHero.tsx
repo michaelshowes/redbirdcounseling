@@ -1,4 +1,4 @@
-import { Page } from '@/payload-types';
+import { Page, Service, Setting } from '@/payload-types';
 
 import AboutHero from './AboutHero';
 import BasicHero from './BasicHero';
@@ -18,18 +18,43 @@ const heroes = {
 
 type HeroType = keyof typeof heroes;
 
-export default function RenderHero({ template, hero }: Page) {
+type RenderHeroProps = {
+  page: Page;
+  preview?: boolean;
+  orderedServices?: { service: Service }[];
+  contactForm?: Setting['contactForm']['contactForm'];
+};
+
+export default function RenderHero({
+  page,
+  preview,
+  orderedServices,
+  contactForm
+}: RenderHeroProps) {
+  const { template, hero } = page;
   if (!template) return null;
 
   if (template && template in heroes) {
-    const Hero = heroes[template as HeroType];
+    // TypeScript can't verify the dynamic template→component→props matching, so
+    // we render through a permissive type. `preview`, `orderedServices`, and
+    // `contactForm` are forwarded to every hero; heroes that don't need them
+    // ignore the extra props. This is what lets the same tree render
+    // server-side (production) and client-side (live preview) without any hero
+    // reaching for server-only data.
+    const Hero = heroes[
+      template as HeroType
+    ] as unknown as React.ComponentType<Record<string, unknown>>;
     const heroData = hero?.[`${template}Hero`];
 
     if (Hero && heroData) {
-      // Dynamic hero component rendering with CMS-managed props
-      // TypeScript can't verify the dynamic prop/component matching, but PayloadCMS schema ensures type safety
-      // @ts-expect-error - Dynamic component props from CMS
-      return <Hero {...heroData} />;
+      return (
+        <Hero
+          {...heroData}
+          preview={preview}
+          orderedServices={orderedServices}
+          contactForm={contactForm}
+        />
+      );
     }
   }
 }

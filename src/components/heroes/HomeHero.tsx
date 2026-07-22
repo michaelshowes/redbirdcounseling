@@ -1,4 +1,3 @@
-import { draftMode } from 'next/headers';
 import Image from 'next/image';
 
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
@@ -7,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { HomeHero as HomeHeroProps, Media } from '@/payload-types';
 
 import RichText from '../RichTextRenderer';
-import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
 interface LinkType {
   link: {
@@ -29,9 +27,7 @@ type LeftSideProps = {
   links: LinkType[];
 };
 
-async function LeftSide({ title, subtext, links }: LeftSideProps) {
-  const { isEnabled: draft } = await draftMode();
-
+function LeftSide({ title, subtext, links }: LeftSideProps) {
   return (
     <div className={'relative flex flex-col gap-2'}>
       <div

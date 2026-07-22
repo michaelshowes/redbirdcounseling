@@ -61,7 +61,9 @@ export const Pages: CollectionConfig = {
     maxPerDoc: 50,
     drafts: {
       autosave: {
-        interval: 100
+        // Draft persistence only. Live preview updates come from postMessage via
+        // `useLivePreview`, not autosave, so this no longer needs to be aggressive.
+        interval: 800
       }
     }
   },

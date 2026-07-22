@@ -66,7 +66,9 @@ export const Services: CollectionConfig = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100 // We set this interval for optimal live preview
+        // Draft persistence only. Live preview updates come from postMessage via
+        // `useLivePreview`, not autosave, so this no longer needs to be aggressive.
+        interval: 800
       }
     },
     maxPerDoc: 50

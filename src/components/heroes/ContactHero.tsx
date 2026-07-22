@@ -1,20 +1,19 @@
-import { draftMode } from 'next/headers';
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
-import { getSettings } from '@/db/queries/settings';
-import { ContactHero as ContactHeroProps, Media } from '@/payload-types';
+import { ContactHero as ContactHeroProps, Media, Setting } from '@/payload-types';
 
 import ContactForm from '../ContactForm';
 import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
 type Props = ContactHeroProps & {
   image: Media;
+  preview?: boolean;
+  contactForm?: Setting['contactForm']['contactForm'];
 };
 
-export default async function ContactHero(props: Props) {
-  const { contactForm } = await getSettings();
-  const { title, subtext } = props || {};
-
-  const { isEnabled: draft } = await draftMode();
+export default function ContactHero(props: Props) {
+  const { title, subtext, contactForm, preview } = props || {};
+  const draft = preview;
 
   return (
     <section className={'section-spacing bg-secondary-1 relative md:px-0'}>
@@ -39,7 +38,11 @@ export default async function ContactHero(props: Props) {
         <p className={'mx-auto max-w-[765px]'}>{subtext}</p>
       </div>
 
-      <ContactForm confirmationMessage={contactForm?.confirmationMessage} />
+      <ContactForm
+        confirmationMessage={
+          contactForm?.confirmationMessage as DefaultTypedEditorState
+        }
+      />
     </section>
   );
 }

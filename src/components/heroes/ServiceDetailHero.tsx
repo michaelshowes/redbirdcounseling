@@ -1,5 +1,3 @@
-import { draftMode } from 'next/headers';
-
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
 import {
@@ -13,10 +11,11 @@ import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
 type Props = ServiceDetailHeroProps & {
   image: Media;
+  preview?: boolean;
 };
 
-export default async function ServiceDetailHero(props: Props) {
-  const { isEnabled: draft } = await draftMode();
+export default function ServiceDetailHero(props: Props) {
+  const draft = props.preview;
   const { title, richTextSubtext } = props || {};
   const image = props.image;
 

@@ -1,9 +1,5 @@
-// import CardGrid from './CardGrid';
-import { draftMode } from 'next/headers';
-
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 
-import { getSettings } from '@/db/queries/settings';
 import {
   Media,
   Service,
@@ -16,14 +12,13 @@ import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 
 type Props = ServicesHeroProps & {
   image: Media;
+  preview?: boolean;
+  orderedServices?: { service: Service }[];
 };
 
-export default async function ServicesHero(props: Props) {
-  const { title, richTextSubtext } = props || {};
-  const { isEnabled: draft } = await draftMode();
-  const { orderedServices } = (await getSettings()) as {
-    orderedServices: { service: Service }[];
-  };
+export default function ServicesHero(props: Props) {
+  const { title, richTextSubtext, preview, orderedServices } = props || {};
+  const draft = preview;
 
   return (
     <section className={'section-spacing bg-secondary-1 relative'}>
