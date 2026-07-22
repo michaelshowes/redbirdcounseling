@@ -2,20 +2,12 @@ import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
-
-import { RenderBlocks } from '@/components/RenderBlocks';
-import RichTextRenderer from '@/components/RichTextRenderer';
-import ServiceDetails from '@/components/ServiceDetails';
+import ServiceBody from '@/components/ServiceBody';
 import DraftModeBanner from '@/components/global/DraftModeBanner';
-import ServiceDetailHero from '@/components/heroes/ServiceDetailHero';
-import { LivePreviewListener } from '@/components/utils/LivePreviewListener';
+import ServiceLivePreview from '@/components/utils/ServiceLivePreview';
 import { getServiceBySlug } from '@/db/queries/services';
-import { cn } from '@/lib/utils';
-import {
-  Media,
-  ServiceDetailHero as ServiceDetailHeroProps
-} from '@/payload-types';
+import { getSettings } from '@/db/queries/settings';
+import { Service } from '@/payload-types';
 import { generateMeta } from '@/utils/generateMeta';
 import { StructuredData, generateWebPageSchema } from '@/utils/structuredData';
 
@@ -41,7 +33,17 @@ export default async function ServicePage({ params }: ServicePageProps) {
   }
 
   const service = await getServiceBySlug(serviceSlug);
-  const hero = service.hero as ServiceDetailHeroProps & { image: Media };
+
+  if (!service) {
+    notFound();
+  }
+
+  // ServiceGrid blocks that may appear in the service body need the global
+  // ordered-services list; fetch it here so the body stays a pure component.
+  const settings = await getSettings();
+  const orderedServices = settings.orderedServices as
+    | { service: Service }[]
+    | undefined;
 
   // Generate breadcrumb structured data for SEO
   const webPageSchema = generateWebPageSchema({
@@ -74,32 +76,17 @@ export default async function ServicePage({ params }: ServicePageProps) {
         id={service.id}
         status={service._status}
       />
-      {draft && <LivePreviewListener />}
-      <ServiceDetailHero {...hero} />
-      <div className={'flex justify-center px-4'}>
-        <div
-          className={cn('w-full max-w-[700px]', {
-            'grid max-w-[1092px] gap-8 md:grid-cols-[300px_1fr] lg:grid-cols-[360px_1fr]':
-              service.details?.showDetails
-          })}
-        >
-          <div className={'relative'}>
-            <div className={'sticky top-10'}>
-              <ServiceDetails {...service} />
-            </div>
-          </div>
-          <RichTextRenderer
-            data={service.content.description as DefaultTypedEditorState}
-            enableProse
-          />
-        </div>
-        <div className={'[&>section]:even:bg-secondary-1'}>
-          {service?.content?.content && (
-            // @ts-expect-error - content exists
-            <RenderBlocks blocks={service.content.content} />
-          )}
-        </div>
-      </div>
+      {draft ? (
+        <ServiceLivePreview
+          initialData={service}
+          orderedServices={orderedServices}
+        />
+      ) : (
+        <ServiceBody
+          service={service}
+          orderedServices={orderedServices}
+        />
+      )}
     </div>
   );
 }
