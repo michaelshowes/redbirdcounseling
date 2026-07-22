@@ -1,11 +1,12 @@
 import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 
-import { RenderBlocks } from '@/components/RenderBlocks';
+import PageBody from '@/components/PageBody';
 import DraftModeBanner from '@/components/global/DraftModeBanner';
-import RenderHero from '@/components/heroes/RenderHero';
-import { LivePreviewListener } from '@/components/utils/LivePreviewListener';
+import PageLivePreview from '@/components/utils/PageLivePreview';
 import { getPageBySlug } from '@/db/queries/pages';
+import { getSettings } from '@/db/queries/settings';
+import { Service } from '@/payload-types';
 import { generateMeta } from '@/utils/generateMeta';
 import { StructuredData, generateWebPageSchema } from '@/utils/structuredData';
 
@@ -29,6 +30,15 @@ export default async function Page({ params }: Props) {
   // );
 
   if (!page) return null;
+
+  // Global settings consumed by settings-driven heroes/blocks (ServicesHero,
+  // ContactHero, ServiceGrid). Fetched here so those components stay pure and
+  // can render in both the server (production) and client (live preview) trees.
+  const settings = await getSettings();
+  const orderedServices = settings.orderedServices as
+    | { service: Service }[]
+    | undefined;
+  const contactForm = settings.contactForm;
 
   // Generate breadcrumb structured data for pages
   const breadcrumbs =
@@ -62,14 +72,19 @@ export default async function Page({ params }: Props) {
         id={page.id}
         status={page._status}
       />
-      {draft && <LivePreviewListener />}
-      <RenderHero {...page} />
-      <div className={'[&>section]:even:bg-secondary-1'}>
-        {page?.content?.content && (
-          // @ts-expect-error - content exists
-          <RenderBlocks blocks={page.content.content} />
-        )}
-      </div>
+      {draft ? (
+        <PageLivePreview
+          initialData={page}
+          orderedServices={orderedServices}
+          contactForm={contactForm}
+        />
+      ) : (
+        <PageBody
+          page={page}
+          orderedServices={orderedServices}
+          contactForm={contactForm}
+        />
+      )}
     </>
   );
 }

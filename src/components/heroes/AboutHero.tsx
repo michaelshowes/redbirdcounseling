@@ -1,4 +1,3 @@
-import { draftMode } from 'next/headers';
 import Image from 'next/image';
 
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
@@ -11,13 +10,14 @@ import { TextGenerateEffect } from '../utils/TextGenerateEffect';
 type Props = AboutHeroProps & {
   image: Media;
   secondaryImage: Media;
+  preview?: boolean;
 };
 
-export default async function AboutHero(props: Props) {
-  const { title, richTextSubtext } = props || {};
+export default function AboutHero(props: Props) {
+  const { title, richTextSubtext, preview } = props || {};
   const image = props.image;
   const secondaryImage = props.secondaryImage;
-  const { isEnabled: draft } = await draftMode();
+  const draft = preview;
 
   return (
     <section className={'bg-secondary-1 py-20'}>

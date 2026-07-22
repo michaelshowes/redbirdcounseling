@@ -1,29 +1,27 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
-import { cn } from '@/lib/utils';
-import { Media, Page, Service, Subpages } from '@/payload-types';
+import { ArrowRightIcon } from 'lucide-react';
+
+import { Page, Service, Subpages } from '@/payload-types';
 
 type MobileSubMenuProps = {
   subpages: Subpages;
-  hideImages?: boolean;
   handleToggleMenu?: () => void;
 };
 
 export default function MobileSubMenu({
   subpages,
-  hideImages = false,
   handleToggleMenu
 }: MobileSubMenuProps) {
   return (
-    <ul className={'flex flex-col gap-4'}>
+    <ul className={'flex flex-col'}>
       {subpages?.map((page) => {
         const { subpage }: NonNullable<Subpages>[number] = page;
         const pageValue =
           subpage?.relationTo === 'pages'
             ? (subpage?.value as Page)
             : (subpage?.value as Service);
-        const image = pageValue.meta?.image as Media;
+        const isService = subpage?.relationTo === 'services';
 
         function url({ subpage }: NonNullable<Subpages>[number]) {
           if (subpage?.relationTo === 'pages') {
@@ -38,45 +36,26 @@ export default function MobileSubMenu({
             <Link
               href={url({ subpage })}
               onClick={handleToggleMenu}
-              className={'group'}
+              className={
+                'group hover:bg-secondary-1 flex items-center justify-between gap-3 px-3 py-2 transition-all hover:pl-6'
+              }
             >
-              {subpage?.relationTo === 'services' ? (
-                <article
-                  className={cn(
-                    'bg-secondary-1 group-hover:border-redbird grid items-center gap-4 rounded-lg border border-neutral-300 p-2 transition-all',
-                    {
-                      'grid grid-cols-[120px_1fr]': !hideImages
+              {isService ? (
+                <>
+                  <span className={'serif text-base font-medium'}>
+                    {pageValue.title}
+                    <span className={'text-redbird ml-0.5 text-xl'}>.</span>
+                  </span>
+                  <ArrowRightIcon
+                    className={
+                      'text-redbird size-4 -translate-x-2 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100'
                     }
-                  )}
-                >
-                  {!hideImages && (
-                    <div
-                      className={
-                        'relative size-[120px] w-full overflow-hidden rounded-lg'
-                      }
-                    >
-                      <Image
-                        src={image.url!}
-                        alt={image.alt!}
-                        fill
-                        className={
-                          'object-cover transition-all duration-200 group-hover:scale-110'
-                        }
-                      />
-                    </div>
-                  )}
-                  <div>
-                    <h3 className={'sans text-lg font-medium lg:text-[22px]'}>
-                      {pageValue.title}
-                      <span className={'text-redbird ml-1 !text-3xl'}>.</span>
-                    </h3>
-                    <p className={'text-sm lg:text-base'}>
-                      {pageValue.meta?.description}
-                    </p>
-                  </div>
-                </article>
+                  />
+                </>
               ) : (
-                <>{pageValue.title}</>
+                <span className={'sans text-base font-medium'}>
+                  {pageValue.title}
+                </span>
               )}
             </Link>
           </li>

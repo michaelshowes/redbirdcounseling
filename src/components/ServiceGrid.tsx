@@ -1,4 +1,3 @@
-import { getSettings } from '@/db/queries/settings';
 import { Media, Service } from '@/payload-types';
 
 import Card from './Card';
@@ -10,6 +9,7 @@ type ServiceGridProps = {
   fullCardLink?: boolean;
   title?: string;
   headline?: string;
+  orderedServices?: { service: Service }[];
   link?: {
     url?: string;
     label: string;
@@ -22,17 +22,14 @@ type ServiceGridProps = {
   };
 };
 
-export default async function ServiceGrid({
+export default function ServiceGrid({
   showCount = 'all',
   fullCardLink = false,
   title,
   headline,
+  orderedServices = [],
   link
 }: ServiceGridProps) {
-  const { orderedServices } = (await getSettings()) as {
-    orderedServices: { service: Service }[];
-  };
-
   return (
     <section className={'section-spacing'}>
       <div className={'mx-auto max-w-[1220px]'}>
