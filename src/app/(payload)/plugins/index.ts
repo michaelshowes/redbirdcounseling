@@ -18,6 +18,16 @@ const generateURL: GenerateURL<Page> = ({ doc }) => {
   return doc?.slug ? `${url}/${doc.slug}` : url;
 };
 
+// Local development writes to its own Blob store. Dev and production run against
+// separate databases but previously shared one store, so deleting a media item in
+// the dev admin removed a file production was still serving. Gated on NODE_ENV so
+// a stray DEV_READ_WRITE_TOKEN can never redirect a production build; builds and
+// deployments (including staging) always use BLOB_READ_WRITE_TOKEN.
+const blobToken =
+  process.env.NODE_ENV === 'production'
+    ? process.env.BLOB_READ_WRITE_TOKEN
+    : (process.env.DEV_READ_WRITE_TOKEN ?? process.env.BLOB_READ_WRITE_TOKEN);
+
 export const plugins: Plugin[] = [
   seoPlugin({
     generateTitle,
@@ -27,6 +37,6 @@ export const plugins: Plugin[] = [
     enabled: true,
     collections: { media: true },
     clientUploads: true,
-    token: process.env.BLOB_READ_WRITE_TOKEN
+    token: blobToken
   })
 ];
