@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local backups written by scripts/blob-audit.ts
+blob-orphan-backup-*/
