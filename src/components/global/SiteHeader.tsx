@@ -26,10 +26,12 @@ export default async function SiteHeader() {
               'relative inline-block size-[80px] rounded-full md:size-[140px]'
             }
           >
+            {/* Above the fold on every page, and measured as the LCP element. */}
             <Image
               src={'/images/logo.svg'}
               alt={'Logo'}
               fill
+              priority
               className={'rounded-full'}
             />
           </Link>
