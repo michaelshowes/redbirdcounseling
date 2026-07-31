@@ -43,12 +43,24 @@ export const menuSettings: GlobalConfig['fields'] = [
             }
           },
           {
+            type: 'checkbox',
+            name: 'autoSpecialties',
+            label: 'Auto-add published Specialties',
+            defaultValue: false,
+            admin: {
+              condition: (_, siblingData) => siblingData?.subpageOption,
+              description:
+                'Build this dropdown automatically from every published Specialty, ordered by Settings → Specialties → Specialties Order. Turn off to curate the list by hand.'
+            }
+          },
+          {
             type: 'array',
             name: 'subpages',
             label: 'Subpages',
             interfaceName: 'Subpages',
             admin: {
-              condition: (_, siblingData) => siblingData?.subpageOption
+              condition: (_, siblingData) =>
+                siblingData?.subpageOption && !siblingData?.autoSpecialties
             },
             fields: [
               {

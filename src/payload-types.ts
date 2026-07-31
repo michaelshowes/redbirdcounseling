@@ -17,6 +17,10 @@ export type MenuItems =
        * Subpage links will be displayed in a dropdown under the parent menu link
        */
       subpageOption?: boolean | null;
+      /**
+       * Build this dropdown automatically from every published Specialty, ordered by Settings → Specialties → Specialties Order. Turn off to curate the list by hand.
+       */
+      autoSpecialties?: boolean | null;
       subpages?: Subpages;
       id?: string | null;
     }[]
@@ -1581,6 +1585,7 @@ export interface SettingsSelect<T extends boolean = true> {
 export interface MenuItemsSelect<T extends boolean = true> {
   page?: T;
   subpageOption?: T;
+  autoSpecialties?: T;
   subpages?: T | SubpagesSelect<T>;
   id?: T;
 }
