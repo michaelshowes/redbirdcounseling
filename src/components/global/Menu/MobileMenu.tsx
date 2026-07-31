@@ -27,8 +27,7 @@ function MobileMenu({
   const [isActiveSubmenu, setIsActiveSubmenu] = useState(false);
   // const [isActive, setIsActive] = useState(false);
 
-  function handleToggleSubmenu(e: React.MouseEvent<HTMLAnchorElement>) {
-    e.preventDefault();
+  function handleToggleSubmenu() {
     setIsActiveSubmenu(!isActiveSubmenu);
   }
 
@@ -66,64 +65,54 @@ function MobileMenu({
             {menuItems?.map(({ page, subpageOption, id, subpages }) => {
               return (
                 <li key={id}>
-                  <Link
-                    href={`/${(page as Page)?.slug}`}
-                    onClick={
-                      subpageOption ? handleToggleSubmenu : handleToggleMenu
-                    }
-                    className={cn(
-                      'flex items-center gap-2 py-2 font-bold transition-colors'
-                      // { 'text-redbird': isActive }
-                    )}
-                  >
-                    {(page as Page)?.title}
-                    {subpageOption && (
+                  {/* Items with a dropdown have no landing page behind them, so
+                      they only expand the submenu. */}
+                  {subpageOption ? (
+                    <button
+                      type={'button'}
+                      aria-expanded={isActiveSubmenu}
+                      onClick={handleToggleSubmenu}
+                      className={cn(
+                        'flex items-center gap-2 py-2 font-bold transition-colors'
+                      )}
+                    >
+                      {(page as Page)?.title}
                       <ChevronDownIcon
                         className={cn(
                           'size-5 transition-transform duration-250',
                           { 'rotate-180': isActiveSubmenu }
                         )}
                       />
-                    )}
-                  </Link>
+                    </button>
+                  ) : (
+                    <Link
+                      href={`/${(page as Page)?.slug}`}
+                      onClick={handleToggleMenu}
+                      className={cn(
+                        'flex items-center gap-2 py-2 font-bold transition-colors'
+                      )}
+                    >
+                      {(page as Page)?.title}
+                    </Link>
+                  )}
 
-                  <div
-                    className={cn(
-                      'grid grid-rows-[0fr] transition-all duration-200',
-                      {
-                        'grid-rows-[1fr]': isActiveSubmenu
-                      }
-                    )}
-                  >
-                    {(page as Page).slug === 'specialties' && (
-                      <div className={'flex flex-col gap-4 overflow-hidden'}>
-                        <Link
-                          href={'/specialties'}
-                          onClick={handleToggleMenu}
-                          className={cn(
-                            'bg-secondary-1 hover:border-redbird grid items-center gap-4 rounded-lg border border-neutral-300 p-2 transition-all'
-                          )}
-                        >
-                          <div>
-                            <h3
-                              className={
-                                'sans text-lg font-medium lg:text-[22px]'
-                              }
-                            >
-                              Specialties Overview
-                            </h3>
-                            <p className={'text-sm lg:text-base'}>
-                              See all our specialties
-                            </p>
-                          </div>
-                        </Link>
+                  {subpageOption && (
+                    <div
+                      className={cn(
+                        'grid grid-rows-[0fr] transition-all duration-200',
+                        {
+                          'grid-rows-[1fr]': isActiveSubmenu
+                        }
+                      )}
+                    >
+                      <div className={'overflow-hidden'}>
                         <MobileSubMenu
                           subpages={subpages as Subpages}
                           handleToggleMenu={handleToggleMenu}
                         />
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </li>
               );
             })}
