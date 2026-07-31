@@ -20,10 +20,17 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   async redirects() {
     // The "Services" section was renamed to "Specialties"; preserve old URLs.
+    // The Specialties landing page was since removed - individual specialty
+    // pages remain, so only the index URLs fall back to the home page.
     return [
       {
         source: '/services',
-        destination: '/specialties',
+        destination: '/',
+        permanent: true
+      },
+      {
+        source: '/specialties',
+        destination: '/',
         permanent: true
       },
       {

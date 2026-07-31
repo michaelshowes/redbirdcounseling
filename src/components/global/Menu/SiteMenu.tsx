@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { ArrowRightIcon, ChevronDownIcon } from 'lucide-react';
+import { ChevronDownIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { MenuItems, Page, Subpages } from '@/payload-types';
@@ -34,31 +34,49 @@ export default function SiteMenu({ menuItems, className }: SiteMenuProps) {
             setActiveId(null);
           }
 
+          // Items with a dropdown are triggers, not destinations - there is no
+          // landing page behind them, so they open the submenu instead of
+          // navigating. A button keeps that reachable by keyboard, which a
+          // hover-only element would not be.
+          const triggerClassName = cn(
+            'flex items-center gap-2 px-4 py-10 font-bold transition-colors',
+            {
+              'text-redbird': isActive
+            }
+          );
+
           return (
             <li
               key={id}
               className={'relative'}
               onMouseOver={handleMouseOver}
               onMouseLeave={handleMouseLeave}
+              onKeyDown={(e) => {
+                if (e.key === 'Escape') setActiveId(null);
+              }}
             >
-              <Link
-                href={`/${(page as Page)?.slug}`}
-                className={cn(
-                  'flex items-center gap-2 px-4 py-10 font-bold transition-colors',
-                  {
-                    'text-redbird': isActive
-                  }
-                )}
-              >
-                {(page as Page)?.title}
-                {subpageOption && (
+              {subpageOption ? (
+                <button
+                  type={'button'}
+                  aria-expanded={isActive}
+                  onClick={() => setActiveId(isActive ? null : id!)}
+                  className={triggerClassName}
+                >
+                  {(page as Page)?.title}
                   <ChevronDownIcon
                     className={cn('size-5 transition-transform duration-250', {
                       'rotate-180': isActive
                     })}
                   />
-                )}
-              </Link>
+                </button>
+              ) : (
+                <Link
+                  href={`/${(page as Page)?.slug}`}
+                  className={triggerClassName}
+                >
+                  {(page as Page)?.title}
+                </Link>
+              )}
 
               {isActive && (
                 <div
@@ -67,25 +85,6 @@ export default function SiteMenu({ menuItems, className }: SiteMenuProps) {
                   }
                 >
                   <MobileSubMenu subpages={subpages as Subpages} />
-                  <Link
-                    href={'/specialties'}
-                    className={
-                      'group bg-secondary-3 flex items-center justify-between gap-3 border-t border-neutral-300 px-5 py-3.5'
-                    }
-                  >
-                    <span
-                      className={
-                        'sans text-xs font-semibold tracking-[0.14em] text-neutral-600 uppercase transition-colors group-hover:text-redbird'
-                      }
-                    >
-                      View all specialties
-                    </span>
-                    <ArrowRightIcon
-                      className={
-                        'size-4 text-neutral-600 transition-all group-hover:translate-x-1 group-hover:text-redbird'
-                      }
-                    />
-                  </Link>
                 </div>
               )}
             </li>
