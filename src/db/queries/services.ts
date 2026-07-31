@@ -12,6 +12,21 @@ export async function getServices() {
   return result.docs || [];
 }
 
+export async function getPublishedServices() {
+  const result = await payload.find({
+    collection: 'services',
+    pagination: false,
+    depth: 0,
+    where: {
+      _status: {
+        equals: 'published'
+      }
+    }
+  });
+
+  return result.docs || [];
+}
+
 export const getServiceBySlug = async (slug: string) => {
   const { isEnabled: draft } = await draftMode();
 
