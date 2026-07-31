@@ -14,7 +14,9 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "payload": "payload",
-    "reinstall": "rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install"
+    "reinstall": "rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
+    "blob:audit": "payload run scripts/blob-audit.ts",
+    "blob:audit:prod": "NODE_ENV=production node --env-file=.env.production node_modules/payload/bin.js run scripts/blob-audit.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

@@ -36,7 +36,13 @@ export const plugins: Plugin[] = [
   vercelBlobStorage({
     enabled: true,
     collections: { media: true },
-    clientUploads: true,
+    // Uploads go through the server so the blob is only written as part of a
+    // successful doc save. With direct client uploads the file landed in Blob
+    // before the form was submitted, so abandoning the required `alt` step left
+    // an orphaned file behind. Server uploads are capped by the Vercel request
+    // body limit (100 MB); the largest asset here is under 7 MB. Revisit if
+    // video is ever added to this collection.
+    clientUploads: false,
     token: blobToken
   })
 ];
