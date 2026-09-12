@@ -14,6 +14,14 @@ export type MenuItems =
   | {
       page?: (number | null) | Page;
       /**
+       * Link text. Required when using a custom URL; otherwise the page title is used.
+       */
+      customLabel?: string | null;
+      /**
+       * For destinations that are not Pages - e.g. /blog. Takes precedence over the Page selection above.
+       */
+      customUrl?: string | null;
+      /**
        * Subpage links will be displayed in a dropdown under the parent menu link
        */
       subpageOption?: boolean | null;
@@ -116,6 +124,7 @@ export interface Config {
   };
   collections: {
     pages: Page;
+    posts: Post;
     services: Service;
     media: Media;
     users: User;
@@ -132,6 +141,7 @@ export interface Config {
   };
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -772,6 +782,63 @@ export interface MediaBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  /**
+   * Controls ordering on /blog. The newest published post is featured at the top.
+   */
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  /**
+   * Short summary shown on the blog listing and in the featured card. Aim for one or two sentences.
+   */
+  excerpt: string;
+  /**
+   * Used on the listing, the featured card, and the post hero.
+   */
+  image: number | Media;
+  content: {
+    body: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    /**
+     * Optional sections appended below the article - e.g. a CTA or an FAQ accordion.
+     */
+    content?:
+      | (CTA | Selection | CardGrid | RichText | CredentialsGrid | Accordion | InfoGrid | ServiceGrid | FiftyFifty)[]
+      | null;
+  };
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  deletedAt?: string | null;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "services".
  */
 export interface Service {
@@ -933,6 +1000,10 @@ export interface PayloadLockedDocument {
         value: number | Page;
       } | null)
     | ({
+        relationTo: 'posts';
+        value: number | Post;
+      } | null)
+    | ({
         relationTo: 'services';
         value: number | Service;
       } | null)
@@ -1091,6 +1162,35 @@ export interface ContactHeroSelect<T extends boolean = true> {
 export interface ServicesHeroSelect<T extends boolean = true> {
   title?: T;
   richTextSubtext?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  excerpt?: T;
+  image?: T;
+  content?:
+    | T
+    | {
+        body?: T;
+        content?: T | {};
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  deletedAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1584,6 +1684,8 @@ export interface SettingsSelect<T extends boolean = true> {
  */
 export interface MenuItemsSelect<T extends boolean = true> {
   page?: T;
+  customLabel?: T;
+  customUrl?: T;
   subpageOption?: T;
   autoSpecialties?: T;
   subpages?: T | SubpagesSelect<T>;

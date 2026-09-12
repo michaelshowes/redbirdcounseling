@@ -6,9 +6,10 @@ import { useState } from 'react';
 import { ChevronDownIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { MenuItems, Page, Subpages } from '@/payload-types';
+import { MenuItems, Subpages } from '@/payload-types';
 
 import MobileSubMenu from './MobileSubMenu';
+import { resolveMenuItem } from './resolveMenuItem';
 
 type SiteMenuProps = {
   menuItems: MenuItems;
@@ -21,7 +22,9 @@ export default function SiteMenu({ menuItems, className }: SiteMenuProps) {
   return (
     <nav className={cn('relative', className)}>
       <ul className={'flex items-center gap-4'}>
-        {menuItems?.map(({ id, page, subpageOption, subpages }) => {
+        {menuItems?.map((item) => {
+          const { id, subpageOption, subpages } = item;
+          const { label, href } = resolveMenuItem(item);
           const isActive = activeId === id;
 
           function handleMouseOver() {
@@ -62,7 +65,7 @@ export default function SiteMenu({ menuItems, className }: SiteMenuProps) {
                   onClick={() => setActiveId(isActive ? null : id!)}
                   className={triggerClassName}
                 >
-                  {(page as Page)?.title}
+                  {label}
                   <ChevronDownIcon
                     className={cn('size-5 transition-transform duration-250', {
                       'rotate-180': isActive
@@ -71,10 +74,10 @@ export default function SiteMenu({ menuItems, className }: SiteMenuProps) {
                 </button>
               ) : (
                 <Link
-                  href={`/${(page as Page)?.slug}`}
+                  href={href}
                   className={triggerClassName}
                 >
-                  {(page as Page)?.title}
+                  {label}
                 </Link>
               )}
 
