@@ -33,6 +33,35 @@ const nextConfig: NextConfig = {
         destination: '/',
         permanent: true
       },
+      // Specialty slugs were rewritten to be keyword-rich (2026-09). These must
+      // stay in place permanently - they are the only thing preserving the
+      // search ranking the old URLs earned.
+      //
+      // NOTE: these run before the generic /services/:slug rule below, so an old
+      // /services/emdr link resolves in two hops (→ /specialties/emdr →
+      // /specialties/emdr-therapy). Acceptable for links that were already
+      // legacy; not worth eight rules to save one hop.
+      {
+        // Leading hyphen was a slug-generation bug, not an intentional URL.
+        source: '/specialties/-i-feel-so-overwhelmed',
+        destination: '/specialties/overwhelm-therapy',
+        permanent: true
+      },
+      {
+        source: '/specialties/hyper-independence',
+        destination: '/specialties/hyper-independence-therapy',
+        permanent: true
+      },
+      {
+        source: '/specialties/am-i-drinking-too-much',
+        destination: '/specialties/alcohol-stress-therapy',
+        permanent: true
+      },
+      {
+        source: '/specialties/emdr',
+        destination: '/specialties/emdr-therapy',
+        permanent: true
+      },
       {
         source: '/services/:slug',
         destination: '/specialties/:slug',

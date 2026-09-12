@@ -1,171 +1,167 @@
 import type {
+  BlogPosting,
   FAQPage,
-  LocalBusiness,
-  ProfessionalService,
+  MedicalBusiness,
   Thing,
   WebPage,
   WithContext
 } from 'schema-dts';
 
+import {
+  BUSINESS_ADDRESS,
+  BUSINESS_ALTERNATE_NAME,
+  BUSINESS_EMAIL,
+  BUSINESS_GEO,
+  BUSINESS_NAME,
+  BUSINESS_PHONE_DISPLAY,
+  BUSINESS_PHONE_SCHEMA,
+  BUSINESS_URL,
+  CONSULT_LENGTH_MINUTES,
+  LICENSED_STATES,
+  PRACTITIONER_CREDENTIAL,
+  PRACTITIONER_FULL_NAME,
+  PRACTITIONER_JOB_TITLE,
+  PRACTITIONER_NAME,
+  PSYCHOLOGY_TODAY_PROFILE
+} from '@/app/constants/business';
 import { getPageBySlug } from '@/db/queries/pages';
-import type { Accordion } from '@/payload-types';
+import type { Accordion, Media, Post } from '@/payload-types';
+
+const BUSINESS_DESCRIPTION =
+  'Therapy for hyper-independent, overfunctioning moms in Colorado, Ohio, and Kentucky.';
+
+/** Every page's schema points back at this one id, so search engines resolve a
+ * single business entity rather than several competing ones. */
+const ORGANIZATION_ID = `${BUSINESS_URL}/#organization`;
+
+const postalAddress = {
+  '@type': 'PostalAddress' as const,
+  streetAddress: BUSINESS_ADDRESS.street,
+  addressLocality: BUSINESS_ADDRESS.city,
+  addressRegion: BUSINESS_ADDRESS.state,
+  postalCode: BUSINESS_ADDRESS.zip,
+  addressCountry: BUSINESS_ADDRESS.country
+};
+
+const areaServedStates = LICENSED_STATES.map((name) => ({
+  '@type': 'State' as const,
+  name
+}));
+
+/** Sessions are virtual, so the channel - not a physical location - is what
+ * prospective clients need to see. `availableChannel` is a property of Service
+ * in schema.org, so it hangs off each offered service, not off the business. */
+const telehealthChannel = {
+  '@type': 'ServiceChannel' as const,
+  name: 'Telehealth',
+  serviceUrl: `${BUSINESS_URL}/contact`,
+  availableLanguage: {
+    '@type': 'Language' as const,
+    name: 'English'
+  }
+};
+
+const practitioner = {
+  '@type': 'Person' as const,
+  name: PRACTITIONER_NAME,
+  honorificSuffix: PRACTITIONER_CREDENTIAL,
+  jobTitle: PRACTITIONER_JOB_TITLE,
+  telephone: BUSINESS_PHONE_SCHEMA,
+  email: BUSINESS_EMAIL
+};
+
+/** Wraps a specialty as an Offer, tagged as telehealth-delivered across all
+ * three licensed states. */
+const offeredService = (name: string, description: string) => ({
+  '@type': 'Offer' as const,
+  itemOffered: {
+    '@type': 'Service' as const,
+    name,
+    description,
+    provider: { '@id': ORGANIZATION_ID },
+    areaServed: areaServedStates,
+    availableChannel: telehealthChannel
+  }
+});
 
 /**
- * Generates LocalBusiness structured data for Redbird Counseling
- * This helps Google understand the business location, contact info, and services
+ * The practice as a single schema.org entity, declared as both a
+ * MedicalBusiness and a LocalBusiness so crawlers reading either vocabulary
+ * resolve it.
+ *
+ * This previously spanned three competing nodes (LocalBusiness,
+ * ProfessionalService, and the WebPage `isPartOf`) carrying conflicting
+ * addresses, which leaves search engines no single entity to attach trust to.
  */
-export function generateLocalBusinessSchema(): WithContext<LocalBusiness> {
-  return {
+export function generateLocalBusinessSchema(): WithContext<MedicalBusiness> {
+  const business = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    '@id': 'https://www.meetredbirdcounseling.com/#organization',
-    name: 'Redbird Counseling and Consulting',
-    alternateName: 'Redbird Counseling',
-    description:
-      'Professional trauma-informed therapy and substance use counseling in Denver, Colorado. Specializing in PTSD, addiction recovery, and mental health support for women, veterans, and first responders.',
-    url: 'https://www.meetredbirdcounseling.com',
-    logo: 'https://www.meetredbirdcounseling.com/images/logo.png',
-    image: 'https://www.meetredbirdcounseling.com/images/opengraph-image.png',
-    telephone: '+1-513-279-8949',
-    email: 'nicole@meetredbirdcounseling.com',
+    '@type': 'MedicalBusiness',
+    '@id': ORGANIZATION_ID,
+    name: BUSINESS_NAME,
+    alternateName: BUSINESS_ALTERNATE_NAME,
+    description: BUSINESS_DESCRIPTION,
+    url: BUSINESS_URL,
+    logo: `${BUSINESS_URL}/images/logo.png`,
+    image: `${BUSINESS_URL}/images/opengraph-image.png`,
+    telephone: BUSINESS_PHONE_SCHEMA,
+    email: BUSINESS_EMAIL,
     priceRange: '$$',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: '5725 Dragon Way, Suite 320',
-      addressLocality: 'Denver',
-      addressRegion: 'OH',
-      postalCode: '45227',
-      addressCountry: 'US'
-    },
+    address: postalAddress,
     geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 39.1431,
-      longitude: -84.428
+      '@type': 'GeoCoordinates' as const,
+      latitude: BUSINESS_GEO.latitude,
+      longitude: BUSINESS_GEO.longitude
     },
-    areaServed: [
-      {
-        '@type': 'State',
-        name: 'Colorado'
-      },
-      {
-        '@type': 'State',
-        name: 'Kentucky'
-      },
-      {
-        '@type': 'City',
-        name: 'Denver',
-        '@id': 'https://en.wikipedia.org/wiki/Denver'
-      }
-    ],
+    areaServed: areaServedStates,
     hasOfferCatalog: {
-      '@type': 'OfferCatalog',
+      '@type': 'OfferCatalog' as const,
       name: 'Counseling Specialties',
       itemListElement: [
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Trauma Therapy',
-            description:
-              'Evidence-based trauma therapy for PTSD and complex trauma'
-          }
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Substance Use Counseling',
-            description:
-              'Compassionate substance use and addiction recovery counseling'
-          }
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Veterans Counseling',
-            description:
-              'Specialized mental health support for veterans and military families'
-          }
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'First Responders Therapy',
-            description:
-              'Mental health counseling for first responders and emergency personnel'
-          }
-        }
+        offeredService(
+          'Therapy for Hyper-Independence',
+          'Therapy for moms who carry everything alone and struggle to ask for help'
+        ),
+        offeredService(
+          'Therapy for Overwhelm and Mom Burnout',
+          'Support for the mental load, overfunctioning, and burnout that come with holding it all together'
+        ),
+        offeredService(
+          'Alcohol and Stress Therapy',
+          'Therapy for moms using alcohol to unwind at the end of a stressful day'
+        ),
+        offeredService(
+          'EMDR Therapy',
+          'Virtual EMDR therapy for trauma, anxiety, and stuck patterns'
+        )
       ]
     },
-    founder: {
-      '@type': 'Person',
-      name: 'Nicole Michels',
-      jobTitle: 'Licensed Professional Clinical Counselor Supervisor (LPCC-S)',
-      telephone: '+1-513-279-8949',
-      email: 'nicole@meetredbirdcounseling.com'
-    },
+    founder: practitioner,
+    employee: practitioner,
     openingHoursSpecification: [
       {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        '@type': 'OpeningHoursSpecification' as const,
+        dayOfWeek: [
+          'Monday' as const,
+          'Tuesday' as const,
+          'Wednesday' as const,
+          'Thursday' as const,
+          'Friday' as const
+        ],
         opens: '09:00',
         closes: '17:00'
       }
     ],
-    sameAs: [
-      'https://www.psychologytoday.com/us/therapists/nicole-michels-Denver-oh/1086696'
-    ]
-  };
-}
+    sameAs: [PSYCHOLOGY_TODAY_PROFILE]
+  } satisfies WithContext<MedicalBusiness>;
 
-/**
- * Generates ProfessionalService structured data
- * This helps Google understand the professional nature of the services
- */
-export function generateProfessionalServiceSchema(): WithContext<ProfessionalService> {
+  // JSON-LD lets an entity declare several types; schema-dts models `@type` as
+  // a single literal and cannot express that. Every field above is still
+  // typechecked against MedicalBusiness - only the `@type` widening is asserted.
   return {
-    '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    '@id': 'https://www.meetredbirdcounseling.com/#service',
-    name: 'Redbird Counseling and Consulting',
-    description:
-      'Licensed professional counseling services in Denver, Colorado. Trauma-informed therapy, substance use counseling, and mental health support.',
-    provider: {
-      '@type': 'Person',
-      name: 'Nicole Michels',
-      jobTitle: 'LPCC-S',
-      credential: 'Licensed Professional Clinical Counselor Supervisor'
-    },
-    serviceType: [
-      'Mental Health Counseling',
-      'Trauma Therapy',
-      'PTSD Treatment',
-      'Substance Use Counseling',
-      'Addiction Recovery',
-      'Veterans Counseling',
-      'First Responders Therapy'
-    ],
-    areaServed: {
-      '@type': 'State',
-      name: 'Colorado'
-    },
-    availableChannel: {
-      '@type': 'ServiceChannel',
-      serviceLocation: {
-        '@type': 'Place',
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: '5725 Dragon Way, Suite 320',
-          addressLocality: 'Denver',
-          addressRegion: 'OH',
-          postalCode: '45227',
-          addressCountry: 'US'
-        }
-      }
-    }
-  } as WithContext<ProfessionalService>;
+    ...business,
+    '@type': ['MedicalBusiness', 'LocalBusiness']
+  } as unknown as WithContext<MedicalBusiness>;
 }
 
 /**
@@ -204,42 +200,42 @@ export async function generateFAQSchema(): Promise<WithContext<FAQPage>> {
         // Fallback FAQ items if page isn't found or doesn't have accordion
         {
           '@type': 'Question' as const,
-          name: 'What types of therapy does Redbird Counseling offer in Denver?',
+          name: `Who does ${BUSINESS_ALTERNATE_NAME} work with?`,
           acceptedAnswer: {
             '@type': 'Answer' as const,
-            text: 'Redbird Counseling in Denver offers trauma-informed therapy, substance use counseling, PTSD treatment, addiction recovery support, and specialized counseling for women, veterans, and first responders. We use evidence-based approaches including CBT, DBT, and trauma-focused therapies.'
+            text: `${BUSINESS_NAME} works with hyper-independent, overfunctioning moms - the ones everyone else leans on. ${PRACTITIONER_FULL_NAME} helps with overwhelm, the mental load, burnout, and using alcohol to cope at the end of a stressful day.`
           }
         },
         {
           '@type': 'Question' as const,
-          name: 'Do you accept insurance for counseling services in Denver?',
+          name: 'What states are sessions available in?',
           acceptedAnswer: {
             '@type': 'Answer' as const,
-            text: 'Yes, Redbird Counseling accepts most major insurance plans including Aetna, Anthem, BlueCross BlueShield, UnitedHealthcare, and others. We also offer a sliding scale for those who qualify. Contact us to verify your specific insurance coverage.'
+            text: `${PRACTITIONER_FULL_NAME} is licensed in ${LICENSED_STATES.join(', ')}, and sees clients virtually in all three.`
           }
         },
         {
           '@type': 'Question' as const,
-          name: 'Are counseling sessions available online or in-person?',
+          name: 'Are sessions online or in person?',
           acceptedAnswer: {
             '@type': 'Answer' as const,
-            text: 'Redbird Counseling offers both in-person sessions at our Denver office (5725 Dragon Way, Suite 320) and secure online teletherapy sessions for clients in Colorado and Kentucky. This flexibility allows you to receive care in the way that works best for you.'
+            text: `All sessions are virtual. Secure video therapy means you can be seen from home, on a lunch break, or anywhere in ${LICENSED_STATES.join(', ')} without adding a commute to your day.`
           }
         },
         {
           '@type': 'Question' as const,
-          name: 'What credentials does Nicole Michels have?',
+          name: `What credentials does ${PRACTITIONER_NAME} have?`,
           acceptedAnswer: {
             '@type': 'Answer' as const,
-            text: 'Nicole Michels is a Licensed Professional Clinical Counselor Supervisor (LPCC-S) with a Master of Arts from Xavier University. She is licensed in both Colorado and Kentucky and has over 16 years of experience specializing in trauma, substance use, and mental health counseling.'
+            text: `${PRACTITIONER_NAME} is a ${PRACTITIONER_JOB_TITLE} (${PRACTITIONER_CREDENTIAL}) licensed in ${LICENSED_STATES.join(', ')}, specializing in therapy for overwhelmed and hyper-independent moms.`
           }
         },
         {
           '@type': 'Question' as const,
-          name: 'How do I schedule a consultation with a Denver counselor?',
+          name: 'How do I schedule a consultation?',
           acceptedAnswer: {
             '@type': 'Answer' as const,
-            text: 'Redbird Counseling offers a free 15-minute consultation. You can call us at (513) 279-8949 or email nicole@meetredbirdcounseling.com to schedule your initial consultation and see if our services are right for you.'
+            text: `${BUSINESS_ALTERNATE_NAME} offers a free ${CONSULT_LENGTH_MINUTES}-minute consultation. Call ${BUSINESS_PHONE_DISPLAY} or email ${BUSINESS_EMAIL} to schedule and see whether it is a good fit.`
           }
         }
       ];
@@ -249,6 +245,44 @@ export async function generateFAQSchema(): Promise<WithContext<FAQPage>> {
     '@type': 'FAQPage',
     mainEntity: faqItems
   };
+}
+
+/**
+ * Article markup for a single blog post. `author` and `publisher` both resolve
+ * to the one business entity above, so posts accrue to the same identity the
+ * rest of the site builds.
+ */
+export function generateArticleSchema(args: {
+  post: Post;
+  url: string;
+}): WithContext<BlogPosting> {
+  const { post, url } = args;
+  const image = typeof post.image === 'object' ? (post.image as Media) : null;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': `${url}#article`,
+    mainEntityOfPage: url,
+    url,
+    headline: post.title,
+    description: post.meta?.description || post.excerpt,
+    ...(image?.url
+      ? {
+          image: image.url.startsWith('http')
+            ? image.url
+            : `${BUSINESS_URL}${image.url}`
+        }
+      : {}),
+    ...(post.publishedAt ? { datePublished: post.publishedAt } : {}),
+    ...(post.updatedAt ? { dateModified: post.updatedAt } : {}),
+    author: {
+      '@type': 'Person',
+      name: PRACTITIONER_FULL_NAME,
+      jobTitle: PRACTITIONER_JOB_TITLE
+    },
+    publisher: { '@id': ORGANIZATION_ID }
+  } as WithContext<BlogPosting>;
 }
 
 /**
@@ -270,10 +304,12 @@ export function generateWebPageSchema(args: {
     description,
     isPartOf: {
       '@type': 'WebSite',
-      '@id': 'https://www.meetredbirdcounseling.com/#website',
-      url: 'https://www.meetredbirdcounseling.com',
-      name: 'Redbird Counseling and Consulting'
-    }
+      '@id': `${BUSINESS_URL}/#website`,
+      url: BUSINESS_URL,
+      name: BUSINESS_NAME
+    },
+    // Ties every page back to the single business entity above.
+    about: { '@id': ORGANIZATION_ID }
   };
 
   if (breadcrumbs && breadcrumbs.length > 0) {
@@ -298,8 +334,8 @@ export function StructuredData({
   data
 }: {
   data:
-    | WithContext<LocalBusiness>
-    | WithContext<ProfessionalService>
+    | WithContext<MedicalBusiness>
+    | WithContext<BlogPosting>
     | WithContext<FAQPage>
     | WithContext<WebPage>
     | WithContext<Thing>;

@@ -30,7 +30,33 @@ export const menuSettings: GlobalConfig['fields'] = [
             type: 'relationship',
             name: 'page',
             label: 'Page',
-            relationTo: 'pages'
+            relationTo: 'pages',
+            admin: {
+              condition: (_, siblingData) => !siblingData?.customUrl
+            }
+          },
+          {
+            type: 'row',
+            fields: [
+              {
+                type: 'text',
+                name: 'customLabel',
+                label: 'Custom Label',
+                admin: {
+                  description:
+                    'Link text. Required when using a custom URL; otherwise the page title is used.'
+                }
+              },
+              {
+                type: 'text',
+                name: 'customUrl',
+                label: 'Custom URL',
+                admin: {
+                  description:
+                    'For destinations that are not Pages - e.g. /blog. Takes precedence over the Page selection above.'
+                }
+              }
+            ]
           },
           {
             type: 'checkbox',

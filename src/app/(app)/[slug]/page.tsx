@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 
+import { DEFAULT_DESCRIPTION } from '@/app/constants/metadataDefaults';
 import PageBody from '@/components/PageBody';
 import DraftModeBanner from '@/components/global/DraftModeBanner';
 import PageLivePreview from '@/components/utils/PageLivePreview';
@@ -13,7 +14,11 @@ import { StructuredData, generateWebPageSchema } from '@/utils/structuredData';
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug = 'home' } = await params;
   const page = await getPageBySlug(slug);
-  return generateMeta({ doc: page });
+
+  return generateMeta({
+    doc: page,
+    path: slug === 'home' ? '/' : `/${slug}`
+  });
 }
 
 type Props = {
@@ -58,9 +63,7 @@ export default async function Page({ params }: Props) {
   const webPageSchema = generateWebPageSchema({
     url: `https://www.meetredbirdcounseling.com/${slug === 'home' ? '' : slug}`,
     title: page.title,
-    description:
-      page.meta?.description ||
-      'Professional counselor and therapist in Denver, Colorado.',
+    description: page.meta?.description || DEFAULT_DESCRIPTION,
     breadcrumbs
   });
 

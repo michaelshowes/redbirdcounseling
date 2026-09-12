@@ -1,19 +1,24 @@
 import type { Metadata } from 'next';
 
+import { BUSINESS_NAME } from '@/app/constants/business';
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_SITE_NAME
+} from '@/app/constants/metadataDefaults';
+
 import { getServerSideURL } from './getURL';
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description:
-    'Professional counselor and therapist in Denver, Colorado. Trauma-informed therapy, substance use counseling, PTSD treatment, and addiction recovery for women, veterans, and first responders. Licensed in OH & KY.',
+  description: DEFAULT_DESCRIPTION,
   images: [
     {
       url: `${getServerSideURL()}/images/opengraph-image.png`,
-      alt: 'Redbird Counseling - Denver Therapist & Counselor'
+      alt: DEFAULT_SITE_NAME
     }
   ],
-  siteName: 'Redbird Counseling - Denver Therapist',
-  title: 'Redbird Counseling | Denver Therapist & Counselor in Colorado',
+  siteName: BUSINESS_NAME,
+  title: DEFAULT_SITE_NAME,
   locale: 'en_US'
 };
 
