@@ -63,6 +63,14 @@ const nextConfig: NextConfig = {
         permanent: true
       },
       {
+        // The About page title carried a trailing space, which generated the
+        // slug `about-`. Title and slug are corrected; this preserves the URL
+        // that was live in the meantime.
+        source: '/about-',
+        destination: '/about',
+        permanent: true
+      },
+      {
         source: '/services/:slug',
         destination: '/specialties/:slug',
         permanent: true
