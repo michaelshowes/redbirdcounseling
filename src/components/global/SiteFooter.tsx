@@ -75,6 +75,39 @@ export default async function SiteFooter() {
               </div>
             )}
           </div>
+
+          {/*
+            Professional verification provided by Psychology Today.
+
+            Their loader runs on DOMContentLoaded, finds this anchor via the
+            script's previousElementSibling, and sets the seal as a background
+            image - so the two elements must stay adjacent and in this order.
+            The size below matches the seal it injects (186x60), reserving the
+            space up front so the footer does not shift when it loads. The
+            aria-label is ours: the injected anchor has no text of its own.
+          */}
+          <div className={'mt-6'}>
+            <a
+              href='https://www.psychologytoday.com/profile/1086696'
+              className='sx-verified-seal block h-[60px] w-[186px]'
+              aria-label='Nicole Michels, verified by Psychology Today'
+            ></a>
+            {/*
+              `defer` rather than a bare script: deferred scripts run after
+              parsing but still before DOMContentLoaded, so the seal loader's
+              listener is registered in time while no longer blocking the
+              parser. `async` would be a race - it can fire after that event,
+              leaving the seal permanently unrendered.
+            */}
+            <script
+              defer
+              type='text/javascript'
+              src='https://member.psychologytoday.com/verified-seal.js'
+              data-badge='14'
+              data-id='1086696'
+              data-code='aHR0cHM6Ly93d3cucHN5Y2hvbG9neXRvZGF5LmNvbS9hcGkvdmVyaWZpZWQtc2VhbC9zZWFscy8xNC9wcm9maWxlLzEwODY2OTY/Y2FsbGJhY2s9c3hjYWxsYmFjaw=='
+            ></script>
+          </div>
         </div>
       </div>
 
