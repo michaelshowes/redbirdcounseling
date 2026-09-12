@@ -1,15 +1,35 @@
 import type { Metadata } from 'next';
 
+import {
+  BUSINESS_ALTERNATE_NAME,
+  BUSINESS_NAME,
+  BUSINESS_URL
+} from '@/app/constants/business';
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_SITE_NAME
+} from '@/app/constants/metadataDefaults';
 import { getSiteMetadata } from '@/db/queries/settings';
 
-import type { Page, Service } from '../payload-types';
+import type { Page, Post, Service } from '../payload-types';
 import { getOGImageURL } from './getOGImageURL';
 import { mergeOpenGraph } from './mergeOpenGraph';
 
 export const generateMeta = async (args: {
-  doc: Partial<Page> | Partial<Service> | null;
+  doc: Partial<Page> | Partial<Post> | Partial<Service> | null;
+  /**
+   * Site-relative path this document is served at (`/`, `/about`,
+   * `/specialties/emdr-therapy`, `/blog/my-post`).
+   *
+   * Passed in rather than derived: the same `slug` lives at a different URL
+   * depending on its collection, and a canonical that guesses wrong is worse
+   * than none. This previously tested `Array.isArray(doc.slug)` - always false
+   * for a string slug - so every page on the site canonicalised to the home
+   * page, telling search engines each one was a duplicate of `/`.
+   */
+  path: string;
 }): Promise<Metadata> => {
-  const { doc } = args;
+  const { doc, path } = args;
 
   const docImage = doc?.meta?.image;
   const hasDocImage =
@@ -22,39 +42,35 @@ export const generateMeta = async (args: {
     ? getOGImageURL(docImage)
     : getOGImageURL(siteMetadata?.openGraph?.image);
 
-  // Enhanced title with local SEO focus
-  const title = doc?.meta?.title
-    ? `${doc?.meta?.title} | Denver Counseling`
-    : 'Redbird Counseling | Denver Therapist & Counselor in Colorado';
+  // The SEO title written in the CMS is used verbatim - it already carries the
+  // brand - so it is marked `absolute` to opt out of the root layout's
+  // `%s | Redbird Counseling` template. Without a CMS title, fall back to the
+  // document's own title plus the brand; only a doc with no title at all falls
+  // all the way back to the site default.
+  const title =
+    doc?.meta?.title ||
+    (doc?.title
+      ? `${doc.title} | ${BUSINESS_ALTERNATE_NAME}`
+      : DEFAULT_SITE_NAME);
 
-  // Enhanced description with location keywords
-  const description =
-    doc?.meta?.description ||
-    'Professional counselor and therapist in Denver, Colorado. Trauma-informed therapy, substance use counseling, PTSD treatment, and addiction recovery for women, veterans, and first responders. Licensed in OH & KY.';
+  const description = doc?.meta?.description || DEFAULT_DESCRIPTION;
+
+  const canonical = `${BUSINESS_URL}${path === '/' ? '' : path}`;
 
   return {
-    title,
+    title: { absolute: title },
     description,
     openGraph: mergeOpenGraph({
       title,
       description,
-      images: ogImage
-        ? [
-            {
-              url: ogImage,
-              alt: `${doc?.meta?.title || 'Redbird Counseling'} - Denver Therapist`
-            }
-          ]
-        : undefined,
-      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
+      images: ogImage ? [{ url: ogImage, alt: title }] : undefined,
+      url: canonical,
       type: 'website',
-      siteName: 'Redbird Counseling - Denver Therapist',
+      siteName: BUSINESS_NAME,
       locale: 'en_US'
     }),
     alternates: {
-      canonical: Array.isArray(doc?.slug)
-        ? `https://www.meetredbirdcounseling.com/${doc?.slug.join('/')}`
-        : 'https://www.meetredbirdcounseling.com'
+      canonical
     },
     twitter: {
       card: 'summary_large_image',

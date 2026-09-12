@@ -3,53 +3,33 @@
 // placeholders/help text in Settings → Metadata (see metadataSettings.ts), so
 // the values the admin sees always match what actually renders when a field is
 // left empty.
+import {
+  BUSINESS_ALTERNATE_NAME,
+  BUSINESS_NAME,
+  PRACTITIONER_FULL_NAME
+} from './business';
 
-export const DEFAULT_SITE_NAME =
-  'Redbird Counseling | Denver Therapist & Counselor in Denver';
+export const DEFAULT_SITE_NAME = `${BUSINESS_ALTERNATE_NAME} | Therapy for Hyper-Independent Moms | ${PRACTITIONER_FULL_NAME} | CO, OH & KY`;
 
-export const DEFAULT_TITLE_TEMPLATE = '%s | Redbird Counseling';
+export const DEFAULT_TITLE_TEMPLATE = `%s | ${BUSINESS_ALTERNATE_NAME}`;
 
-export const DEFAULT_DESCRIPTION =
-  'Professional counselor and therapist in Denver, Colorado. Trauma-informed therapy, substance use counseling, PTSD treatment, and addiction recovery for women, veterans, and first responders. Licensed in CO, OH & KY. Call (513) 279-8949.';
+export const DEFAULT_DESCRIPTION = `${PRACTITIONER_FULL_NAME} helps hyper-independent, overfunctioning moms break free from stress, overwhelm, and using alcohol to cope. Virtual therapy in CO, OH & KY. Book a free 20-min consult.`;
 
 export const DEFAULT_KEYWORDS = [
-  // Primary local keywords
-  'counselor Denver',
-  'therapist Denver',
-  'Denver counselor',
-  'Denver therapist',
-  'Denver counseling',
-  'therapist in Denver Colorado',
-  'counselor in Denver CO',
-  'mental health counselor Denver',
-  // Service-specific local keywords
-  'trauma therapist Denver',
-  'trauma therapy Denver',
-  'PTSD therapist Denver',
-  'PTSD therapy Denver',
-  'substance use counselor Denver',
-  'addiction counselor Denver',
-  'addiction therapy Denver',
-  'substance abuse counselor Denver',
-  // Specialty local keywords
-  'veteran counselor Denver',
-  'veteran therapist Denver',
-  'first responder therapist Denver',
-  'women therapist Denver',
-  'female therapist Denver',
-  // Professional credentials
-  'LPCC-S Denver',
-  'licensed counselor Denver',
-  'licensed therapist Denver Colorado',
-  // Regional
-  'therapist Colorado',
-  'counselor Colorado',
-  // Additional
-  'mental health therapy Denver',
-  'anxiety therapist Denver',
-  'depression counselor Denver'
+  'hyper-independent mom therapist',
+  'overfunctioning mom therapy Colorado',
+  'mom burnout therapist virtual',
+  'therapy for moms who drink to cope',
+  'am I drinking too much therapist',
+  'hyper-independence therapy Erie CO',
+  'overwhelmed mom therapist Ohio',
+  'EMDR therapy virtual Colorado',
+  'therapist for moms Kentucky',
+  'mental load therapy',
+  'wine mom therapy',
+  'Nicole Michels LPC Erie Colorado'
 ];
 
-export const DEFAULT_AUTHOR = 'Nicole Michels, LPCC-S';
-export const DEFAULT_CREATOR = 'Redbird Counseling and Consulting';
-export const DEFAULT_PUBLISHER = 'Redbird Counseling and Consulting';
+export const DEFAULT_AUTHOR = PRACTITIONER_FULL_NAME;
+export const DEFAULT_CREATOR = BUSINESS_NAME;
+export const DEFAULT_PUBLISHER = BUSINESS_NAME;

@@ -8,10 +8,11 @@ import { ChevronDownIcon, MenuIcon, XIcon } from 'lucide-react';
 import { createPortal } from 'react-dom';
 
 import { cn } from '@/lib/utils';
-import { MainMenuCTA, MenuItems, Page, Subpages } from '@/payload-types';
+import { MainMenuCTA, MenuItems, Subpages } from '@/payload-types';
 
 import { Button } from '../../ui/button';
 import MobileSubMenu from './MobileSubMenu';
+import { resolveMenuItem } from './resolveMenuItem';
 
 type MobileSubMenuProps = {
   menuItems: MenuItems;
@@ -62,7 +63,10 @@ function MobileMenu({
 
         <nav>
           <ul>
-            {menuItems?.map(({ page, subpageOption, id, subpages }) => {
+            {menuItems?.map((item) => {
+              const { id, subpageOption, subpages } = item;
+              const { label, href } = resolveMenuItem(item);
+
               return (
                 <li key={id}>
                   {/* Items with a dropdown have no landing page behind them, so
@@ -76,7 +80,7 @@ function MobileMenu({
                         'flex items-center gap-2 py-2 font-bold transition-colors'
                       )}
                     >
-                      {(page as Page)?.title}
+                      {label}
                       <ChevronDownIcon
                         className={cn(
                           'size-5 transition-transform duration-250',
@@ -86,13 +90,13 @@ function MobileMenu({
                     </button>
                   ) : (
                     <Link
-                      href={`/${(page as Page)?.slug}`}
+                      href={href}
                       onClick={handleToggleMenu}
                       className={cn(
                         'flex items-center gap-2 py-2 font-bold transition-colors'
                       )}
                     >
-                      {(page as Page)?.title}
+                      {label}
                     </Link>
                   )}
 

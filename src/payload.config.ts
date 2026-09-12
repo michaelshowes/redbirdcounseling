@@ -18,6 +18,7 @@ import { Selection } from './app/(payload)/blocks/Selection';
 import { ServiceGrid } from './app/(payload)/blocks/ServiceGrid';
 import { Media } from './app/(payload)/collections/Media';
 import { Pages } from './app/(payload)/collections/Pages';
+import { Posts } from './app/(payload)/collections/Posts';
 import { Services } from './app/(payload)/collections/Services';
 import { Users } from './app/(payload)/collections/Users';
 import { Mail } from './app/(payload)/globals/mail';
@@ -82,7 +83,7 @@ export default buildConfig({
       ]
     }
   },
-  collections: [Pages, Services, Media, Users],
+  collections: [Pages, Posts, Services, Media, Users],
   globals: [Settings],
   blocks: [
     CTA,

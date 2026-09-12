@@ -2,6 +2,10 @@ import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
+import {
+  LICENSED_STATES,
+  PRACTITIONER_FULL_NAME
+} from '@/app/constants/business';
 import ServiceBody from '@/components/ServiceBody';
 import DraftModeBanner from '@/components/global/DraftModeBanner';
 import ServiceLivePreview from '@/components/utils/ServiceLivePreview';
@@ -17,7 +21,10 @@ export async function generateMetadata({
   const { serviceSlug } = await paramsPromise;
   const service = await getServiceBySlug(serviceSlug);
 
-  return generateMeta({ doc: service });
+  return generateMeta({
+    doc: service,
+    path: `/specialties/${serviceSlug}`
+  });
 }
 
 type ServicePageProps = {
@@ -51,7 +58,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
     title: service.title,
     description:
       service.meta?.description ||
-      `${service.title} services in Denver, Colorado. Professional counseling and therapy by Redbird Counseling.`,
+      `${service.title} with ${PRACTITIONER_FULL_NAME}. Virtual therapy for hyper-independent moms in ${LICENSED_STATES.join(', ')}.`,
     breadcrumbs: [
       {
         name: 'Home',

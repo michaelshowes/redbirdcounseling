@@ -3,6 +3,7 @@ import { draftMode } from 'next/headers';
 
 import { Analytics } from '@vercel/analytics/next';
 
+import { BUSINESS_GEO } from '@/app/constants/business';
 import {
   DEFAULT_AUTHOR,
   DEFAULT_CREATOR,
@@ -23,8 +24,7 @@ import { mergeOpenGraph } from '@/utils/mergeOpenGraph';
 import {
   StructuredData,
   generateFAQSchema,
-  generateLocalBusinessSchema,
-  generateProfessionalServiceSchema
+  generateLocalBusinessSchema
 } from '@/utils/structuredData';
 
 import '../../globals.css';
@@ -79,10 +79,10 @@ export async function generateMetadata(): Promise<Metadata> {
       canonical: 'https://www.meetredbirdcounseling.com'
     },
     other: {
-      'geo.region': 'US-OH',
-      'geo.placename': 'Denver',
-      'geo.position': '39.1431;-84.4280',
-      ICBM: '39.1431, -84.4280'
+      'geo.region': 'US-CO',
+      'geo.placename': 'Erie, CO',
+      'geo.position': `${BUSINESS_GEO.latitude};${BUSINESS_GEO.longitude}`,
+      ICBM: `${BUSINESS_GEO.latitude}, ${BUSINESS_GEO.longitude}`
     }
   };
 }
@@ -96,7 +96,6 @@ export default async function RootLayout({
 
   // Generate structured data for local business SEO
   const localBusinessSchema = generateLocalBusinessSchema();
-  const professionalServiceSchema = generateProfessionalServiceSchema();
   const faqSchema = generateFAQSchema();
 
   return (
@@ -134,7 +133,6 @@ export default async function RootLayout({
 
         {/* Structured Data for Local SEO */}
         <StructuredData data={localBusinessSchema} />
-        <StructuredData data={professionalServiceSchema} />
         <StructuredData data={await faqSchema} />
       </head>
       <body
