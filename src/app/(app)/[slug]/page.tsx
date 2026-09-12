@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
+import { notFound } from 'next/navigation';
 
 import { DEFAULT_DESCRIPTION } from '@/app/constants/metadataDefaults';
 import PageBody from '@/components/PageBody';
@@ -34,7 +35,12 @@ export default async function Page({ params }: Props) {
   //   page?.content?.content?.filter((block) => block.blockType === 'accordion')
   // );
 
-  if (!page) return null;
+  // A slug with no matching page is a 404, not an empty success. Returning null
+  // rendered the header and footer with no content under a 200, so every
+  // mistyped or stale URL looked to search engines like a real, indexable page.
+  if (!page) {
+    notFound();
+  }
 
   // Global settings consumed by settings-driven heroes/blocks (ServicesHero,
   // ContactHero, ServiceGrid). Fetched here so those components stay pure and
